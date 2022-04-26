@@ -27,7 +27,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm startdev`
+### `npm start`
 
 Runs the app in the production mode.<br />
 Open [http://localhost:80](http://localhost:80) to view it in the browser.
