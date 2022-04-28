@@ -1,5 +1,5 @@
 import React from 'react';
-const SHOP_URL = 'https://h2yo.odoo.com/shop/category/flavors-2';
+const SHOP_URL = 'https://h2yo.odoo.com/shop';
 
 const Shop = () => {
 
