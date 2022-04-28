@@ -10,4 +10,4 @@ app.get('/*', function (req, res) {
 
 app.listen(process.env.PORT || 3000);
 
-console.log('SERVER STARTED. PORT: ', process.env.PORT || 3000);
+console.log('FRONTEND SERVER STARTED. PORT: ', process.env.PORT || 3000);
