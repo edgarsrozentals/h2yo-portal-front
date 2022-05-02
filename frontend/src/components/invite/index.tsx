@@ -45,7 +45,8 @@ export default function Invite (
   const submitHandler = (event: any) => {
     
     event.preventDefault();
-
+    setError('');
+    
     if (data.email === '') {
       setError('Please enter your email address!');
       return false;

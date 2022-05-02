@@ -35,6 +35,7 @@ const LoginContainer = () => {
     <Login 
       onLogin={handleLogin} 
       loginError={loginError} 
+      onForgotPassword={()=>{navigate('/resetpassword');}}
     />
   </>);
 };

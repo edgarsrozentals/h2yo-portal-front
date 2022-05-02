@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux';
 import { selectOdooData } from './features/user/userSlice';
 import RegisterContainer from './features/user/registerContainer';
 import InviteContainer from './features/invite/container';
+import PasswordResetEmailContainer from './features/user/passwordResetEmailContainer';
+import PasswordResetPasswordContainer from './features/user/passwordResetPasswordContainer';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -36,6 +38,32 @@ function App() {
           <Route path="/home" element={<><MenuTabs /><OdooDataRender data={odooData} /></>} />
           <Route path="/statistics" element={<><MenuTabs />Statistics content</>} />
           <Route path="/shop" element={<><MenuTabs /><Shop /></>} />
+          <Route path="/resetpassword" element={<>
+            <header className="App-header">
+              <img src={'/h2yo_logo.webp'} className="App-logo" alt="logo" />
+              <Box
+                component="form"
+                noValidate
+                autoComplete="off"
+              >
+                
+                <PasswordResetEmailContainer />
+              </Box>
+            </header>
+          </>} />
+          <Route path="/setnewpassword/:token/:email" element={<>
+            <header className="App-header">
+              <img src={'/h2yo_logo.webp'} className="App-logo" alt="logo" />
+              <Box
+                component="form"
+                noValidate
+                autoComplete="off"
+              >
+                <PasswordResetPasswordContainer />
+              </Box>
+            </header>
+          </>} />
+          <Route path="/newpassword" element={<></>} />
           <Route path="/invite/accept" element={<>
             <header className="App-header">
               <img src={'/h2yo_logo.webp'} className="App-logo" alt="logo" />

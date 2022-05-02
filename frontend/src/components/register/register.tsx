@@ -126,8 +126,8 @@ export default function Register (
                 label="Password" 
                 type="password" 
                 variant="outlined" 
-                value={data.userPassword} 
-                disabled={disabledProps.includes('password')}
+                value={ data.userPassword } 
+                disabled={ disabledProps.includes('password') }
                 onChange={(ev)=>{setData({ ...data, ...{ userPassword: ev.target.value } });}}
               />
             </Grid>
