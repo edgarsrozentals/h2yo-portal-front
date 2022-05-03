@@ -6,9 +6,9 @@ import {
   BrowserRouter as Router,
   useNavigate,
 } from 'react-router-dom';
-import { addData, addOdooData, selectOdooData } from '../user/userSlice';
+import { addData, addOdooData, ContactRole, selectOdooData } from '../user/userSlice';
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import Invite, { ContactRole, IInviteCompState } from '../../components/invite';
+import Invite, { IInviteCompState, IInviteRole } from '../../components/invite';
 
 const InviteContainer = () => {
 
@@ -18,10 +18,20 @@ const InviteContainer = () => {
   const [inviteError, setInviteError] = useState('');
   const [message, setMessage] = useState('');
   const [accountOwners, setAccountOwners] = useState([]);
+  const [inviteRoles, setInviteRoles] = useState<IInviteRole[]>([]);
 
   const odooData: any = useSelector(selectOdooData);
   
+  
+
   useEffect(() => {
+
+    if (odooData.x_studio_contact_type === ContactRole.CUSTOMER_USER) {
+      setInviteRoles([
+        { role: ContactRole.CUSTOMER_USER, title: 'Account Owner Manager' },
+        { role: ContactRole.LOCATION_USER, title: 'Location Manager' },
+      ]);
+    }
 
     if (odooData.x_studio_contact_type !== ContactRole.ADMIN) {
       return;
@@ -37,7 +47,7 @@ const InviteContainer = () => {
 
   }, []);
 
-  const handleInvite = async ({ email, accountOwnerOdoo }: IInviteCompState) => {
+  const handleInvite = async ({ email, accountOwnerOdoo, userRole }: IInviteCompState) => {
 
     //const role = ContactRole.ACCOUNT_OWNER_MNG;
 
@@ -53,6 +63,10 @@ const InviteContainer = () => {
       case ContactRole.ACCOUNT_OWNER_MNG:
       case ContactRole.ACCOUNT_OWNER_USER:
         inviteUserRole = ContactRole.CUSTOMER_USER;
+        accountOwnerOdoo = odooData.parent_id[0];
+        break;
+      case ContactRole.CUSTOMER_USER:
+        inviteUserRole = userRole;
         accountOwnerOdoo = odooData.parent_id[0];
         break;
       case ContactRole.LOCATION_USER:
@@ -82,6 +96,7 @@ const InviteContainer = () => {
     <Invite 
       onInvite={handleInvite} 
       inviteError={inviteError} 
+      inviteRoles={inviteRoles}
       message={message}
       accountOwners={accountOwners} 
     />

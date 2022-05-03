@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { post, get } from '../../api';
-import Register from '../../components/register/company';
-import { IRegisterCompState } from '../../components/register/register';
 
 import {
-  BrowserRouter as Router,
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { addData, addOdooData } from '../user/userSlice';
 import { useDispatch, useStore } from 'react-redux';
-import { ContactRole } from '../../components/invite';
-import { Alert } from '@mui/material';
-import ResetPasswordEmail from '../../components/resetpassword/email';
-import { IResetEmailCompState } from '../../components/resetpassword/email';
 import ResetPasswordNew, { IResetPasswordNewState, FormState } from '../../components/resetpassword/newpassword';
 
 

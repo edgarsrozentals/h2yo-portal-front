@@ -6,39 +6,37 @@ import Grid from '@mui/material/Grid';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-
-export enum ContactRole {
-  CUSTOMER = 'CUSTOMER',
-  ACCOUNT_OWNER = 'HOD',
-  LOCATION = 'LOCATION',
-  LOCATION_USER = 'LOCATION MNG',
-  CUSTOMER_USER = 'CUSTOMER MNG',
-  VENDOR = 'VENDOR',
-  ADMIN = 'ADMIN',
-  ACCOUNT_OWNER_USER = 'ACCOUNT USER',
-  ACCOUNT_OWNER_MNG = 'ACCOUNT OWNER MNG'
-}
+import { validateEmail } from '../../features/user/email';
+import { ContactRole } from '../../features/user/userSlice';
 
 export interface IInviteCompState {
   email: string, 
   accountOwnerOdoo: number,
+  userRole?: ContactRole
+}
+
+export interface IInviteRole {
+  role: ContactRole, 
+  title: string
 }
 
 type ComponentProps = {
   onInvite: (data: IInviteCompState) => Promise<void>,
   inviteError: string,
+  inviteRoles: Array<IInviteRole>,
   message: string,
   accountOwners: Array<{id: number, name: string}>,
 }
 
 
 export default function Invite (
-  { onInvite, inviteError, message, accountOwners }: ComponentProps
+  { onInvite, inviteError, message, accountOwners, inviteRoles }: ComponentProps
 ) {
 
   const [data, setData] = useState<IInviteCompState>({ 
     email: '', 
-    accountOwnerOdoo: 0
+    accountOwnerOdoo: 0,
+    userRole: undefined
   });
   const [error, setError] = useState<string>('');
 
@@ -49,6 +47,11 @@ export default function Invite (
     
     if (data.email === '') {
       setError('Please enter your email address!');
+      return false;
+    }
+
+    if (!validateEmail(data.email ?? '')) {
+      setError('Incorrect email address!');
       return false;
     }
 
@@ -90,13 +93,25 @@ export default function Invite (
         {accountOwners && accountOwners.length > 0 ? <FormControl fullWidth>
           <InputLabel id="account-owner-select-label">Account Owner</InputLabel>
           <Select
-            size="small" 
+            size="small"
             labelId="account-owner-select-label"
             value={data.accountOwnerOdoo}
             label="Account Owner"
             onChange={(ev)=>setData({ ...data, ...{ accountOwnerOdoo: typeof ev.target.value === 'string' ? parseInt(ev.target.value) : ev.target.value } })}
           >
             {accountOwners.map((elem, i)=>(<MenuItem key={elem.id} value={elem.id}>{elem.name}</MenuItem>))}
+          </Select>
+        </FormControl> : ''}
+        {inviteRoles && inviteRoles.length > 0 ? <FormControl fullWidth>
+          <InputLabel id="account-owner-select-label">Role</InputLabel>
+          <Select
+            size="small"
+            labelId="account-owner-select-label"
+            value={data.accountOwnerOdoo}
+            label="Account Owner"
+            onChange={(ev)=>setData({ ...data, ...{ userRole: ev.target.value as ContactRole } })}
+          >
+            {inviteRoles.map((elem: IInviteRole, i)=>(<MenuItem key={i} value={elem.role}>{elem.title}</MenuItem>))}
           </Select>
         </FormControl> : ''}
         <Grid item>

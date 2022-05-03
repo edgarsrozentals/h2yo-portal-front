@@ -7,9 +7,8 @@ import {
   BrowserRouter as Router,
   useNavigate,
 } from 'react-router-dom';
-import { addData, addOdooData } from '../user/userSlice';
+import { addData, addOdooData, ContactRole } from '../user/userSlice';
 import { useDispatch, useStore } from 'react-redux';
-import { ContactRole } from '../../components/invite';
 import { Alert } from '@mui/material';
 
 const RegisterContainer = () => {

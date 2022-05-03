@@ -1,6 +1,18 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
 
+export enum ContactRole {
+  CUSTOMER = 'CUSTOMER',
+  ACCOUNT_OWNER = 'HOD',
+  LOCATION = 'LOCATION',
+  LOCATION_USER = 'LOCATION MNG',
+  CUSTOMER_USER = 'CUSTOMER MNG',
+  VENDOR = 'VENDOR',
+  ADMIN = 'ADMIN',
+  ACCOUNT_OWNER_USER = 'ACCOUNT USER',
+  ACCOUNT_OWNER_MNG = 'ACCOUNT OWNER MNG'
+}
+
 export interface UserState {
   data: object;
   odooData: object;

@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
+import { validateEmail } from '../../features/user/email';
 
 export interface IRegisterCompState {
   userEmail: string | undefined,
@@ -18,6 +19,8 @@ export interface IRegisterCompState {
   locationCity: string | undefined,
   locationCountry: string | undefined,
   locationZIP: string | undefined,
+  city: string | undefined,
+  country: string | undefined,
 }
 
 export default function Register (
@@ -52,6 +55,8 @@ export default function Register (
     locationCity: defaultProps?.locationCity ?? '',
     locationCountry: defaultProps?.locationCountry ?? '',
     locationZIP: defaultProps?.locationZIP ?? '',
+    country: defaultProps?.country ?? '',
+    city: defaultProps?.city ?? '',
   });
 
   useEffect(() => {
@@ -67,6 +72,11 @@ export default function Register (
 
     if (data.userEmail === '') {
       setError('Please enter your email address!');
+      return false;
+    }
+
+    if (!validateEmail(data.userEmail ?? '')) {
+      setError('Incorrect email address!');
       return false;
     }
 
@@ -94,14 +104,14 @@ export default function Register (
   const errorText = error ?? registerError;
 
   return <>
-    <Typography variant="h4" gutterBottom component="div" align="center">
-      CUSTOMER PORTAL: Registration
+    <Typography variant="h3" gutterBottom component="div" align="center">
+      Account Registration
     </Typography>
     <FormControl>
       <Grid
         container
         spacing={2}
-        direction="column"
+        direction="row"
         alignItems="center">
         {errorText ? <Grid item>{errorText}</Grid> : null}
         {message !== '' ? 
@@ -110,83 +120,113 @@ export default function Register (
           </>
           : 
           <>
-            <Grid item>
-              <TextField 
-                size="small" 
-                label="Email"
-                variant="outlined" 
-                disabled={disabledProps.includes('userEmail')}
-                value={data.userEmail} 
-                onChange={(ev)=>{setData({ ...data, ...{ userEmail: ev.target.value } });}}
-              />
+            <Grid container
+              spacing={2}
+              direction="column"
+              alignItems="center">
+              <Grid item>
+                <TextField 
+                  size="small" 
+                  label="Email"
+                  variant="outlined" 
+                  disabled={disabledProps.includes('userEmail')}
+                  value={data.userEmail} 
+                  onChange={(ev)=>{setData({ ...data, ...{ userEmail: ev.target.value } });}}
+                />
+              </Grid>
+              <Grid item>
+                <TextField 
+                  size="small" 
+                  label="Password" 
+                  type="password" 
+                  variant="outlined" 
+                  value={ data.userPassword } 
+                  disabled={ disabledProps.includes('password') }
+                  onChange={(ev)=>{setData({ ...data, ...{ userPassword: ev.target.value } });}}
+                />
+              </Grid>
+              <Grid item>
+                <TextField 
+                  size="small" 
+                  label="First Name"
+                  variant="outlined" 
+                  disabled={disabledProps.includes('firstName')}
+                  value={data.userFirstName} 
+                  onChange={(ev)=>{setData({ ...data, ...{ userFirstName: ev.target.value } });}}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  size="small" 
+                  label="Last Name"
+                  variant="outlined" 
+                  disabled={disabledProps.includes('lastName')}
+                  value={data.userLastName} 
+                  onChange={(ev)=>{setData({ ...data, ...{ userLastName: ev.target.value } });}}
+                />
+              </Grid>
             </Grid>
-            <Grid item>
-              <TextField 
-                size="small" 
-                label="Password" 
-                type="password" 
-                variant="outlined" 
-                value={ data.userPassword } 
-                disabled={ disabledProps.includes('password') }
-                onChange={(ev)=>{setData({ ...data, ...{ userPassword: ev.target.value } });}}
-              />
-            </Grid>
-            <Grid item>
-              <TextField 
-                size="small" 
-                label="First Name"
-                variant="outlined" 
-                disabled={disabledProps.includes('firstName')}
-                value={data.userFirstName} 
-                onChange={(ev)=>{setData({ ...data, ...{ userFirstName: ev.target.value } });}}
-              />
-            </Grid>
-            <Grid item>
-              <TextField 
-                size="small" 
-                label="Last Name"
-                variant="outlined" 
-                disabled={disabledProps.includes('lastName')}
-                value={data.userLastName} 
-                onChange={(ev)=>{setData({ ...data, ...{ userLastName: ev.target.value } });}}
-              />
-            </Grid>
-            <Grid item>
-              <TextField 
-                size="small" 
-                label="Company" 
-                variant="outlined" 
-                value={data.company} 
-                disabled={disabledProps.includes('company')}
-                onChange={(ev)=>{setData({ ...data, ...{ company: ev.target.value } });}}
-              />
-            </Grid>
-            <Grid item>
-              <TextField 
-                size="small" 
-                label="Legal Address" 
-                variant="outlined" 
-                value={data.legalAddress} 
-                disabled={disabledProps.includes('legalAddress')}
-                onChange={(ev)=>{setData({ ...data, ...{ legalAddress: ev.target.value } });}}
-              />
-            </Grid>
-            <Grid item>
-              <TextField 
-                size="small"
-                label="VATNumber"
-                variant="outlined"
-                value={data.VATNumber} 
-                disabled={disabledProps.includes('VATNumber')}
-                onChange={(ev)=>{setData({ ...data, ...{ VATNumber: ev.target.value } });}}
-              />
-            </Grid>
-            <Grid item>
-              <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
-                onClick={submitHandler}
-              >
+            <Grid container
+              spacing={2}
+              direction="column"
+              alignItems="center">
+              <Grid>
+                <TextField 
+                  size="small" 
+                  label="Company name" 
+                  variant="outlined" 
+                  value={data.company} 
+                  disabled={disabledProps.includes('company')}
+                  onChange={(ev)=>{setData({ ...data, ...{ company: ev.target.value } });}}
+                />
+              </Grid>
+              <Grid item>
+                <TextField 
+                  size="small" 
+                  label="Country / Region" 
+                  variant="outlined" 
+                  value={data.country} 
+                  disabled={disabledProps.includes('country')}
+                  onChange={(ev)=>{setData({ ...data, ...{ country: ev.target.value } });}}
+                />
+              </Grid>
+              <Grid item>
+                <TextField 
+                  size="small" 
+                  label="City / Town" 
+                  variant="outlined" 
+                  value={data.city} 
+                  disabled={disabledProps.includes('city')}
+                  onChange={(ev)=>{setData({ ...data, ...{ city: ev.target.value } });}}
+                />
+              </Grid>
+              <Grid item>
+                <TextField 
+                  size="small" 
+                  label="Legal Address" 
+                  variant="outlined" 
+                  value={data.legalAddress} 
+                  disabled={disabledProps.includes('legalAddress')}
+                  onChange={(ev)=>{setData({ ...data, ...{ legalAddress: ev.target.value } });}}
+                />
+              </Grid>
+              <Grid item>
+                <TextField 
+                  size="small"
+                  label="VATNumber"
+                  variant="outlined"
+                  value={data.VATNumber}
+                  disabled={disabledProps.includes('VATNumber')}
+                  onChange={(ev)=>{setData({ ...data, ...{ VATNumber: ev.target.value } });}}
+                />
+              </Grid>
+              <Grid item>
+                <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
+                  onClick={submitHandler}
+                >
                 REGISTER
-              </LoadingButton>
+                </LoadingButton>
+              </Grid>
             </Grid>
           </>
         }
