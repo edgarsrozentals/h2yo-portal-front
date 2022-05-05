@@ -3,7 +3,6 @@ import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import { isNull } from 'util';
 import { useNavigate } from 'react-router-dom';
 
 export interface IResetPasswordNewState {

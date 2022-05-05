@@ -14,6 +14,8 @@ import InviteContainer from '../features/invite/container';
 import PasswordResetEmailContainer from '../features/user/passwordResetEmailContainer';
 import PasswordResetPasswordContainer from '../features/user/passwordResetPasswordContainer';
 import PublicPage from './common/publicPage';
+import AppBarComp from './appBar';
+import AccountContainer from '../features/user/accountContainer';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -35,9 +37,12 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/home" element={<><MenuTabs /><OdooDataRender data={odooData} /></>} />
-          <Route path="/statistics" element={<><MenuTabs />Statistics content</>} />
-          <Route path="/shop" element={<><MenuTabs /><Shop /></>} />
+          <Route path="/home" element={<><AppBarComp /><OdooDataRender data={odooData} /></>} />
+          <Route path="/shop" element={<><AppBarComp /><Shop /></>} />
+          <Route path="/devices" element={<><AppBarComp />Devices content</>} />
+          <Route path="/addresses" element={<><AppBarComp />Adresses content</>} />
+          <Route path="/team-management" element={<><AppBarComp />Team Management content</>} />
+          <Route path="/account" element={<><AppBarComp /><AccountContainer /></>} />
           <Route path="/resetpassword" element={<>
             <PublicPage><PasswordResetEmailContainer /></PublicPage>
           </>} />
@@ -48,7 +53,7 @@ function App() {
           <Route path="/invite/accept" element={<>
             <PublicPage><RegisterContainer /></PublicPage>
           </>} />
-          <Route path="/invite" element={<><MenuTabs /><InviteContainer /></>} />
+          <Route path="/invite" element={<><AppBarComp /><InviteContainer /></>} />
           <Route path="/" element={
             <PublicPage><LoginContainer /></PublicPage>
           } />

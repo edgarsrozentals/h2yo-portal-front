@@ -6,7 +6,7 @@ import {
   useParams,
 } from 'react-router-dom';
 import { useDispatch, useStore } from 'react-redux';
-import ResetPasswordNew, { IResetPasswordNewState, FormState } from '../../components/resetpassword/newpassword';
+import ResetPasswordNew, { IResetPasswordNewState, FormState } from '../../components/account/resetPassword/newPassword';
 
 
 export default function PasswordResetPasswordContainer () {
