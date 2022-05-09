@@ -24,20 +24,24 @@ export enum MenuTypes {
     SHOP = 'shop',
     INVITE = 'invite',
     LOGOUT = 'logout',
+    DELIVERY = 'delivery',
+    CARTRIGES = 'cartriges',
+    SERVICES = 'services',
+    CUSTOMER_SUPPORT = 'cartriges',
 }
 
 const settings = [
-  [MenuTypes.ADDRESSES, 'Addresses'], 
-  [MenuTypes.ORDER_HISTORY, 'Order History'], 
-  [MenuTypes.TEAM_MANAGEMENT, 'Team management'], 
   [MenuTypes.ACCOUNT, 'Account'], 
+  [MenuTypes.CUSTOMER_SUPPORT, 'Customer Support'], 
   [MenuTypes.LOGOUT, 'Logout']
 ];
 
 const pages = [
   [MenuTypes.HOME, 'Home'], 
-  [MenuTypes.DEVICES, 'Devices'], 
-  [MenuTypes.SHOP, 'Shop']
+  [MenuTypes.DELIVERY, 'Delivery'],
+  [MenuTypes.CARTRIGES, 'Cartriges'],
+  [MenuTypes.SERVICES, 'Services'],
+  [MenuTypes.INVITE, 'Invite'],
 ];
 
 export default function AppBarComp () {
@@ -125,7 +129,7 @@ export default function AppBarComp () {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            LOGO
+            <img src={'/h2yo_logo.webp'} className="App-logo" alt="logo" />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

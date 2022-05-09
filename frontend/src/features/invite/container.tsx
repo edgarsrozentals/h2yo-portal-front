@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { post, get } from '../../api';
-import Login, { ILoginCompState } from '../../components/login';
+import Login, { ILoginCompState } from '../../components/account/login';
 
 import {
   BrowserRouter as Router,
