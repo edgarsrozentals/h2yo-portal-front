@@ -6,6 +6,9 @@ import Grid from '@mui/material/Grid';
 import { validateEmail } from '../../../features/user/email';
 import CompanyDetails from '../../common/company/details';
 import UserDetails from '../../common/user/accountDetails';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
 import RegisterStep1 from './newAccount/step1';
 import RegisterStep2 from './newAccount/step2';
 import RegisterStep3 from './newAccount/step3';
@@ -28,6 +31,15 @@ export interface IRegisterCompState {
   city: string | undefined,
   country: string | undefined,
 }
+
+
+
+const steps = [
+  'Welcome',
+  'Your Details',
+  'Company Details',
+];
+
 
 export default function Register (
   {
@@ -117,6 +129,13 @@ export default function Register (
     <Container
       maxWidth="sm">
       <FormControl>
+        <Stepper activeStep={step-1} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
         {errorText ? <Grid item>{errorText}</Grid> : null}
         {message !== '' ? 
           <><Alert severity="success">{message}</Alert> 
@@ -126,7 +145,7 @@ export default function Register (
           <>
             {step === 1 ? <RegisterStep1 /> : null }
             {step === 2 ? <RegisterStep2 data={data} onSetData={setData} disabledProps={[]} /> : null }
-            {step === 3 ? <RegisterStep3 data={data} onSetData={setData} disabledProps={[]} /> : null }
+            {step === 3 ? <RegisterStep3 data={data} onSetData={setData} onRegister={submitHandler} disabledProps={[]} /> : null }
 
           </>
         }

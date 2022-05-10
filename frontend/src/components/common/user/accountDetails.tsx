@@ -20,9 +20,9 @@ export default function AccountDetails ({ data, disabledProps, onSetData, errorF
         size="small" 
         label="First Name"
         variant="outlined" 
-        error={errorFields.includes('firstName')}
+        error={errorFields.includes('userFirstName')}
         fullWidth
-        disabled={disabledProps.includes('firstName')}
+        disabled={disabledProps.includes('userFirstName')}
         value={data.userFirstName} 
         onChange={(ev)=>{onSetData({ ...data, ...{ userFirstName: ev.target.value } });}}
       />
@@ -32,9 +32,9 @@ export default function AccountDetails ({ data, disabledProps, onSetData, errorF
         size="small" 
         label="Last Name"
         variant="outlined" 
-        error={errorFields.includes('lastName')}
+        error={errorFields.includes('userLastName')}
         fullWidth
-        disabled={disabledProps.includes('lastName')}
+        disabled={disabledProps.includes('userLastName')}
         value={data.userLastName} 
         onChange={(ev)=>{onSetData({ ...data, ...{ userLastName: ev.target.value } });}}
       />
@@ -59,7 +59,7 @@ export default function AccountDetails ({ data, disabledProps, onSetData, errorF
         error={errorFields.includes('userPhone')}
         fullWidth
         disabled={disabledProps.includes('userPhone')}
-        value={data.userEmail} 
+        value={data.userPhone} 
         onChange={(ev)=>{onSetData({ ...data, ...{ userPhone: ev.target.value } });}}
       />
     </Grid>
@@ -69,10 +69,10 @@ export default function AccountDetails ({ data, disabledProps, onSetData, errorF
         label="Password" 
         type="password" 
         variant="outlined" 
-        error={errorFields.includes('password')}
+        error={errorFields.includes('userPassword')}
         fullWidth
         value={ data.userPassword } 
-        disabled={ disabledProps.includes('password') }
+        disabled={ disabledProps.includes('userPassword') }
         onChange={(ev)=>{onSetData({ ...data, ...{ userPassword: ev.target.value } });}}
       />
     </Grid>
@@ -84,8 +84,8 @@ export default function AccountDetails ({ data, disabledProps, onSetData, errorF
         variant="outlined" 
         fullWidth
         value={ data.userPassword2 } 
-        error={errorFields.includes('password')}
-        disabled={ disabledProps.includes('password') }
+        error={errorFields.includes('userPassword2')}
+        disabled={ disabledProps.includes('userPassword2') }
         onChange={(ev)=>{onSetData({ ...data, ...{ userPassword2: ev.target.value } });}}
       />
     </Grid>

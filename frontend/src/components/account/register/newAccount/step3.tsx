@@ -8,7 +8,7 @@ export default function RegisterStep3 (props: any, onRegister: () => void) {
   return <>
     <Typography variant="h6" gutterBottom component="div" align="left">Company details</Typography>
     <hr />
-    <CompanyDetails {...props} />
+    <CompanyDetails {...props} disabledProps={['company']} />
     <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
       onClick={onRegister}
     >

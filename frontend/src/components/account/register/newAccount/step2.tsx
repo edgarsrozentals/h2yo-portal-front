@@ -12,27 +12,46 @@ export default function RegisterStep2 (props: any) {
   const navigate = useNavigate();
   const [errorFields, setErrorFields] = useState<Array<string>>([]);
 
-  const handleRegister = () => {
+  const handleRegister = (ev: any) => {
+
+    ev.preventDefault();
     
-    if (!validateEmail(props.userEmail)) {
-      setErrorFields([...errorFields, ...['userEmail']]);
+    const errorFieldsNew = [];
+
+    const formProps = props.data;
+
+    if (!validateEmail(formProps.userEmail)) {
+      errorFieldsNew.push('userEmail');
+
     }
-    if (props.userPassword !== props.userPassword2) {
+    if (formProps.userPassword === '' || formProps.userPassword !== formProps.userPassword2) {
       
-      setErrorFields([...errorFields, ...['password']]);
+      errorFieldsNew.push('userPassword');
+      errorFieldsNew.push('userPassword2');
+
     }
-    if (props.userFirstName === '') {
+    if (formProps.userFirstName === '') {
       
-      setErrorFields([...errorFields, ...['userFirstName']]);
+      
+      errorFieldsNew.push('userFirstName');
+
     }
-    if (props.userLastName === '') {
-      setErrorFields([...errorFields, ...['userLastName']]);
+    if (formProps.userLastName === '') {
+      
+      errorFieldsNew.push('userLastName');
+
     }
-    if (props.userPhone === '') {
-      setErrorFields([...errorFields, ...['userPhone']]);
+    if (formProps.userPhone === '') {
+      
+      errorFieldsNew.push('userPhone');
     }
 
-    navigate('/invite/accept/step3' + window.location.search);
+    setErrorFields([...errorFields, ...errorFieldsNew]);
+
+    if (errorFieldsNew.length === 0) {
+      navigate('/invite/step3/accept' + window.location.search);
+    }
+
     return;
   };
 
