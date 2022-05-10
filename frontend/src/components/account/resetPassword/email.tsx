@@ -54,9 +54,6 @@ export default function ResetPasswordEmail ({
   const errorText = error !== '' ? error : externalError;
 
   return <>
-    <Typography variant="h2" gutterBottom component="div" align="center">
-      CUSTOMER PORTAL
-    </Typography>
     <FormControl>
       <Grid
         container

@@ -81,56 +81,53 @@ export default function Invite (
   const errorText = error !== '' ? error : inviteError;
 
   return <>
-    <Typography variant="h2" gutterBottom component="div" align="center" />
-    <FormControl>
-      <Grid
-        container
-        spacing={2}
-        direction="column"
-        alignItems="center">
-        {message ? <Grid item><Alert severity="success">{message}</Alert></Grid> : null}
-        {errorText ? <Grid item><Alert severity="error">{errorText}</Alert></Grid> : null}
-        {accountOwners && accountOwners.length > 0 ? <FormControl fullWidth>
-          <InputLabel id="account-owner-select-label">Account Owner</InputLabel>
-          <Select
-            size="small"
-            labelId="account-owner-select-label"
-            value={data.accountOwnerOdoo}
-            label="Account Owner"
-            onChange={(ev)=>setData({ ...data, ...{ accountOwnerOdoo: typeof ev.target.value === 'string' ? parseInt(ev.target.value) : ev.target.value } })}
-          >
-            {accountOwners.map((elem, i)=>(<MenuItem key={elem.id} value={elem.id}>{elem.name}</MenuItem>))}
-          </Select>
-        </FormControl> : ''}
-        {inviteRoles && inviteRoles.length > 0 ? <FormControl fullWidth>
-          <InputLabel id="account-owner-select-label">Role</InputLabel>
-          <Select
-            size="small"
-            labelId="account-owner-select-label"
-            value={data.accountOwnerOdoo}
-            label="Account Owner"
-            onChange={(ev)=>setData({ ...data, ...{ userRole: ev.target.value as ContactRole } })}
-          >
-            {inviteRoles.map((elem: IInviteRole, i)=>(<MenuItem key={i} value={elem.role}>{elem.title}</MenuItem>))}
-          </Select>
-        </FormControl> : ''}
-        <Grid item>
-          <TextField 
-            size="small" 
-            label="Email" 
-            variant="outlined" 
-            value={data.email} 
-            onChange={(ev)=>{setData({ ...data, ...{ email: ev.target.value } });}}
-          />
-        </Grid>
-        <Grid item>
-          <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
-            onClick={submitHandler}
-          >
-          Invite
-          </LoadingButton>
-        </Grid>
+    <Grid
+      container
+      spacing={2}
+      direction="column"
+      alignItems="center">
+      {message ? <Grid item><Alert severity="success">{message}</Alert></Grid> : null}
+      {errorText ? <Grid item><Alert severity="error">{errorText}</Alert></Grid> : null}
+      {accountOwners && accountOwners.length > 0 ? <FormControl fullWidth>
+        <InputLabel id="account-owner-select-label">Account Owner</InputLabel>
+        <Select
+          size="small"
+          labelId="account-owner-select-label"
+          value={data.accountOwnerOdoo}
+          label="Account Owner"
+          onChange={(ev)=>setData({ ...data, ...{ accountOwnerOdoo: typeof ev.target.value === 'string' ? parseInt(ev.target.value) : ev.target.value } })}
+        >
+          {accountOwners.map((elem, i)=>(<MenuItem key={elem.id} value={elem.id}>{elem.name}</MenuItem>))}
+        </Select>
+      </FormControl> : ''}
+      {inviteRoles && inviteRoles.length > 0 ? <FormControl fullWidth>
+        <InputLabel id="account-owner-select-label">Role</InputLabel>
+        <Select
+          size="small"
+          labelId="account-owner-select-label"
+          value={data.accountOwnerOdoo}
+          label="Account Owner"
+          onChange={(ev)=>setData({ ...data, ...{ userRole: ev.target.value as ContactRole } })}
+        >
+          {inviteRoles.map((elem: IInviteRole, i)=>(<MenuItem key={i} value={elem.role}>{elem.title}</MenuItem>))}
+        </Select>
+      </FormControl> : ''}
+      <Grid item>
+        <TextField 
+          size="small" 
+          label="Email" 
+          variant="outlined" 
+          value={data.email} 
+          onChange={(ev)=>{setData({ ...data, ...{ email: ev.target.value } });}}
+        />
       </Grid>
-    </FormControl>
+      <Grid item>
+        <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
+          onClick={submitHandler}
+        >
+          Invite
+        </LoadingButton>
+      </Grid>
+    </Grid>
   </>;
 }

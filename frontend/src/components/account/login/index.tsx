@@ -57,9 +57,6 @@ export default function Login ({
   const errorText = error !== '' ? error : loginError;
 
   return <>
-    <Typography variant="h2" gutterBottom component="div" align="center">
-      CUSTOMER PORTAL
-    </Typography>
     <FormControl>
       <Grid
         container
