@@ -107,9 +107,10 @@ export default function Register (
   const errorText = error ?? registerError;
 
   return <>
-    <FormControl>
-      <Container
-        maxWidth="sm">
+    
+    <Container
+      maxWidth="sm">
+      <FormControl>
         {errorText ? <Grid item>{errorText}</Grid> : null}
         {message !== '' ? 
           <><Alert severity="success">{message}</Alert> 
@@ -227,7 +228,8 @@ export default function Register (
             </Grid>
           </>
         }
-      </Container>
-    </FormControl>
+      </FormControl>
+    </Container>
+    
   </>;
 }

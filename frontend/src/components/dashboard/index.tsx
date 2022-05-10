@@ -12,11 +12,11 @@ import TsunamiIcon from '@mui/icons-material/Tsunami';
 import useTheme from '@mui/material/styles/useTheme';
 import { Paper } from '@mui/material';
 
-const RenderCard = ({ title, description }: {title: string, description: string}) => {
-    
+const RenderCard = (props: {title: string, description: string, url: string, onClick: (url: string) => void}) => {
+  const { title, description, onClick, url } = props;
   const theme = useTheme();
 
-  return <Paper elevation={1}><Box sx={{ display: 'flex', flexDirection: 'row' }}>
+  return <Paper onClick={()=> onClick( url ) } elevation={1}><Box sx={{ display: 'flex', flexDirection: 'row' }}>
     <Box sx={{ width: '4em', height: 'auto', display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
       <CardContent sx={{ flex: '1 0 auto', backgroundColor: 'lightgray', borderRadius: 2 }}>
         <TsunamiIcon sx={{ width: '2em', height: 'auto', }} />
@@ -33,10 +33,10 @@ const RenderCard = ({ title, description }: {title: string, description: string}
 };
 
 const dashboardItems = [
-  { title: 'Deliver', description: 'Manage your locations & add new ones' },
-  { title: 'Invoices', description: 'view order history & invoices' },
-  { title: 'Cartriges', description: 'Learn about your products' },
-  { title: 'Account details', description: 'Billing information & account details' }
+  { title: 'Deliver', description: 'Manage your locations & add new ones', url: '/deliver' },
+  { title: 'Invoices', description: 'view order history & invoices', url: '/invoices' },
+  { title: 'Cartriges', description: 'Learn about your products', url: '/cartriges' },
+  { title: 'Account details', description: 'Billing information & account details', url: '/account' }
 ];
 
 export default function Dashboard() {
@@ -44,13 +44,18 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const theme = useTheme();
 
+  const handleCardClick = (url: string) => {
+
+    navigate(url);
+  };
+
   return <Container>
     <Grid 
       container 
       alignItems={'center'}
       padding={5}
       spacing={2}
-    >{dashboardItems.map((x, i)=><Grid key={i} item md={6} sm={6} xs={12}><RenderCard {...x} /></Grid>)}</Grid>
+    >{dashboardItems.map((x, i)=><Grid key={i} item md={6} sm={6} xs={12}><RenderCard {...x} onClick={handleCardClick} /></Grid>)}</Grid>
     <hr />
     <Grid
       container 
