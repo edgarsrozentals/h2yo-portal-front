@@ -38,7 +38,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/home" element={<><AppBarComp /><Dashboard /><OdooDataRender data={odooData} /></>} />
+          <Route path="/home" element={<><AppBarComp /><Dashboard /></>} />
           <Route path="/delivery" element={<><AppBarComp />Delivery content</>} />
           <Route path="/cartriges" element={<><AppBarComp />Cartriges content</>} />
           <Route path="/services" element={<><AppBarComp />Services content</>} />
@@ -50,7 +50,7 @@ function App() {
             <PublicPage><PasswordResetPasswordContainer /></PublicPage>
           </>} />
           <Route path="/newpassword" element={<></>} />
-          <Route path="/invite/accept" element={<>
+          <Route path="/invite/:step/accept" element={<>
             <PublicPage><RegisterContainer /></PublicPage>
           </>} />
           <Route path="/invite" element={<><AppBarComp /><InviteContainer /></>} />

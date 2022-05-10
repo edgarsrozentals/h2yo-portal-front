@@ -2,12 +2,20 @@ import { LoadingButton } from '@mui/lab';
 import { Container, FormControl, Grid, MenuItem, Select, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CompanyDetails from '../common/company/details';
+import AccountDetails from '../common/user/accountDetails';
+import { IRegisterCompState } from './register/register';
 
-export default function Account () {
+interface IAccountProps extends IRegisterCompState {
+  payementType: string
+}
 
-  const defaultProps = {};
+type Props = {
+  defaultProps?: IAccountProps
+}
 
-  const [data, setData] = useState({ 
+export default function Account ({ defaultProps }: Props ) {
+
+  const [data, setData] = useState<IAccountProps>({ 
     userEmail: defaultProps?.userEmail ?? '', 
     userPassword: defaultProps?.userPassword ?? '',
     userFirstName: defaultProps?.userFirstName ?? '',
@@ -45,9 +53,10 @@ export default function Account () {
       <Typography gutterBottom component="div" align="left">
         Update your account details below.
       </Typography>
+      <AccountDetails errorFields={[]} data={data} onSetData={setData} disabledProps={[]} />
       <Typography variant="h6" gutterBottom component="div" align="left">Company details</Typography>
       <hr />
-      <CompanyDetails data={data} setData={setData} disabledProps={[]} />
+      <CompanyDetails data={data} onSetData={setData} disabledProps={[]} />
       <Typography variant="h6" gutterBottom component="div" align="left">Payment Method</Typography>
       <hr />
       <Grid
@@ -83,7 +92,7 @@ export default function Account () {
             <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
               onClick={submitHandler}
             >
-                    UPDATE
+              UPDATE
             </LoadingButton>
           </Grid>
         </Grid>

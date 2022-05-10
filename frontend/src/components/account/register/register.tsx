@@ -5,6 +5,10 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { validateEmail } from '../../../features/user/email';
 import CompanyDetails from '../../common/company/details';
+import UserDetails from '../../common/user/accountDetails';
+import RegisterStep1 from './newAccount/step1';
+import RegisterStep2 from './newAccount/step2';
+import RegisterStep3 from './newAccount/step3';
 
 export interface IRegisterCompState {
   userEmail: string | undefined,
@@ -28,6 +32,7 @@ export interface IRegisterCompState {
 export default function Register (
   {
     onRegister,
+    step,
     defaultProps,
     disabledProps,
     registerError,
@@ -40,7 +45,8 @@ export default function Register (
     registerError: string,
     message: string,
     defaultProps: IRegisterCompState,
-    disabledProps: Array<string>
+    disabledProps: Array<string>,
+    step: number
   }) {
 
   const [data, setData] = useState<IRegisterCompState>({ 
@@ -118,114 +124,10 @@ export default function Register (
           </>
           :
           <>
-            <Typography variant="h4" gutterBottom component="div" align="left">
-              Account Registration
-            </Typography>
-            <Typography gutterBottom component="div" align="left">
-              Please fill out the registration form to create your account.
-            </Typography>
-            <Typography variant="h6" gutterBottom component="div" align="left">Your details</Typography>
-            <hr />
-            <Grid 
-              container 
-              spacing={1}
-            >
-              <Grid item md={6} sm={6} xs={12}>
-                <TextField 
-                  size="small" 
-                  label="First Name"
-                  variant="outlined" 
-                  fullWidth
-                  disabled={disabledProps.includes('firstName')}
-                  value={data.userFirstName} 
-                  onChange={(ev)=>{setData({ ...data, ...{ userFirstName: ev.target.value } });}}
-                />
-              </Grid>
-              <Grid item md={6} sm={6} xs={12}>
-                <TextField
-                  size="small" 
-                  label="Last Name"
-                  variant="outlined" 
-                  fullWidth
-                  disabled={disabledProps.includes('lastName')}
-                  value={data.userLastName} 
-                  onChange={(ev)=>{setData({ ...data, ...{ userLastName: ev.target.value } });}}
-                />
-              </Grid>
-              <Grid item md={6} sm={6} xs={12}>
-                <TextField 
-                  size="small" 
-                  label="Email"
-                  variant="outlined" 
-                  fullWidth
-                  disabled={disabledProps.includes('userEmail')}
-                  value={data.userEmail} 
-                  onChange={(ev)=>{setData({ ...data, ...{ userEmail: ev.target.value } });}}
-                />
-              </Grid>
-              <Grid item md={6} sm={6} xs={12}>
-                <TextField 
-                  size="small" 
-                  label="Phone"
-                  variant="outlined" 
-                  fullWidth
-                  disabled={disabledProps.includes('userPhone')}
-                  value={data.userEmail} 
-                  onChange={(ev)=>{setData({ ...data, ...{ userPhone: ev.target.value } });}}
-                />
-              </Grid>
-              <Grid item md={6} sm={6} xs={12}>
-                <TextField 
-                  size="small" 
-                  label="Password" 
-                  type="password" 
-                  variant="outlined" 
-                  fullWidth
-                  value={ data.userPassword } 
-                  disabled={ disabledProps.includes('password') }
-                  onChange={(ev)=>{setData({ ...data, ...{ userPassword: ev.target.value } });}}
-                />
-              </Grid>
-              <Grid item md={6} sm={6} xs={12}>
-                <TextField 
-                  size="small" 
-                  label="Confirm password" 
-                  type="password" 
-                  variant="outlined" 
-                  fullWidth
-                  value={ data.userPassword } 
-                  disabled={ disabledProps.includes('password') }
-                  onChange={(ev)=>{setData({ ...data, ...{ userPassword2: ev.target.value } });}}
-                />
-              </Grid>
-            </Grid>
-            <Typography variant="h6" gutterBottom component="div" align="left">Company details</Typography>
-            <hr />
-            <CompanyDetails data={data} onSetData={setData} disabledProps={[]} />
-            <Grid
-              container 
-              spacing={1}
-            >
-              <Grid item md={8} sm={8} xs={12}>
-                <FormGroup>
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="I agree to Terms and Conditions" />
-                </FormGroup>
-              </Grid>
-              <Grid item md={4} sm={4} xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justifyContent="flex-end"
-                  alignItems="baseline"
-                >
-                  <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
-                    onClick={submitHandler}
-                  >
-                    REGISTER
-                  </LoadingButton>
-                </Grid>
-              </Grid>
-            </Grid>
+            {step === 1 ? <RegisterStep1 /> : null }
+            {step === 2 ? <RegisterStep2 data={data} onSetData={setData} disabledProps={[]} /> : null }
+            {step === 3 ? <RegisterStep3 data={data} onSetData={setData} disabledProps={[]} /> : null }
+
           </>
         }
       </FormControl>

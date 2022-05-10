@@ -16,7 +16,7 @@ const RenderCard = (props: {title: string, description: string, url: string, onC
   const { title, description, onClick, url } = props;
   const theme = useTheme();
 
-  return <Paper onClick={()=> onClick( url ) } elevation={1}><Box sx={{ display: 'flex', flexDirection: 'row' }}>
+  return <Paper sx={{ cursor: 'pointer' }} onClick={()=> onClick( url ) } elevation={1}><Box sx={{ display: 'flex', flexDirection: 'row' }}>
     <Box sx={{ width: '4em', height: 'auto', display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
       <CardContent sx={{ flex: '1 0 auto', backgroundColor: 'lightgray', borderRadius: 2 }}>
         <TsunamiIcon sx={{ width: '2em', height: 'auto', }} />

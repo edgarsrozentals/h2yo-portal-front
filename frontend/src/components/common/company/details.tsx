@@ -2,7 +2,13 @@ import Grid from '@mui/material/Grid';
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 
-export default function CompanyDetails({ disabledProps, onSetData, data }){
+type CompanyDetailsProps = {
+  data: any,
+  disabledProps: Array<string>,
+  onSetData: React.Dispatch<React.SetStateAction<any>>
+}
+
+export default function CompanyDetails({ disabledProps, onSetData, data }: CompanyDetailsProps){
 
   return <Grid
     container 

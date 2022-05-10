@@ -6,6 +6,7 @@ import { IRegisterCompState } from '../../components/account/register/register';
 import {
   BrowserRouter as Router,
   useNavigate,
+  useParams,
 } from 'react-router-dom';
 import { addData, addOdooData, ContactRole } from '../user/userSlice';
 import { useDispatch, useStore } from 'react-redux';
@@ -22,9 +23,12 @@ const RegisterContainer = () => {
   const [registerError, setRegisterError] = useState('');
   const [message, setMessage] = useState('');
 
+  const { step } = useParams();
+
   const handleVerifyRegister = async () => {
 
     const urlParams = new URLSearchParams(window.location.search);
+    
 
     const data = await get('invite/' + urlParams.get('token') + '/' + urlParams.get('email'));
 
@@ -71,7 +75,8 @@ const RegisterContainer = () => {
   
   return (<>
     
-    <Register 
+    <Register
+      step={step ? parseInt(step?.replace('step', '')) : 1}
       onRegister={handleRegister} 
       message={message} 
       registerError={registerError} 
