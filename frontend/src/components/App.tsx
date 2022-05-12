@@ -18,6 +18,7 @@ import AppBarComp from './appBar';
 import CompanyAccountContainer from '../features/user/companyAccountContainer';
 import Dashboard from './dashboard';
 import UserProfileContainer from '../features/user/userProfileContainer';
+import CartrigesContainer from '../features/cartriges/container';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -41,7 +42,7 @@ function App() {
         <Routes>
           <Route path="/home" element={<><AppBarComp /><Dashboard /></>} />
           <Route path="/delivery" element={<><AppBarComp />Delivery content</>} />
-          <Route path="/cartriges" element={<><AppBarComp />Cartriges content</>} />
+          <Route path="/cartriges" element={<><AppBarComp /><CartrigesContainer /></>} />
           <Route path="/services" element={<><AppBarComp />Services content</>} />
           <Route path="/profile" element={<><AppBarComp /><UserProfileContainer /></>} />
           <Route path="/company-account" element={<><AppBarComp /><CompanyAccountContainer /></>} />

@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import userReducer from '../features/user/userSlice';
 import logger from 'redux-logger';
+import cartrigesReducer from '../features/cartriges/cartrigesSlice';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -11,6 +12,7 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
     user: userReducer,
+    cartriges: cartrigesReducer
   },
 });
 

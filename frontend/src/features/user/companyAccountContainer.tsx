@@ -35,12 +35,6 @@ export default function AccountContainer () {
     }
     
   };
-
-  useEffect(() => {
-    
-    return;
-
-  }, []);
   
   return (<><CompanyAccount 
     defaultProps={{ 
