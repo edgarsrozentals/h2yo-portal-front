@@ -15,11 +15,14 @@ const LoginContainer = () => {
   const dispatch = useDispatch();
 
   const [loginError, setLoginError] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleLogin = async ({ login, password }: ILoginCompState) => {
 
+    setLoading(true);
     const response = await post('auth', { username: login, password: password });
 
+    setLoading(false);
     if (response.result) {
 
       dispatch(addData(response.data));
@@ -34,7 +37,8 @@ const LoginContainer = () => {
   return (<>
     <Login 
       onLogin={handleLogin} 
-      loginError={loginError} 
+      loginError={loginError}
+      loading={loading}
       onForgotPassword={()=>{navigate('/resetpassword');}}
     />
   </>);

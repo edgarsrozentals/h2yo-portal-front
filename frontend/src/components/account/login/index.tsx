@@ -6,19 +6,21 @@ import Grid from '@mui/material/Grid';
 
 export interface ILoginCompState {
   login: string, 
-  password: string,
+  password: string
 }
 
 interface LoginProps {
   onLogin: (data: ILoginCompState) => Promise<void>, 
   onForgotPassword: () => void, 
-  loginError: string
+  loginError: string,
+  loading: boolean
 }
 
 export default function Login ({ 
   onLogin, 
   loginError,
-  onForgotPassword
+  onForgotPassword,
+  loading
 }: LoginProps) {
 
   const [data, setData] = useState<ILoginCompState>({ login: '', password: '' });
@@ -84,7 +86,7 @@ export default function Login ({
           <Typography onClick={onForgotPassword} variant="body1" gutterBottom><a href="#">Forgot password?</a></Typography>
         </Grid>
         <Grid item>
-          <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
+          <LoadingButton type="submit" size="medium" loading={loading} variant="contained" 
             onClick={submitHandler}
           >
           LOGIN
