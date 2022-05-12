@@ -1,1 +1,1 @@
-export {};
+export const BACKEND_API_HOST = 'backend.h2yo.co';

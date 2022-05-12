@@ -2,37 +2,37 @@ import { LoadingButton } from '@mui/lab';
 import { Container, FormControl, Grid, MenuItem, Select, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CompanyDetails from '../common/company/details';
-import AccountDetails from '../common/user/accountDetails';
 import { IRegisterCompState } from './register/register';
 
-interface IAccountProps extends IRegisterCompState {
-  payementType: string
+interface IAccountProps {
+  company?: string,
+  legalAddress?: string,
+  vatNumber?: string,
+  street?: string,
+  street2?: string,
+  building?: string,
+  apartment?: string,
+  city?: string,
+  country?: string,
+  zip?: string,
 }
 
 type Props = {
-  defaultProps?: IAccountProps
+  defaultProps?: IAccountProps,
+  onUpdate?: (data: IAccountProps) => void,
 }
 
-export default function Account ({ defaultProps }: Props ) {
+export default function CompanyAccount ({ defaultProps }: Props ) {
 
   const [data, setData] = useState<IAccountProps>({ 
-    userEmail: defaultProps?.userEmail ?? '', 
-    userPassword: defaultProps?.userPassword ?? '',
-    userFirstName: defaultProps?.userFirstName ?? '',
-    userLastName: defaultProps?.userLastName ?? '',
-    userPhone: defaultProps?.userPhone ?? '',
     company: defaultProps?.company ?? '',
-    legalAddress: defaultProps?.legalAddress ?? '',
-    VATNumber: defaultProps?.VATNumber ?? '',
-    locationStreet: defaultProps?.locationStreet ?? '',
-    locationBuilding: defaultProps?.locationBuilding ?? '',
-    locationApt: defaultProps?.locationApt ?? '',
-    locationCity: defaultProps?.locationCity ?? '',
-    locationCountry: defaultProps?.locationCountry ?? '',
-    locationZIP: defaultProps?.locationZIP ?? '',
-    country: defaultProps?.country ?? '',
+    vatNumber: defaultProps?.vatNumber ?? '',
+    street: defaultProps?.street ?? '',
+    street2: defaultProps?.street2 ?? '',
+    apartment: defaultProps?.apartment ?? '',
     city: defaultProps?.city ?? '',
-    payementType: defaultProps?.city ?? '',
+    country: defaultProps?.country ?? '',
+    zip: defaultProps?.zip ?? '',
   });
     
   useEffect(() => {
@@ -53,11 +53,10 @@ export default function Account ({ defaultProps }: Props ) {
       <Typography gutterBottom component="div" align="left">
         Update your account details below.
       </Typography>
-      <AccountDetails errorFields={[]} data={data} onSetData={setData} disabledProps={[]} />
       <Typography variant="h6" gutterBottom component="div" align="left">Company details</Typography>
       <hr />
       <CompanyDetails data={data} onSetData={setData} disabledProps={[]} />
-      <Typography variant="h6" gutterBottom component="div" align="left">Payment Method</Typography>
+      {/*<Typography variant="h6" gutterBottom component="div" align="left">Payment Method</Typography>
       <hr />
       <Grid
         container 
@@ -76,7 +75,7 @@ export default function Account ({ defaultProps }: Props ) {
             <MenuItem value={'credit_card'}>Debit/Credit Card</MenuItem>
           </Select>
         </Grid>
-      </Grid>
+</Grid>*/}
       <Grid
         container 
         spacing={1}

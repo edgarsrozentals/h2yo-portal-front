@@ -15,8 +15,9 @@ import PasswordResetEmailContainer from '../features/user/passwordResetEmailCont
 import PasswordResetPasswordContainer from '../features/user/passwordResetPasswordContainer';
 import PublicPage from './common/publicPage';
 import AppBarComp from './appBar';
-import AccountContainer from '../features/user/accountContainer';
+import CompanyAccountContainer from '../features/user/companyAccountContainer';
 import Dashboard from './dashboard';
+import UserProfileContainer from '../features/user/userProfileContainer';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -42,7 +43,8 @@ function App() {
           <Route path="/delivery" element={<><AppBarComp />Delivery content</>} />
           <Route path="/cartriges" element={<><AppBarComp />Cartriges content</>} />
           <Route path="/services" element={<><AppBarComp />Services content</>} />
-          <Route path="/account" element={<><AppBarComp /><AccountContainer /></>} />
+          <Route path="/profile" element={<><AppBarComp /><UserProfileContainer /></>} />
+          <Route path="/company-account" element={<><AppBarComp /><CompanyAccountContainer /></>} />
           <Route path="/resetpassword" element={<>
             <PublicPage><PasswordResetEmailContainer /></PublicPage>
           </>} />

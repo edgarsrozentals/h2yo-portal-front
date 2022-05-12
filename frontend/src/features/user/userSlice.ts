@@ -68,6 +68,7 @@ export const userSlice = createSlice({
 });
 
 export const selectOdooData = (state: RootState) => state.user.odooData;
+export const selectData = (state: RootState) => state.user.data;
 export const getPermissions = (state: RootState) => state.user.permissions;
 
 export const { addData, addOdooData } = userSlice.actions;

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { on } from 'stream';
 import { validateEmail } from '../../../../features/user/email';
-import UserDetails from '../../../common/user/accountDetails';
+import UserDetails from '../../../common/user/profileDetails';
 
 
 export default function RegisterStep2 (props: any) {
@@ -61,7 +61,7 @@ export default function RegisterStep2 (props: any) {
     </Typography>
     <Typography variant="h6" gutterBottom component="div" align="left">Your details</Typography>
     <hr />
-    <UserDetails errorFields={errorFields} {...props} />
+    <UserDetails hideFields={['userExistingPassword']} errorFields={errorFields} {...props} />
     <Grid
       container 
       spacing={1}

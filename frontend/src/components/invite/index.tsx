@@ -100,18 +100,19 @@ export default function Invite (
           {accountOwners.map((elem, i)=>(<MenuItem key={elem.id} value={elem.id}>{elem.name}</MenuItem>))}
         </Select>
       </FormControl> : ''}
-      {inviteRoles && inviteRoles.length > 0 ? <FormControl fullWidth>
+      {inviteRoles && inviteRoles.length > 0 ? <Grid item><FormControl fullWidth>
+        
         <InputLabel id="account-owner-select-label">Role</InputLabel>
         <Select
           size="small"
           labelId="account-owner-select-label"
-          value={data.accountOwnerOdoo}
-          label="Account Owner"
+          value={data.userRole}
+          label="Role"
           onChange={(ev)=>setData({ ...data, ...{ userRole: ev.target.value as ContactRole } })}
         >
           {inviteRoles.map((elem: IInviteRole, i)=>(<MenuItem key={i} value={elem.role}>{elem.title}</MenuItem>))}
         </Select>
-      </FormControl> : ''}
+      </FormControl></Grid> : ''}
       <Grid item>
         <TextField 
           size="small" 

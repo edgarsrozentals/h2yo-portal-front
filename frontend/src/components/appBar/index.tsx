@@ -20,10 +20,11 @@ export enum MenuTypes {
     ORDER_HISTORY = 'order-history',
     TEAM_MANAGEMENT = 'team-management',
     ADDRESSES = 'addresses',
-    ACCOUNT = 'account',
+    PROFILE = 'profile',
+    COMPANY_ACCOUNT = 'company-account',
     SHOP = 'shop',
     INVITE = 'invite',
-    LOGOUT = 'logout',
+    LOGOUT = '',
     DELIVERY = 'delivery',
     CARTRIGES = 'cartriges',
     SERVICES = 'services',
@@ -31,8 +32,9 @@ export enum MenuTypes {
 }
 
 const settings = [
-  [MenuTypes.ACCOUNT, 'Account'], 
-  [MenuTypes.CUSTOMER_SUPPORT, 'Customer Support'], 
+  [MenuTypes.COMPANY_ACCOUNT, 'Company Account'],
+  [MenuTypes.CUSTOMER_SUPPORT, 'Customer Support'],
+  [MenuTypes.PROFILE, 'Profile'],
   [MenuTypes.LOGOUT, 'Logout']
 ];
 

@@ -6,10 +6,11 @@ type AccountDetailsProps = {
   data: any,
   disabledProps: Array<string>,
   errorFields: Array<string>,
+  hideFields: Array<string>,
   onSetData: React.Dispatch<React.SetStateAction<any>>
 }
 
-export default function AccountDetails ({ data, disabledProps, onSetData, errorFields }: AccountDetailsProps) {
+export default function ProfileDetails ({ data, hideFields, disabledProps, onSetData, errorFields }: AccountDetailsProps) {
 
   return <Grid 
     container 
@@ -63,6 +64,19 @@ export default function AccountDetails ({ data, disabledProps, onSetData, errorF
         onChange={(ev)=>{onSetData({ ...data, ...{ userPhone: ev.target.value } });}}
       />
     </Grid>
+    {!hideFields.includes('userExistingPassword') ? <Grid item md={6} sm={6} xs={12}>
+      <TextField 
+        size="small" 
+        label="Password" 
+        type="password" 
+        variant="outlined" 
+        error={errorFields.includes('userExistingPassword')}
+        fullWidth
+        value={ data.userExistingPassword } 
+        disabled={ disabledProps.includes('userExstingPassword') }
+        onChange={(ev)=>{onSetData({ ...data, ...{ userPassword: ev.target.value } });}}
+      /> 
+    </Grid>: null}
     <Grid item md={6} sm={6} xs={12}>
       <TextField 
         size="small" 
@@ -80,7 +94,7 @@ export default function AccountDetails ({ data, disabledProps, onSetData, errorF
       <TextField 
         size="small" 
         label="Confirm password" 
-        type="password2" 
+        type="password" 
         variant="outlined" 
         fullWidth
         value={ data.userPassword2 } 

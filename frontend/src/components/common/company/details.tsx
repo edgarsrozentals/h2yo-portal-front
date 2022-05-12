@@ -51,22 +51,33 @@ export default function CompanyDetails({ disabledProps, onSetData, data }: Compa
       <TextField 
         fullWidth
         size="small" 
-        label="Legal Address" 
+        label="Street" 
         variant="outlined" 
-        value={data.legalAddress} 
-        disabled={disabledProps.includes('legalAddress')}
-        onChange={(ev)=>{onSetData({ ...data, ...{ legalAddress: ev.target.value } });}}
+        value={data.street} 
+        disabled={disabledProps.includes('street')}
+        onChange={(ev)=>{onSetData({ ...data, ...{ street: ev.target.value } });}}
+      />
+    </Grid>
+    <Grid item md={6} sm={6} xs={12}>
+      <TextField 
+        fullWidth
+        size="small" 
+        label="VAT Number" 
+        variant="outlined" 
+        value={data.vatNumber} 
+        disabled={disabledProps.includes('vatNumber')}
+        onChange={(ev)=>{onSetData({ ...data, ...{ vatNumber: ev.target.value } });}}
       />
     </Grid>
     <Grid item md={6} sm={6} xs={12}>
       <TextField 
         fullWidth
         size="small"
-        label="VATNumber"
+        label="vatNumber"
         variant="outlined"
-        value={data.VATNumber}
-        disabled={disabledProps.includes('VATNumber')}
-        onChange={(ev)=>{onSetData({ ...data, ...{ VATNumber: ev.target.value } });}}
+        value={data.vatNumber}
+        disabled={disabledProps.includes('vatNumber')}
+        onChange={(ev)=>{onSetData({ ...data, ...{ vatNumber: ev.target.value } });}}
       />
     </Grid>
 

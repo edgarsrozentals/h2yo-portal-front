@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { validateEmail } from '../../../features/user/email';
 import CompanyDetails from '../../common/company/details';
-import UserDetails from '../../common/user/accountDetails';
+import UserDetails from '../../common/user/profileDetails';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -31,8 +31,6 @@ export interface IRegisterCompState {
   city: string | undefined,
   country: string | undefined,
 }
-
-
 
 const steps = [
   'Welcome',
@@ -111,9 +109,10 @@ export default function Register (
 
   useEffect(() => {
     const listener = (event: any) => {
+      
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
         
-        submitHandler(event);
+        //   submitHandler(event);
       }
     };
     document.addEventListener('keydown', listener);
