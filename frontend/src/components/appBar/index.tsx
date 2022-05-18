@@ -29,13 +29,15 @@ export enum MenuTypes {
     CARTRIGES = 'cartriges',
     SERVICES = 'services',
     CUSTOMER_SUPPORT = 'cartriges',
+    DEBUG = 'debug',
 }
 
 const settings = [
   [MenuTypes.COMPANY_ACCOUNT, 'Company Account'],
   [MenuTypes.CUSTOMER_SUPPORT, 'Customer Support'],
   [MenuTypes.PROFILE, 'Profile'],
-  [MenuTypes.LOGOUT, 'Logout']
+  [MenuTypes.LOGOUT, 'Logout'],
+  [MenuTypes.DEBUG, 'Debug'],
 ];
 
 const pages = [
