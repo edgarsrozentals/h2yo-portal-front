@@ -20,9 +20,9 @@ export default function CompanyDetails({ disabledProps, onSetData, data }: Compa
         fullWidth
         label="Company name" 
         variant="outlined" 
-        value={data.company} 
+        value={data.name} 
         disabled={disabledProps.includes('company')}
-        onChange={(ev)=>{onSetData({ ...data, ...{ company: ev.target.value } });}}
+        onChange={(ev)=>{onSetData({ ...data, ...{ name: ev.target.value } });}}
       />
     </Grid>
     <Grid item md={6} sm={6} xs={12}>
@@ -62,10 +62,10 @@ export default function CompanyDetails({ disabledProps, onSetData, data }: Compa
       <TextField 
         fullWidth
         size="small" 
-        label="VAT Number" 
+        label="ZIP" 
         variant="outlined" 
-        value={data.vatNumber} 
-        disabled={disabledProps.includes('vatNumber')}
+        value={data.zip} 
+        disabled={disabledProps.includes('zip')}
         onChange={(ev)=>{onSetData({ ...data, ...{ vatNumber: ev.target.value } });}}
       />
     </Grid>

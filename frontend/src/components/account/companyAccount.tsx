@@ -1,11 +1,11 @@
 import { LoadingButton } from '@mui/lab';
-import { Container, FormControl, Grid, MenuItem, Select, Typography } from '@mui/material';
+import { Alert, Container, FormControl, Grid, MenuItem, Select, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CompanyDetails from '../common/company/details';
 import { IRegisterCompState } from './register/register';
 
-interface IAccountProps {
-  company?: string,
+export interface IAccountProps {
+  name?: string,
   legalAddress?: string,
   vatNumber?: string,
   street?: string,
@@ -19,13 +19,15 @@ interface IAccountProps {
 
 type Props = {
   defaultProps?: IAccountProps,
-  onUpdate?: (data: IAccountProps) => void,
+  successMessage: string,
+  errorMessage: string,
+  onUpdate: (data: IAccountProps) => void,
 }
 
-export default function CompanyAccount ({ defaultProps }: Props ) {
+export default function CompanyAccount ({ defaultProps, onUpdate, successMessage, errorMessage }: Props ) {
 
   const [data, setData] = useState<IAccountProps>({ 
-    company: defaultProps?.company ?? '',
+    name: defaultProps?.name ?? '',
     vatNumber: defaultProps?.vatNumber ?? '',
     street: defaultProps?.street ?? '',
     street2: defaultProps?.street2 ?? '',
@@ -37,11 +39,11 @@ export default function CompanyAccount ({ defaultProps }: Props ) {
     
   useEffect(() => {
     
-  //  setData({ ...data, ...defaultProps });
+    setData(defaultProps ?? {} );
   }, [defaultProps]);
 
   const submitHandler = () => {
-      
+    onUpdate(data);
     return;
   };
 
@@ -50,6 +52,8 @@ export default function CompanyAccount ({ defaultProps }: Props ) {
       <Typography variant="h4" gutterBottom component="div" align="left">
         Account
       </Typography>
+      {successMessage ? <Grid item><Alert severity="success">{successMessage}</Alert></Grid> : null}
+      {errorMessage ? <Grid item><Alert severity="error">{errorMessage}</Alert></Grid> : null}
       <Typography gutterBottom component="div" align="left">
         Update your account details below.
       </Typography>

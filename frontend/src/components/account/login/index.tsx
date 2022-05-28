@@ -74,6 +74,7 @@ export default function Login ({
         </Grid>
         <Grid item>
           <TextField 
+            sx={{ borderRadius: 5 }}
             size="small" 
             label="Password" 
             type="password" 

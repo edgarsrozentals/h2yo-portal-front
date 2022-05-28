@@ -20,6 +20,7 @@ import Dashboard from './dashboard';
 import UserProfileContainer from '../features/user/userProfileContainer';
 import CartrigesContainer from '../features/cartriges/container';
 import DebugContainer from '../features/debug/container';
+import ConfirmEmailContainer from '../features/user/confirmEmailContainer';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -50,6 +51,9 @@ function App() {
           <Route path="/company-account" element={<><AppBarComp /><CompanyAccountContainer /></>} />
           <Route path="/resetpassword" element={<>
             <PublicPage><PasswordResetEmailContainer /></PublicPage>
+          </>} />
+          <Route path="/confirmemail/:token/:email" element={<>
+            <PublicPage><ConfirmEmailContainer /></PublicPage>
           </>} />
           <Route path="/setnewpassword/:token/:email" element={<>
             <PublicPage><PasswordResetPasswordContainer /></PublicPage>

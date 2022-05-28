@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { post, get } from '../../api';
+import { post, get, put } from '../../api';
 import Register from '../../components/account/register/company';
 import { IRegisterCompState } from '../../components/account/register/register';
 
@@ -13,7 +13,7 @@ import { Alert } from '@mui/material';
 import ResetPasswordEmail from '../../components/account/resetPassword/email';
 import { IResetEmailCompState } from '../../components/account/resetPassword/email';
 import Account from '../../components/account/userProfile';
-import CompanyAccount from '../../components/account/companyAccount';
+import CompanyAccount, { IAccountProps } from '../../components/account/companyAccount';
 
 export default function AccountContainer () {
 
@@ -24,24 +24,42 @@ export default function AccountContainer () {
 
   const odooData: any = useSelector(selectOdooData);
 
+  const [messageInternal, setMessageInternal] = useState<string>('');
+  const [errorMessageInternal, setErrorMessageInternal] = useState<string>('');
+
   const fetchComapnyData = async() => {
 
     const result = await get('company');
 
-    if (result.status === 200) {
-      setCompanyData(result.data);
+    if (result.httpSatus === 200) {
+      setCompanyData(result);
     } else {
       console.log('failed to fetch', result);
     }
     
   };
   
+
+  useEffect(()=>{
+    fetchComapnyData();
+  },[]);
+  
+  const updateDataHandler = async (data: IAccountProps) => {
+
+    const result = await put('company', data);
+
+    if (result.httpStatus === 200) {
+      setMessageInternal('Company data updated!');
+    } else {
+      setErrorMessageInternal('An error occured, failed to update. ' + result.data.message);
+    }
+  };
+
   return (<><CompanyAccount 
-    defaultProps={{ 
-      company: odooData.parent_name,
-      street: odooData.street,
-      street2: odooData.street2,
-    }}
+    successMessage={messageInternal}
+    errorMessage={errorMessageInternal}
+    onUpdate={updateDataHandler}
+    defaultProps={companyData}
   />
   </>);
 }

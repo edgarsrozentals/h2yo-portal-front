@@ -30,8 +30,11 @@ export const get = (url = '') => {
       'Content-Type': 'application/json',
       'mode': 'cors',
     },
-  }).then((resp) => {
-    return resp.json();
+  }).then(async (resp) => {
+    
+    const data = await resp.json();
+
+    return { ...data, ...{ httpSatus: resp.status } };
   });
 };
 
@@ -53,7 +56,7 @@ export const remove = ((url = '', data = {}) => {
 });
 
 // PUT method implementation:
-export const put: (url: string, data: any) => Promise<{status: number, data: any}> = ((url = '', data = {}) => {
+export const put: (url: string, data: any) => Promise<{status?: number, httpStatus?: number, data: any}> = ((url = '', data = {}) => {
 
   return fetch(API_URL + '/' + url, {
     method: 'PUT',
@@ -65,6 +68,6 @@ export const put: (url: string, data: any) => Promise<{status: number, data: any
     },
     body: JSON.stringify(data) }).then((resp) => {
 
-    return { status: resp.status, data: resp.json() };
+    return { status: resp.status, httpSatus: resp.status, data: resp.json() };
   });
 });
