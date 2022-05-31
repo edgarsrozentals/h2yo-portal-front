@@ -54,7 +54,8 @@ export default function DebugComponent({ execute }: ComponentProps) {
       <TextField 
         size="small" 
         label="Company ID" 
-        variant="outlined" 
+        variant="outlined"
+        sx={{ margin: 1 }}
         value={starterData.companyId} 
         onChange={(ev)=>{setStarterData({ ...starterData, ...{ companyId: parseInt(ev.target.value) } });}}
       />
@@ -62,19 +63,27 @@ export default function DebugComponent({ execute }: ComponentProps) {
         size="small" 
         label="Location ID" 
         variant="outlined" 
+        sx={{ margin: 1 }}
         value={starterData.locationId} 
         onChange={(ev)=>{setStarterData({ ...starterData, ...{ locationId: parseInt(ev.target.value) } });}}
       />
-      <Button size="medium" variant="contained" onClick={()=>{execute('starterpackinvoice', starterData);}}>
+      <Button sx={{ margin: 1 }} 
+        size="medium" variant="contained" 
+        onClick={()=>{execute('starterpackinvoice', starterData);}}
+      >
           Order Starter Pack (Invoice)
       </Button>
-      <Button size="medium" variant="contained" onClick={()=>{execute('starterpackorder', starterData);}}>
+      <Button sx={{ margin: 1 }} 
+        size="medium" variant="contained"
+        onClick={()=>{execute('starterpackorder', starterData);}}
+      >
           Order Starter Pack (Order)
       </Button>
     </Grid>
     <hr />
     <Grid item md={12} sm={12} xs={12}>
       <TextField 
+        sx={{ margin: 1 }}
         size="small" 
         label="Company ID" 
         variant="outlined" 
@@ -82,6 +91,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
         onChange={(ev)=>{setRepeatData({ ...repeatData, ...{ companyId: parseInt(ev.target.value) } });}}
       />
       <TextField 
+        sx={{ margin: 1 }}
         size="small" 
         label="Location ID" 
         variant="outlined" 
@@ -94,6 +104,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
         key={i}
         type="number"
         size="small" 
+        sx={{ margin: 1 }}
         label={x}
         variant="outlined" 
         value={(repeatData as any)[x]} 
@@ -101,7 +112,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
       />)}
     </Grid>
     <Grid item>
-      <Button size="medium" variant="contained" onClick={()=>{execute('repeatorderpack', repeatData);}}>
+      <Button sx={{ margin: 1 }} size="medium" variant="contained" onClick={()=>{execute('repeatorderpack', repeatData);}}>
           Order Repat Pack (Order)
       </Button>
     </Grid>
@@ -109,6 +120,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
     <Grid item md={12} sm={12} xs={12}>
       <TextField 
         size="small" 
+        sx={{ margin: 1 }}
         label="Company ID" 
         variant="outlined" 
         value={accumParams.companyId} 
@@ -116,6 +128,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
       />
       <TextField 
         size="small" 
+        sx={{ margin: 1 }}
         label="Location ID" 
         variant="outlined" 
         value={accumParams.locationId} 
@@ -124,12 +137,13 @@ export default function DebugComponent({ execute }: ComponentProps) {
 
     </Grid>
     <Grid item md={12} sm={12} xs={12}>
-      <Button size="medium" variant="contained" onClick={()=>{}}>
+      <Button sx={{ margin: 1 }} size="medium" variant="contained" onClick={getAccumDataHandler}>
           View Cartrige Order Accumulation
       </Button>
     </Grid>
     <Grid item md={12} sm={12} xs={12}>
       {accumData.map((x, i)=> <TextField 
+        sx={{ margin: 1 }}
         key={i}
         type="number"
         size="small" 

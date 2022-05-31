@@ -6,12 +6,18 @@ const TEST_LOCATION_ID = 441;
 
 const DebugContainer = () => {
 
-  const handleExecute = async (executeType: string) => {
+  const handleExecute = async (executeType: string, data: any) => {
 
     switch (executeType) {
       case 'starterpack':
         
-        post('starterpack', { locationId: TEST_LOCATION_ID });
+        post('starterpack', data);
+        break;
+      case 'starterpackorder':
+        post('order/starterpack', data);
+        break;
+      case 'repeatorderpack':
+        post('order/repeatorder', data);
         break;
     }
     
