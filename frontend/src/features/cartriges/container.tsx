@@ -9,7 +9,7 @@ export default function CartrigesContainer () {
 
   const cartriges: any = useSelector(selectCartriges);
   
-  return (<><Cartriges 
+  return (<><Cartriges
     cartriges={cartriges}
   />
   </>);

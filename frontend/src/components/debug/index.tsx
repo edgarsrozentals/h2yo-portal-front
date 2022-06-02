@@ -19,7 +19,7 @@ const cartrigeIDs = [
 export default function DebugComponent({ execute }: ComponentProps) {
 
   const [accumParams, setAccumParams] = useState({ companyId: 0, locationId: 0 });
-  const [accumData, setAccumData] = useState<Array<{name: string, volume: number}>>([]);
+  const [accumData, setAccumData] = useState<Array<{cartrigeId: string, cartrigeOrderCount: number}>>([]);
 
   const [starterData, setStarterData] = useState({ companyId: 0, locationId: 0 });
   const [repeatData, setRepeatData] = useState({
@@ -36,7 +36,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
 
   const getAccumDataHandler = async () => {
 
-    const payload = await get('cartrige/accumulation');
+    const payload = await get('cartrige-accumulation/' + accumParams.locationId);
 
     if (payload.status === 200) {
       setAccumData(payload.data);
@@ -132,7 +132,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
         label="Location ID" 
         variant="outlined" 
         value={accumParams.locationId} 
-        onChange={(ev)=>{setAccumParams({ ...accumParams, ...{ accumlocationIdParams: parseInt(ev.target.value) } });}}
+        onChange={(ev)=>{setAccumParams({ ...accumParams, ...{ locationId: parseInt(ev.target.value) } });}}
       />
 
     </Grid>
@@ -142,16 +142,16 @@ export default function DebugComponent({ execute }: ComponentProps) {
       </Button>
     </Grid>
     <Grid item md={12} sm={12} xs={12}>
-      {accumData.map((x, i)=> <TextField 
-        sx={{ margin: 1 }}
-        key={i}
-        type="number"
-        size="small" 
-        disabled={true}
-        label={x.name}
-        variant="outlined" 
-        value={x.volume} 
-      />)}
+      {accumData.map((x, i)=>(
+        <TextField key={i}
+          size="small" 
+          sx={{ margin: 1 }}
+          label={x.cartrigeId}
+          variant="outlined" 
+          disabled={true}
+          value={x.cartrigeOrderCount} 
+        />
+      ))}
     </Grid>
   </Grid>;
 }

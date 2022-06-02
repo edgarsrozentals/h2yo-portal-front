@@ -183,8 +183,14 @@ export default function AppBarComp () {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting[0]} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={() => {setPageHandler(setting[0] as MenuTypes);}}>{setting[1]}</Typography>
+                <MenuItem 
+                  key={setting[0]} 
+                  onClick={()=> {
+                    setPageHandler(setting[0] as MenuTypes);
+                    handleCloseUserMenu();
+                  }}
+                >
+                  <Typography textAlign="center">{setting[1]}</Typography>
                 </MenuItem>
               ))}
             </Menu>

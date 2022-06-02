@@ -34,7 +34,7 @@ export const get = (url = '') => {
     
     const data = await resp.json();
 
-    return { ...data, ...{ httpSatus: resp.status } };
+    return { ...data, ...{ httpSatus: resp.status, status: resp.status, data: data } };
   });
 };
 
