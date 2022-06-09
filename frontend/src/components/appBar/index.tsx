@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import ManageAccounts from '@mui/icons-material/ManageAccounts';
+import PersonIcon from '@mui/icons-material/Person';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
@@ -156,7 +156,7 @@ export default function AppBarComp () {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <Avatar sx={{ cursor: 'pointer', bgcolor: theme.palette.primary.main }} onClick={handleOpenUserMenu}>
-                <ManageAccounts sx={{ color: theme.palette.common.white }} />
+                <PersonIcon sx={{ color: theme.palette.common.white }} />
               </Avatar>
             </Tooltip>
             <Menu
