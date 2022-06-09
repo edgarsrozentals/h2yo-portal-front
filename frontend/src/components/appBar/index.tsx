@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Avatar, useTheme } from '@mui/material';
 
 export enum MenuTypes {
     HOME = 'home',
@@ -25,10 +26,11 @@ export enum MenuTypes {
     SHOP = 'shop',
     INVITE = 'invite',
     LOGOUT = '',
-    DELIVERY = 'delivery',
+    LOCATIONS = 'locations',
     CARTRIGES = 'cartriges',
     SERVICES = 'services',
-    CUSTOMER_SUPPORT = 'cartriges',
+    ORDERS = 'orders',
+    CUSTOMER_SUPPORT = 'customer-support',
     DEBUG = 'debug',
 }
 
@@ -42,15 +44,16 @@ const settings = [
 
 const pages = [
   [MenuTypes.HOME, 'Home'], 
-  [MenuTypes.DELIVERY, 'Delivery'],
+  [MenuTypes.LOCATIONS, 'Locations'],
   [MenuTypes.CARTRIGES, 'Cartriges'],
-  [MenuTypes.SERVICES, 'Services'],
-  [MenuTypes.INVITE, 'Invite'],
+  [MenuTypes.ORDERS, 'Orders'],
 ];
 
 export default function AppBarComp () {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
+  const theme = useTheme();
 
   const navigate = useNavigate();
 
@@ -77,7 +80,7 @@ export default function AppBarComp () {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: theme.palette.primary.dark }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -143,7 +146,7 @@ export default function AppBarComp () {
                   setPageHandler(page[0] as MenuTypes); 
                   handleCloseNavMenu();
                 }}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block', margin: theme.spacing(0, 3) }}
               >
                 {page[1]}
               </Button>
@@ -152,19 +155,9 @@ export default function AppBarComp () {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <Button
-                startIcon={<ManageAccounts />}
-                id="demo-customized-button"
-                aria-controls={Boolean(anchorElUser) ? 'demo-customized-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={Boolean(anchorElUser) ? 'true' : undefined}
-                variant="contained"
-                disableElevation
-                onClick={handleOpenUserMenu}
-                endIcon={<KeyboardArrowDownIcon />}
-              >
-                Account & list
-              </Button>
+              <Avatar sx={{ cursor: 'pointer', bgcolor: theme.palette.primary.main }} onClick={handleOpenUserMenu}>
+                <ManageAccounts sx={{ color: theme.palette.common.white }} />
+              </Avatar>
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}

@@ -18,22 +18,27 @@ const LocationsContainer = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchLocations = async ({ login, password }: ILoginCompState) => {
+  const fetchLocations = async () => {
 
     setLoading(true);
     const response = await get('locations').catch(console.error);
 
     setLoading(false);
-    if (response.httpStatus === 200) {
+    if (response.status === 200) {
 
-      setData(data);
+      setData(response.data);
     } else {
       //error
     }
   };
 
+  useEffect(()=>{
+
+    fetchLocations();
+  },[]);
+
   return (<>
-    <Locations />
+    <Locations locations={data} />
   </>);
 };
 
