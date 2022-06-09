@@ -45,6 +45,7 @@ export default function PasswordResetEmailContainer () {
     
     <ResetPasswordEmail 
       onReset={handleReset}
+      onBackToLogin={loginButtonHandler}
       externalError={registerError} 
     />
     

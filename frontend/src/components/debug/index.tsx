@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { get } from '../../api';
 
 type ComponentProps = {
-    execute: (executeType: string, data: any) => void
+  execute: (executeType: string, data: any) => void
 }
 
 const cartrigeIDs = [
@@ -19,7 +19,11 @@ const cartrigeIDs = [
 export default function DebugComponent({ execute }: ComponentProps) {
 
   const [accumParams, setAccumParams] = useState({ companyId: 0, locationId: 0 });
-  const [accumData, setAccumData] = useState<Array<{cartrigeId: string, cartrigeOrderCount: number}>>([]);
+  const [accumData, setAccumData] = useState<Array<{cartrigeId: string, cartrigeCount: number}>>([]);
+  const [stock, setStock] = useState<Array<any>>([]);
+
+  const [errorMessage, setErrorMessage] = useState('');
+  const [message, setMessage] = useState('');
 
   const [starterData, setStarterData] = useState({ companyId: 0, locationId: 0 });
   const [repeatData, setRepeatData] = useState({
@@ -39,7 +43,8 @@ export default function DebugComponent({ execute }: ComponentProps) {
     const payload = await get('cartrige-accumulation/' + accumParams.locationId);
 
     if (payload.status === 200) {
-      setAccumData(payload.data);
+      setAccumData(payload.data.accumulation);
+      setStock(payload.data.stock);
     }
   };
 
@@ -49,8 +54,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
     padding={5}
     spacing={2}
   >
-    <Grid item md={8} sm={8} xs={12} />
-    <Grid item md={12} sm={12} xs={12}>
+    <Grid sx={{ margin: '5px 0', border: '1px solid gray' }} item md={12} sm={12} xs={12}>
       <TextField 
         size="small" 
         label="Company ID" 
@@ -80,78 +84,95 @@ export default function DebugComponent({ execute }: ComponentProps) {
           Order Starter Pack (Order)
       </Button>
     </Grid>
-    <hr />
-    <Grid item md={12} sm={12} xs={12}>
-      <TextField 
-        sx={{ margin: 1 }}
-        size="small" 
-        label="Company ID" 
-        variant="outlined" 
-        value={repeatData.companyId} 
-        onChange={(ev)=>{setRepeatData({ ...repeatData, ...{ companyId: parseInt(ev.target.value) } });}}
-      />
-      <TextField 
-        sx={{ margin: 1 }}
-        size="small" 
-        label="Location ID" 
-        variant="outlined" 
-        value={repeatData.locationId} 
-        onChange={(ev)=>{setRepeatData({ ...repeatData, ...{ locationId: parseInt(ev.target.value) } });}}
-      />
-    </Grid>
-    <Grid item md={12} sm={12} xs={12}>
-      {cartrigeIDs.map((x, i)=> <TextField 
-        key={i}
-        type="number"
-        size="small" 
-        sx={{ margin: 1 }}
-        label={x}
-        variant="outlined" 
-        value={(repeatData as any)[x]} 
-        onChange={(ev)=>{setRepeatData({ ...repeatData, ...{ [x]: parseInt(ev.target.value) } });}}
-      />)}
-    </Grid>
-    <Grid item>
-      <Button sx={{ margin: 1 }} size="medium" variant="contained" onClick={()=>{execute('repeatorderpack', repeatData);}}>
-          Order Repat Pack (Order)
-      </Button>
-    </Grid>
-    <hr />
-    <Grid item md={12} sm={12} xs={12}>
-      <TextField 
-        size="small" 
-        sx={{ margin: 1 }}
-        label="Company ID" 
-        variant="outlined" 
-        value={accumParams.companyId} 
-        onChange={(ev)=>{setAccumParams({ ...accumParams, ...{ companyId: parseInt(ev.target.value) } });}}
-      />
-      <TextField 
-        size="small" 
-        sx={{ margin: 1 }}
-        label="Location ID" 
-        variant="outlined" 
-        value={accumParams.locationId} 
-        onChange={(ev)=>{setAccumParams({ ...accumParams, ...{ locationId: parseInt(ev.target.value) } });}}
-      />
-
-    </Grid>
-    <Grid item md={12} sm={12} xs={12}>
-      <Button sx={{ margin: 1 }} size="medium" variant="contained" onClick={getAccumDataHandler}>
-          View Cartrige Order Accumulation
-      </Button>
-    </Grid>
-    <Grid item md={12} sm={12} xs={12}>
-      {accumData.map((x, i)=>(
-        <TextField key={i}
+    <Grid item sx={{ margin: '5px 0', border: '1px solid gray' }}>
+      <Grid item md={12} sm={12} xs={12}>
+        <TextField 
+          sx={{ margin: 1 }}
+          size="small" 
+          label="Company ID" 
+          variant="outlined" 
+          value={repeatData.companyId} 
+          onChange={(ev)=>{setRepeatData({ ...repeatData, ...{ companyId: parseInt(ev.target.value) } });}}
+        />
+        <TextField 
+          sx={{ margin: 1 }}
+          size="small" 
+          label="Location ID" 
+          variant="outlined" 
+          value={repeatData.locationId} 
+          onChange={(ev)=>{setRepeatData({ ...repeatData, ...{ locationId: parseInt(ev.target.value) } });}}
+        />
+      </Grid>
+      <Grid item md={12} sm={12} xs={12}>
+        {cartrigeIDs.map((x, i)=> <TextField 
+          key={i}
+          type="number"
           size="small" 
           sx={{ margin: 1 }}
-          label={x.cartrigeId}
+          label={x}
           variant="outlined" 
-          disabled={true}
-          value={x.cartrigeOrderCount} 
+          value={(repeatData as any)[x]} 
+          onChange={(ev)=>{setRepeatData({ ...repeatData, ...{ [x]: parseInt(ev.target.value) } });}}
+        />)}
+      </Grid>
+      <Grid>
+        <Button sx={{ margin: 1 }} size="medium" variant="contained" onClick={()=>{execute('repeatorderpack', repeatData);}}>
+          Order Repat Pack (Order)
+        </Button>
+      </Grid>
+    </Grid>
+    <Grid item sx={{ margin: '5px 0', border: '1px solid gray' }}>
+      <Grid item md={12} sm={12} xs={12}>
+        <TextField 
+          size="small" 
+          sx={{ margin: 1 }}
+          label="Company ID" 
+          variant="outlined" 
+          value={accumParams.companyId} 
+          onChange={(ev)=>{setAccumParams({ ...accumParams, ...{ companyId: parseInt(ev.target.value) } });}}
         />
-      ))}
+        <TextField 
+          size="small" 
+          sx={{ margin: 1 }}
+          label="Location ID" 
+          variant="outlined" 
+          value={accumParams.locationId} 
+          onChange={(ev)=>{setAccumParams({ ...accumParams, ...{ locationId: parseInt(ev.target.value) } });}}
+        />
+
+      </Grid>
+      <Grid item md={12} sm={12} xs={12}>
+        <Button sx={{ margin: 1 }} size="medium" variant="contained" onClick={getAccumDataHandler}>
+          View Cartrige Order Accumulation
+        </Button>
+      </Grid>
+    
+      <Grid item md={12} sm={12} xs={12}>
+        <h4>Accumulation:</h4>
+        {accumData.map((x, i)=>(
+          <TextField key={i}
+            size="small" 
+            sx={{ margin: 1 }}
+            label={x.cartrigeId}
+            variant="outlined" 
+            disabled={true}
+            value={x.cartrigeCount} 
+          />
+        ))}
+      </Grid>
+      <Grid item md={12} sm={12} xs={12}>
+        <h4>Stock:</h4>
+        {stock.map((x: any, i: number)=>(
+          <TextField key={i}
+            size="small" 
+            sx={{ margin: 1 }}
+            label={x.cartrigeType}
+            variant="outlined" 
+            disabled={true}
+            value={x.cartrigeCount} 
+          />
+        ))}
+      </Grid>
     </Grid>
   </Grid>;
 }

@@ -39,36 +39,34 @@ function App() {
   const odooData = useSelector(selectOdooData);
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/debug" element={<><AppBarComp /><DebugContainer /></>} />
-          <Route path="/home" element={<><AppBarComp /><Dashboard /></>} />
-          <Route path="/delivery" element={<><AppBarComp />Delivery content</>} />
-          <Route path="/cartriges" element={<><AppBarComp /><CartrigesContainer /></>} />
-          <Route path="/services" element={<><AppBarComp />Services content</>} />
-          <Route path="/profile" element={<><AppBarComp /><UserProfileContainer /></>} />
-          <Route path="/company-account" element={<><AppBarComp /><CompanyAccountContainer /></>} />
-          <Route path="/resetpassword" element={<>
-            <PublicPage><PasswordResetEmailContainer /></PublicPage>
-          </>} />
-          <Route path="/confirmemail/:token/:email" element={<>
-            <PublicPage><ConfirmEmailContainer /></PublicPage>
-          </>} />
-          <Route path="/setnewpassword/:token/:email" element={<>
-            <PublicPage><PasswordResetPasswordContainer /></PublicPage>
-          </>} />
-          <Route path="/newpassword" element={<></>} />
-          <Route path="/invite/:step/accept" element={<>
-            <PublicPage><RegisterContainer /></PublicPage>
-          </>} />
-          <Route path="/invite" element={<><AppBarComp /><InviteContainer /></>} />
-          <Route path="/" element={
-            <PublicPage><LoginContainer /></PublicPage>
-          } />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/debug" element={<><AppBarComp /><DebugContainer /></>} />
+        <Route path="/home" element={<><AppBarComp /><Dashboard /></>} />
+        <Route path="/delivery" element={<><AppBarComp />Delivery content</>} />
+        <Route path="/cartriges" element={<><AppBarComp /><CartrigesContainer /></>} />
+        <Route path="/services" element={<><AppBarComp />Services content</>} />
+        <Route path="/profile" element={<><AppBarComp /><UserProfileContainer /></>} />
+        <Route path="/company-account" element={<><AppBarComp /><CompanyAccountContainer /></>} />
+        <Route path="/resetpassword" element={<>
+          <PublicPage><PasswordResetEmailContainer /></PublicPage>
+        </>} />
+        <Route path="/confirmemail/:token/:email" element={<>
+          <PublicPage><ConfirmEmailContainer /></PublicPage>
+        </>} />
+        <Route path="/setnewpassword/:token/:email" element={<>
+          <PublicPage><PasswordResetPasswordContainer /></PublicPage>
+        </>} />
+        <Route path="/newpassword" element={<></>} />
+        <Route path="/invite/:step/accept" element={<>
+          <PublicPage><RegisterContainer /></PublicPage>
+        </>} />
+        <Route path="/invite" element={<><AppBarComp /><InviteContainer /></>} />
+        <Route path="/" element={
+          <PublicPage><LoginContainer /></PublicPage>
+        } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

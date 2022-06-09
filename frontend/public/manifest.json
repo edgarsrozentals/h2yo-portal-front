@@ -21,6 +21,11 @@
       "src": "h2yo_logo.webp",
       "type": "image/webp",
       "sizes": "151x39"
+    },
+    {
+      "src": "banner.webp",
+      "type": "image/webp",
+      "sizes": "750x674"
     }
   ],
   "start_url": ".",

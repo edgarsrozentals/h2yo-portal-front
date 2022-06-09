@@ -1,4 +1,4 @@
-import { Alert, Box, FormControl, Typography } from '@mui/material';
+import { Alert, Box, FormControl, Typography, useTheme } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import React, { useEffect, useState } from 'react';
@@ -10,18 +10,22 @@ export interface IResetEmailCompState {
 
 interface IResetPasswordEmailProps {
   onReset: (data: IResetEmailCompState) => Promise<void>, 
+  onBackToLogin: () => void, 
   externalError: string,
   message?: string
 }
 
 export default function ResetPasswordEmail ({ 
   onReset,
+  onBackToLogin,
   externalError,
   message
 }: IResetPasswordEmailProps) {
 
   const [data, setData] = useState<IResetEmailCompState>({ email: '' });
   const [error, setError] = useState<string>('');
+  
+  const theme = useTheme();
   
   const submitHandler = (event: any) => {
     
@@ -59,24 +63,27 @@ export default function ResetPasswordEmail ({
         container
         spacing={2}
         direction="column"
-        alignItems="center">
+        alignItems="left">
         <Grid item>
-          <Typography variant="body1" gutterBottom>Input your email below in order to reset the password. Password reset instructions will be sent to it!</Typography>
+          <Typography variant="body1" textAlign="center" gutterBottom>Input your email below in order to reset the password. Password reset instructions will be sent to it!</Typography>
         </Grid>
         {message ? <Grid item><Alert severity="success">{{ message }}</Alert></Grid> : null}
         {errorText ? <Grid item><Alert severity="error">{errorText}</Alert></Grid> : null}
         <Grid item>
-          <TextField size="small" label="Email" variant="outlined" 
+          <TextField fullWidth size="small" label="Email" variant="outlined" 
             value={data.email} 
             onChange={(ev)=>{setData({ ...data, ...{ email: ev.target.value } });}}
           />
         </Grid>
         <Grid item>
-          <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
+          <LoadingButton fullWidth type="submit" size="medium" loading={false} variant="contained" 
             onClick={submitHandler}
           >
           SEND
           </LoadingButton>
+        </Grid>
+        <Grid item>
+          <Typography onClick={onBackToLogin} variant="body2" gutterBottom><a style={{ color: theme.palette.primary.main }} href="#">Back to Log in</a></Typography>
         </Grid>
       </Grid>
     </FormControl>

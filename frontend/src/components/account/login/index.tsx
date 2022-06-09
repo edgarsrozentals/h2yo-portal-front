@@ -1,8 +1,10 @@
-import { Alert, Box, FormControl, Typography } from '@mui/material';
+import { Alert, Avatar, Box, Checkbox, FormControl, FormControlLabel, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
+import { useTheme } from '@mui/system';
+import LockIcon from '@mui/icons-material/Lock';
 
 export interface ILoginCompState {
   login: string, 
@@ -25,6 +27,8 @@ export default function Login ({
 
   const [data, setData] = useState<ILoginCompState>({ login: '', password: '' });
   const [error, setError] = useState<string>('');
+
+  const theme = useTheme();
 
   const submitHandler = (event: any) => {
     
@@ -59,22 +63,30 @@ export default function Login ({
   const errorText = error !== '' ? error : loginError;
 
   return <>
-    <FormControl>
+    <FormControl
+      fullWidth={true}
+    >
       <Grid
+        sx={{ width: '100%' }}
         container
         spacing={2}
-        direction="column"
-        alignItems="center">
-        {errorText ? <Grid item><Alert severity="error">{errorText}</Alert></Grid> : null}
-        <Grid item>
-          <TextField size="small" label="Email" variant="outlined" 
+        direction="row"
+        alignItems="left">
+        <Grid item md={12} sm={12} xs={12}>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}><Avatar sx={{ bgcolor: theme.palette.primary.main }}><LockIcon sx={{ color: theme.palette.white }} /></Avatar></Box>
+          <Typography align="center" variant="h5" color="primary.dark" >Log In</Typography>
+          <Typography align="center" variant="body2" >Your cartridge supply portal</Typography>
+        </Grid>
+        {errorText ? <Grid item md={12} sm={12} xs={12}><Alert severity="error">{errorText}</Alert></Grid> : null}
+        <Grid item md={12} sm={12} xs={12}>
+          <TextField fullWidth size="small" label="Email" variant="outlined" 
             value={data.login} 
             onChange={(ev)=>{setData({ ...data, ...{ login: ev.target.value } });}}
           />
         </Grid>
-        <Grid item>
+        <Grid item md={12} sm={12} xs={12}>
           <TextField 
-            sx={{ borderRadius: 5 }}
+            fullWidth
             size="small" 
             label="Password" 
             type="password" 
@@ -83,15 +95,18 @@ export default function Login ({
             onChange={(ev)=>{setData({ ...data, ...{ password: ev.target.value } });}}
           />
         </Grid>
-        <Grid item>
-          <Typography onClick={onForgotPassword} variant="body1" gutterBottom><a href="#">Forgot password?</a></Typography>
+        <Grid item md={12} sm={12} xs={12}>
+          <FormControlLabel control={<Checkbox defaultChecked />} sx={{ color: theme.palette.primary.dark }} label="I accept the Terms and Conditions" />
         </Grid>
-        <Grid item>
-          <LoadingButton type="submit" size="medium" loading={loading} variant="contained" 
+        <Grid item md={12} sm={12} xs={12}>
+          <LoadingButton sx={{ width: '100%' }} type="submit" size="medium" loading={loading} variant="contained" 
             onClick={submitHandler}
           >
-          LOGIN
+          LOG IN
           </LoadingButton>
+        </Grid>
+        <Grid item md={12} sm={12} xs={12}>
+          <Typography onClick={onForgotPassword} variant="body2" gutterBottom><a style={{ color: theme.palette.primary.main }} href="#">Forgot password?</a></Typography>
         </Grid>
       </Grid>
     </FormControl>
