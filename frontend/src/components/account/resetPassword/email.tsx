@@ -58,7 +58,10 @@ export default function ResetPasswordEmail ({
   const errorText = error !== '' ? error : externalError;
 
   return <>
-    <FormControl>
+    <FormControl
+      fullWidth={true}
+      sx={{ maxWidth: '600px' }}
+    >
       <Grid
         container
         spacing={2}

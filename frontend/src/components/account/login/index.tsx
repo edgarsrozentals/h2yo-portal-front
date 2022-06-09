@@ -65,6 +65,7 @@ export default function Login ({
   return <>
     <FormControl
       fullWidth={true}
+      sx={{ maxWidth: '600px' }}
     >
       <Grid
         sx={{ width: '100%' }}
