@@ -14,9 +14,11 @@ export const post = (url = '', data = {}) => {
       'Content-Type': 'application/json',
       'mode': 'cors',
     },
-    body: JSON.stringify(data) }).then((resp) => {
+    body: JSON.stringify(data) }).then(async (resp) => {
 
-    return resp.json();
+    const data = await resp.json();
+
+    return { ...data, ...{ status: resp.status, data: data } };
   });
 };
 

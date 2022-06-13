@@ -1,26 +1,92 @@
 import { Box, Card, CardContent, CardHeader, FormControl, InputLabel, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
 import { useTheme } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
+import { SelectType } from '../common/types';
+import { SelectChangeEvent } from '@mui/material';
+import SelectCP from '../common/input/multiSelectChip';
+import MultiSelectChip from '../common/input/multiSelectChip';
+import TextField from '@mui/material/TextField';
+
+export type LocationFormType = {
+  name: string,
+  street: string,
+  street2: string,
+  zip: string,
+  city: string,
+  country: string
+}
 
 export type LocationPropps = {
+  id: number,
   name: string,
   street: string,
   street2: string,
   zip: string,
   city: string,
   country: string,
-  devices?: any,
-  allDevices?: any,
-  contactsAssigned?: any,
+  devices: Array<SelectType>,
+  allDevices: Array<SelectType>,
+  responsibles: Array<SelectType>,
+  allResponsibles: Array<SelectType>,
+  onLocationSave: (id: number, data: LocationFormType) => Promise<void>,
+  onChangeDevice: (id: number, data: Array<SelectType>) => Promise<void>,
+  onChangeResponsible: (id: number, data: Array<SelectType>) => Promise<void>,
 }
 
-const Location = ({ name, street, street2, zip, city, country, allDevices }: LocationPropps) => {
+const RenderTxtField = ({ edit, value, label, onChange }: {label: string, edit: boolean, value: string, onChange: (event: any) => void}) => {
+
+  if (edit) {
+    return <TextField size="small" sx={{ fontSize: '1.5em' }} label={label} onChange={onChange} variant="standard" value={value} />;
+  } else {
+    return <Typography variant="body2">{value}</Typography>;
+  }
+
+};
+
+const Location = ({ id, name, street, street2, zip, city, country, 
+  allDevices, 
+  devices,
+  responsibles, 
+  allResponsibles,
+  onChangeDevice,
+  onChangeResponsible,
+  onLocationSave
+}: LocationPropps) => {
 
   const theme = useTheme();
+  const [editEnabled, setEditEnabled] = useState(false);
+  const [formData, setFormData]= useState<LocationFormType>({
+    name: name,
+    street: street,
+    street2: street2,
+    zip: zip,
+    city: city,
+    country: country
+  });
+
+  const toggleEdit = () => {
+
+    if (editEnabled) {
+      onLocationSave(id, formData);
+    }
+
+    setEditEnabled(!editEnabled);
+  };
+
+  const deviceChangeHandler = (event: SelectChangeEvent<number[]>) => {
+
+    onChangeDevice(id, []);
+  };
+
+  const responChangeHandler = (event: SelectChangeEvent<number[]>) => {
+
+    onChangeResponsible(id, []);
+  };
+  
 
   return <Card sx={{ width: '260px', height: '380px' }}>
     <CardContent sx={{ backgroundColor: theme.palette.primary.dark, padding: theme.spacing(1) }}>
-      <Typography variant="h6" color="common.white">{name}</Typography>
+      <Typography variant="h6" color="common.white">{formData.name}</Typography>
     </CardContent>
     <CardContent sx={{ padding: theme.spacing(1), display: 'flex', 
       flexDirection: 'column', 
@@ -31,58 +97,46 @@ const Location = ({ name, street, street2, zip, city, country, allDevices }: Loc
       <Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <div><Typography variant="body1">Address</Typography></div>
-          <div><Typography variant="caption">EDIT</Typography></div>
+          <div><Typography variant="caption" sx={{ cursor: 'pointer' }} onClick={()=>toggleEdit()}>{editEnabled ? 'SAVE' : 'EDIT'}</Typography></div>
         </Box>
         <Box>
-          <Typography variant="body2">{street}</Typography>
-          <Typography variant="body2">{street2}</Typography>
-          <Typography variant="body2">{zip}</Typography>
-          <Typography variant="body2">{city}</Typography>
-          <Typography variant="body2">{country}</Typography>
+          {editEnabled ? <RenderTxtField
+            label={'Location name'}
+            value={formData.name}
+            edit={editEnabled}
+            onChange={(event: any)=>setFormData({ ...formData, ...{ name: event?.target?.value } })} 
+          /> : null }
+          <RenderTxtField
+            label={'Address line 1'}
+            value={formData.street}
+            edit={editEnabled}
+            onChange={(event: any)=>setFormData({ ...formData, ...{ street: event?.target?.value } })} 
+          />
+          <RenderTxtField label={'Address line 2'} value={formData.street2} edit={editEnabled} 
+            onChange={(event: any)=>setFormData({ ...formData, ...{ street2: event?.target?.value } })} />
+          <RenderTxtField label={'Zip'} value={formData.zip} edit={editEnabled} 
+            onChange={(event: any)=>setFormData({ ...formData, ...{ zip: event?.target?.value } })} />
+          <RenderTxtField label={'City'} value={formData.city} edit={editEnabled} 
+            onChange={(event: any)=>setFormData({ ...formData, ...{ city: event?.target?.value } })} />
+          <RenderTxtField label={'Country'} value={formData.country} edit={editEnabled} 
+            onChange={(event: any)=>setFormData({ ...formData, ...{ country: event?.target?.value } })} />
         </Box>
       </Box>
-      <Box sx={{ borderTop: '1px solid', borderColor: theme.palette.gray }}>
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-name-label">Devices in this location</InputLabel>
-          <Select
-            size="small"
-            labelId="demo-multiple-name-label"
-            id="demo-multiple-name"
-            multiple
-            value={['Device #3', 'Device #1']}
-            input={<OutlinedInput label="Devices in this location" />}
-          >
-            {['Device #3', 'Device #1'].map((name) => (
-              <MenuItem
-                key={name}
-                value={name}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-name-label">Contacts assigned</InputLabel>
-          <Select
-            size="small"
-            labelId="demo-multiple-name-label"
-            id="demo-multiple-name"
-            multiple
-            value={['Raivis Studens']}
-            input={<OutlinedInput label="Name" />}
-          >
-            {['Raivis Studens'].map((name) => (
-              <MenuItem
-                key={name}
-                value={name}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
+      {!editEnabled ? <Box sx={{ borderTop: '1px solid', borderColor: theme.palette.gray }}>
+        <MultiSelectChip
+          label="Devices in this location"
+          selectOptions={allDevices}
+          value={devices}
+          onChange={deviceChangeHandler}
+        />
+        <MultiSelectChip
+          label="Contacts assigned"
+          selectOptions={allResponsibles}
+          value={responsibles}
+          onChange={responChangeHandler}
+        />
+      </Box> : null}
+      
     </CardContent>
   </Card>
   ;
