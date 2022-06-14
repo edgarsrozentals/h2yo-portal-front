@@ -14,6 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Avatar, useTheme } from '@mui/material';
+import H2yoLogo from '../common/logos/h2yo';
+import FonteVivaLogo from '../common/logos/fonteviva';
 
 export enum MenuTypes {
     HOME = 'home',
@@ -83,14 +85,12 @@ export default function AppBarComp () {
     <AppBar position="static" sx={{ backgroundColor: theme.palette.primary.dark }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
-            <img src={'/h2yo_logo.webp'} className="App-logo" alt="logo" />
-          </Typography>
+
+          <Box sx={{ display: 'flex', height: '17px', padding: theme.spacing(0, 4, 0, 4) }}>
+            <div style={{ borderRight: '1px solid #ffffff', padding: theme.spacing(0, 1, 0, 1) }}><H2yoLogo /></div>
+            <div style={{ padding: theme.spacing(0, 1, 0, 1) }}><FonteVivaLogo /></div>
+          </Box>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"

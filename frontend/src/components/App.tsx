@@ -22,6 +22,7 @@ import CartrigesContainer from '../features/cartriges/container';
 import DebugContainer from '../features/debug/container';
 import ConfirmEmailContainer from '../features/user/confirmEmailContainer';
 import LocationsContainer from '../features/locations/container';
+import OrdersContainer from '../features/orders/container';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -46,6 +47,7 @@ function App() {
         <Route path="/home" element={<><AppBarComp /><Dashboard /></>} />
         <Route path="/locations" element={<><AppBarComp /><LocationsContainer /></>} />
         <Route path="/cartriges" element={<><AppBarComp /><CartrigesContainer /></>} />
+        <Route path="/orders" element={<><AppBarComp /><OrdersContainer /></>} />
         <Route path="/services" element={<><AppBarComp />Services content</>} />
         <Route path="/profile" element={<><AppBarComp /><UserProfileContainer /></>} />
         <Route path="/company-account" element={<><AppBarComp /><CompanyAccountContainer /></>} />

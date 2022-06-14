@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { get, post } from '../../api';
+import { get, post, put } from '../../api';
 import Login, { ILoginCompState } from '../../components/account/login';
 
 import {
@@ -31,9 +31,10 @@ const LocationsContainer = () => {
     setLoading(false);
     if (response.status === 200) {
 
-      setData(response.data.data);
       setAllDevices(response.data.options.allDevices);
       setAllResponsibles(response.data.options.allResponsibles);
+      setData(response.data.data);
+
     } else {
       setError('Failed to load location data');
     }
@@ -51,16 +52,26 @@ const LocationsContainer = () => {
 
   const responsibleChangeHandler = async (id: number, data: SelectType[]) => {
     
+    setLoading(true);
+    
+    const response = await put('locations/' + id + '/responsible', { responsibles: data.map(x=>id) }).catch(console.error);
+    
+    if (response?.status === 200) {
+      fetchLocations();
+    } else {
+      setError('Failed to update contacts');
+      fetchLocations();
+    }
+
     return;
   };
 
   const locationUpdateHandler = async (id: number, data: LocationFormType) => {
 
     setLoading(true);
-    const response = await post('locations/' + id, data).catch(console.error);
-
+    const response = await put('locations/' + id, data).catch(console.error);
       
-    if (response.status === 200) {
+    if (response?.status === 200) {
 
       //setData(response.data.data);
     } else {

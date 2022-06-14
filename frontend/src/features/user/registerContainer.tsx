@@ -29,7 +29,6 @@ const RegisterContainer = () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     
-
     const data = await get('invite/' + urlParams.get('token') + '/' + urlParams.get('email'));
 
     let name = '';

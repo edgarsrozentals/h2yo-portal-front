@@ -73,14 +73,14 @@ const Location = ({ id, name, street, street2, zip, city, country,
     setEditEnabled(!editEnabled);
   };
 
-  const deviceChangeHandler = (event: SelectChangeEvent<number[]>) => {
+  const deviceChangeHandler = (data: SelectType[]) => {
 
-    onChangeDevice(id, []);
+    onChangeDevice(id, data);
   };
 
-  const responChangeHandler = (event: SelectChangeEvent<number[]>) => {
+  const responChangeHandler = (data: SelectType[]) => {
 
-    onChangeResponsible(id, []);
+    onChangeResponsible(id, data);
   };
   
 
@@ -127,13 +127,13 @@ const Location = ({ id, name, street, street2, zip, city, country,
           label="Devices in this location"
           selectOptions={allDevices}
           value={devices}
-          onChange={deviceChangeHandler}
+          onSelectOption={deviceChangeHandler}
         />
         <MultiSelectChip
           label="Contacts assigned"
           selectOptions={allResponsibles}
           value={responsibles}
-          onChange={responChangeHandler}
+          onSelectOption={responChangeHandler}
         />
       </Box> : null}
       

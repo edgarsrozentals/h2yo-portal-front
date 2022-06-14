@@ -12,7 +12,7 @@ import { SelectProps } from '@mui/material';
 
 interface IMultiSelectChip extends SelectProps {
   value: any,
-  onChange: any,
+  onSelectOption: (data: SelectType[]) => void,
   label: string,
   selectOptions: Array<SelectType>
 }
@@ -39,7 +39,19 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
 
 export default function MultiSelectChip (props: IMultiSelectChip) {
 
-  const { selectOptions, label, ...selectProps } = props;
+  const { selectOptions, label, value, onSelectOption, onChange, ...selectProps } = props;
+
+  const valueIds = value.map((x: SelectType)=>x.id);
+
+  const optionsIdMap: any = {};
+  selectOptions.map((x: SelectType)=>optionsIdMap[x.id] = { id: x.id, name: x.name });
+
+  const changeHandler = (event: any) => {
+
+    const values = event.target.value as Array<number>;
+
+    onSelectOption(values.map(x=>optionsIdMap[x]));
+  };
 
   return <div>
     <FormControl sx={{ m: 1, width: 300 }} size="small">
@@ -48,12 +60,19 @@ export default function MultiSelectChip (props: IMultiSelectChip) {
         sx={{ maxWidth: '230px' }}
         labelId="demo-multiple-chip-label"
         multiple
+        value={value.map((x: SelectType)=>x.id)}
+        onChange={changeHandler}
         input={<OutlinedInput id="select-multiple-chip" label={label} />}
-        renderValue={(selected: Array<SelectType>) => (
+        renderValue={(selected: Array<number>) => (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-            {selected.map((x: SelectType, i: number) => (
-              <Chip size="small" key={i} label={x.name} />
-            ))}
+            {selected.map((x: number, i: number) => {
+              if (typeof optionsIdMap[x] === 'undefined') {
+                return <Chip size="small" key={i} label={'unknown_' + x} />;
+              } else {
+                return <Chip size="small" key={i} label={optionsIdMap[x].name} />;
+              }
+              
+            })}
           </Box>
         )}
         MenuProps={MenuProps}
