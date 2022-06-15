@@ -23,6 +23,7 @@ import DebugContainer from '../features/debug/container';
 import ConfirmEmailContainer from '../features/user/confirmEmailContainer';
 import LocationsContainer from '../features/locations/container';
 import OrdersContainer from '../features/orders/container';
+import TeamContainer from '../features/team/container';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/orders" element={<><AppBarComp /><OrdersContainer /></>} />
         <Route path="/services" element={<><AppBarComp />Services content</>} />
         <Route path="/profile" element={<><AppBarComp /><UserProfileContainer /></>} />
+        <Route path="/team-management" element={<><AppBarComp /><TeamContainer /></>} />
         <Route path="/company-account" element={<><AppBarComp /><CompanyAccountContainer /></>} />
         <Route path="/resetpassword" element={<>
           <PublicPage><PasswordResetEmailContainer /></PublicPage>

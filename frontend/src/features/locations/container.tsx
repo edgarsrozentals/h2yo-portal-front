@@ -59,8 +59,6 @@ const LocationsContainer = () => {
     }
 
     return;
-
-    return;
   };
 
   const responsibleChangeHandler = async (id: number, data: SelectType[]) => {

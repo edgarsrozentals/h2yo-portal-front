@@ -37,9 +37,10 @@ export enum MenuTypes {
 }
 
 const settings = [
-  [MenuTypes.COMPANY_ACCOUNT, 'Company Account'],
+  [MenuTypes.COMPANY_ACCOUNT, 'My company'],
+  [MenuTypes.TEAM_MANAGEMENT, 'My team'],
   [MenuTypes.CUSTOMER_SUPPORT, 'Customer Support'],
-  [MenuTypes.PROFILE, 'Profile'],
+  [MenuTypes.PROFILE, 'My Profile'],
   [MenuTypes.LOGOUT, 'Logout'],
   [MenuTypes.DEBUG, 'Debug'],
 ];
