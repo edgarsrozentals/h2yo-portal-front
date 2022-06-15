@@ -47,6 +47,19 @@ const LocationsContainer = () => {
 
   const deviceChangeHandler = async (id: number, data: SelectType[]) => {
 
+    setLoading(true);
+    
+    const response = await put('locations/' + id + '/device', { devices: data.map(x=>x.id) }).catch(console.error);
+    
+    if (response?.status === 200) {
+      fetchLocations();
+    } else {
+      setError('Failed to update contacts');
+      fetchLocations();
+    }
+
+    return;
+
     return;
   };
 
@@ -54,7 +67,7 @@ const LocationsContainer = () => {
     
     setLoading(true);
     
-    const response = await put('locations/' + id + '/responsible', { responsibles: data.map(x=>id) }).catch(console.error);
+    const response = await put('locations/' + id + '/responsible', { responsibles: data.map(x=>x.id) }).catch(console.error);
     
     if (response?.status === 200) {
       fetchLocations();

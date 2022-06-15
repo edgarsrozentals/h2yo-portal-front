@@ -20,7 +20,8 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import { useTheme } from '@mui/system';
+import { style, styled, useTheme } from '@mui/system';
+import { Theme } from '@mui/material';
 
 export interface RowData {
   id: number;
@@ -29,6 +30,22 @@ export interface RowData {
   amount: number;
 }
 
+
+const StyledTableRow = styled(TableRow)(() => {
+
+  const theme = useTheme();
+
+  return {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    }
+  };
+
+});
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -229,7 +246,7 @@ export default function EnhancedTable({ data }: {data: Array<RowData>}) {
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
-                  <TableRow
+                  <StyledTableRow
                     hover
                     onClick={(event) => handleClick(event, row.id)}
                     tabIndex={-1}
@@ -245,7 +262,7 @@ export default function EnhancedTable({ data }: {data: Array<RowData>}) {
                     <TableCell align="right">{row.date}</TableCell>
                     <TableCell align="right">{row.status}</TableCell>
                     <TableCell align="right">{row.amount}</TableCell>
-                  </TableRow>
+                  </StyledTableRow>
                 );
               })}
             {emptyRows > 0 && (

@@ -28,15 +28,6 @@ const MenuProps = {
   },
 };
 
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
 export default function MultiSelectChip (props: IMultiSelectChip) {
 
   const { selectOptions, label, value, onSelectOption, onChange, ...selectProps } = props;
@@ -57,6 +48,7 @@ export default function MultiSelectChip (props: IMultiSelectChip) {
     <FormControl sx={{ m: 1, width: 300 }} size="small">
       <InputLabel>{label}</InputLabel>
       <Select
+        size="small"
         sx={{ maxWidth: '230px' }}
         labelId="demo-multiple-chip-label"
         multiple
@@ -80,6 +72,7 @@ export default function MultiSelectChip (props: IMultiSelectChip) {
       >
         {selectOptions.map((x: SelectType, i: number) => (
           <MenuItem
+            dense={true}
             key={i}
             value={x.id}
           >
