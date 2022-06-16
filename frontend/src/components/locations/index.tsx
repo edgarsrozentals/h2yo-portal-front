@@ -27,7 +27,7 @@ const Locations = ({ error, allDevices, allResponsibles, locations, onChangeDevi
       justifyContent: 'left', 
     }}>
       
-      <Box style={{ 
+      <Box style={{
         display: 'flex', 
         padding: theme.spacing(4,0,0,0),
         justifyContent: 'left', 
@@ -39,7 +39,7 @@ const Locations = ({ error, allDevices, allResponsibles, locations, onChangeDevi
       }}>{locations.map((x: LocationPropps, i: number) => <Box
           key={i} 
         >
-          <Location 
+          <Location
             onLocationSave={onChangeLocation}
             id={x.id}
             name={x.name}

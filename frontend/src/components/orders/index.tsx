@@ -11,9 +11,9 @@ export default function Orders({ data, locations }: {data: OrderTypeEntry[], loc
 
   const [locationsFiltred, setLocationsFiltred] = useState<SelectType[]>([]);
 
-  const selectOptionsHandler = (filterVal: SelectType[]) => {
+  const selectOptionsHandler = (filterVal: SelectType[] | SelectType) => {
 
-    setLocationsFiltred(filterVal);
+    setLocationsFiltred(filterVal as SelectType[]);
     return;
   };
 

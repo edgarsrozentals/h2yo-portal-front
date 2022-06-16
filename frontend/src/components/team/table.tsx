@@ -9,32 +9,21 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import { style, styled, useTheme } from '@mui/system';
-import { Theme } from '@mui/material';
-import { UserData } from '../common/types';
+import { Theme, Typography } from '@mui/material';
+import { SelectType, UserData } from '../common/types';
+import MultiSelectChip from '../common/input/multiSelectChip';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export interface RowData {
   id: number;
   name: string;
   locations: string;
   roles: number;
+  email: string,
+  phone: string
 }
 
 
-const StyledTableRow = styled(TableRow)(() => {
-
-  const theme = useTheme();
-
-  return {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    }
-  };
-
-});
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -83,12 +72,6 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: 'id',
-    numeric: false,
-    disablePadding: false,
-    label: '',
-  },
-  {
     id: 'name',
     numeric: true,
     disablePadding: false,
@@ -133,7 +116,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
           <TableCell
             key={headCell.id}
             sx={{ padding: theme.spacing(1,2) }}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={headCell.numeric ? 'left' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -152,12 +135,22 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell />
       </TableRow>
     </TableHead>
   );
 }
 
-export default function TeamTable({ data }: {data: Array<UserData>}) {
+export interface TeamTableProps {
+    data: UserData[]
+    locations: SelectType[]
+    roles: SelectType[]
+    onSelectLocation: (user: UserData, data: SelectType[]) => Promise<void>
+    onSelectRole: (user: UserData, data: SelectType[]) => Promise<void>
+    onDeleteMember: (data: UserData) => Promise<void>
+}
+
+export default function TeamTable({ data, locations, roles, onSelectRole, onSelectLocation, onDeleteMember }: TeamTableProps) {
   const [order, setOrder] = React.useState<Order>('desc');
   const [orderBy, setOrderBy] = React.useState<keyof RowData>('name');
   const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -191,6 +184,16 @@ export default function TeamTable({ data }: {data: Array<UserData>}) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  const selectRoleHandler = () => {
+
+    return;
+  };
+
+  const selectLocationHandler = () => {
+
+    return;
+  };
+
   return (
     <Box sx={{ width: '100%' }}>
       <TableContainer>
@@ -215,7 +218,7 @@ export default function TeamTable({ data }: {data: Array<UserData>}) {
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
-                  <StyledTableRow
+                  <TableRow
                     hover
                     tabIndex={-1}
                     key={row.id}
@@ -225,12 +228,25 @@ export default function TeamTable({ data }: {data: Array<UserData>}) {
                       id={labelId}
                       scope="row"
                     >
-                      {row.firstName} {row.lastName}
+                      <Typography variant="body1"><strong>{row.firstName} {row.lastName}</strong></Typography>
+                      <Typography variant="body2">{row.phone}</Typography>
+                      <Typography variant="body2">{row.email}</Typography>
                     </TableCell>
-                    <TableCell align="right">{row.roles}</TableCell>
-                    <TableCell align="right">{row.locations}</TableCell>
-                    <TableCell align="right">trash</TableCell>
-                  </StyledTableRow>
+                    <TableCell align="left"><MultiSelectChip
+                      label=""
+                      selectOptions={roles}
+                      value={row.roles ?? []}
+                      multiple={false}
+                      onSelectOption={(event: any)=>onSelectRole(row, event)}
+                    /></TableCell>
+                    <TableCell align="left"><MultiSelectChip
+                      label=""
+                      selectOptions={locations}
+                      value={row.locations ?? []}
+                      onSelectOption={(event: any)=>onSelectLocation(row, event)}
+                    /></TableCell>
+                    <TableCell align="left"><DeleteForeverIcon sx={{ cursor: 'pointer' }} onClick={()=>onDeleteMember(row)} color="warning" /></TableCell>
+                  </TableRow>
                 );
               })}
             {emptyRows > 0 && (

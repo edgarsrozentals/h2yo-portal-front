@@ -7,6 +7,7 @@ import SelectCP from '../common/input/multiSelectChip';
 import MultiSelectChip from '../common/input/multiSelectChip';
 import TextField from '@mui/material/TextField';
 
+
 export type LocationFormType = {
   name: string,
   street: string,
@@ -127,6 +128,7 @@ const Location = ({ id, name, street, street2, zip, city, country,
           label="Devices in this location"
           selectOptions={allDevices}
           value={devices}
+          readOnly={true}
           onSelectOption={deviceChangeHandler}
         />
         <MultiSelectChip

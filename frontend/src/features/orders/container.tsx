@@ -8,7 +8,6 @@ import { OrderTypeEntry } from '../../components/orders/orderType';
 
 export default function OrdersContainer () {
 
-
   const [data, setData] = useState<Array<OrderTypeEntry>>([]);
   const [locations, setLocations] = useState<SelectType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
