@@ -26,6 +26,11 @@
       "src": "banner.webp",
       "type": "image/webp",
       "sizes": "750x674"
+    },
+    {
+      "src": "homebottombanner.webp",
+      "type": "image/webp",
+      "sizes": "1440x265"
     }
   ],
   "start_url": ".",
