@@ -52,6 +52,9 @@ export const userSlice = createSlice({
     },
     addOdooData: (state, action) => {
       state.odooData = action.payload;
+    },
+    setPermissions: (state, action) => {
+      state.permissions = action.payload;
     }
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -71,6 +74,6 @@ export const selectOdooData = (state: RootState) => state.user.odooData;
 export const selectData = (state: RootState) => state.user.data;
 export const getPermissions = (state: RootState) => state.user.permissions;
 
-export const { addData, addOdooData } = userSlice.actions;
+export const { addData, addOdooData, setPermissions } = userSlice.actions;
 
 export default userSlice.reducer;

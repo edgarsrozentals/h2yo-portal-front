@@ -39,7 +39,7 @@ export default function MultiSelectChip (props: IMultiSelectChip) {
 
   const changeHandler = (event: any) => {
 
-    if (props.multiple) {
+    if (props.multiple === undefined || props.multiple) {
       const values = event.target.value as Array<number>;
       onSelectOption(values.map(x=>optionsIdMap[x]));
     } else {

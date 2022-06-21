@@ -14,6 +14,8 @@ import { Paper } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { AccountCircleRounded, AddchartOutlined, BubbleChart, BubbleChartRounded, SettingsRounded, SupervisedUserCircleRounded } from '@mui/icons-material';
 import { Bottle, Drop, Piggy } from './icons';
+import { getPermissions } from '../../features/user/userSlice';
+import { useSelector } from 'react-redux';
 
 const RenderCard = (props: {title: string, description: string, url: string, color: string, backgroundColor: string, SectionIcon: any, onClick: (url: string) => void}) => {
   const { title, description, onClick, url, color, SectionIcon, backgroundColor } = props;
@@ -43,7 +45,7 @@ const dashboardItems = [
   { title: 'Orders', SectionIcon: AddchartOutlined, description: 'View your cartridge invoices', url: '/orders', color: '#F0C000', backgroundColor: '#f0c0001a' },
   { title: 'Cartriges', SectionIcon: BubbleChartRounded, description: 'Learn about your cartridges', url: '/cartriges', backgroundColor: '#ff77771a', color: '#FF7777' },
   { title: 'My company', SectionIcon: SettingsRounded, description: 'Billing information & account details', url: '/account', backgroundColor: '#6ec3b91a', color: '#6EC3B9' },
-  { title: 'My team', SectionIcon: SupervisedUserCircleRounded, description: 'Manage team roles & invite new team members', backgroundColor: '#6b9dff1a', url: '/team-management', color: '#6B9DFF' },
+  { title: 'My team', SectionIcon: SupervisedUserCircleRounded, description: 'Manage team roles & invite new team members', backgroundColor: '#6b9dff1a', url: '/team-management', color: '#6B9DFF', permission: 'MANAGE_TEAM' },
   { title: 'My profile', SectionIcon: AccountCircleRounded, description: 'Manage your Sign in details', url: '/account', backgroundColor: '#bac7231a', color: '#BAC723' }
 ];
 
@@ -52,6 +54,8 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const theme = useTheme();
 
+  const permissions = useSelector(getPermissions);
+
   const handleCardClick = (url: string) => {
 
     navigate(url);
@@ -59,12 +63,18 @@ export default function Dashboard() {
 
   return <>
     <Container>
-      <Grid 
+      <Grid
         container 
         alignItems={'center'}
         padding={5}
         spacing={2}
-      >{dashboardItems.map((x, i)=>
+      >{dashboardItems.filter(x=>{
+          if (typeof x.permission === 'undefined') {
+            return true;
+          }
+
+          return permissions.includes(x.permission);
+        }).map((x, i)=>
           <Grid key={i} item md={6} sm={6} xs={12}>
             <RenderCard {...x} onClick={handleCardClick} />
           </Grid>)

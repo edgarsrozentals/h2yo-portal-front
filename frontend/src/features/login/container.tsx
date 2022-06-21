@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   useNavigate,
 } from 'react-router-dom';
-import { addData, addOdooData } from '../user/userSlice';
+import { addData, addOdooData, setPermissions } from '../user/userSlice';
 import { useDispatch, useStore } from 'react-redux';
 
 const LoginContainer = () => {
@@ -27,6 +27,7 @@ const LoginContainer = () => {
 
       dispatch(addData(response.data));
       dispatch(addOdooData(response.odooData));
+      dispatch(setPermissions(response.permissions));
       //set user data
       navigate('/home');
     } else {

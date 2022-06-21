@@ -8,7 +8,7 @@ import LoginContainer from '../features/login/container';
 import Shop from '../components/shop';
 import MenuTabs from '../components/menu';
 import { useSelector } from 'react-redux';
-import { selectOdooData } from '../features/user/userSlice';
+import { getPermissions, selectOdooData } from '../features/user/userSlice';
 import RegisterContainer from '../features/user/registerContainer';
 import InviteContainer from '../features/invite/container';
 import PasswordResetEmailContainer from '../features/user/passwordResetEmailContainer';
@@ -40,6 +40,7 @@ const OdooDataRender = ({ data }: { data: any }) => {
 function App() {
 
   const odooData = useSelector(selectOdooData);
+  const permissions = useSelector(getPermissions);
 
   return (
     <BrowserRouter>
@@ -51,7 +52,7 @@ function App() {
         <Route path="/orders" element={<><AppBarComp /><OrdersContainer /></>} />
         <Route path="/services" element={<><AppBarComp />Services content</>} />
         <Route path="/profile" element={<><AppBarComp /><UserProfileContainer /></>} />
-        <Route path="/team-management" element={<><AppBarComp /><TeamContainer /></>} />
+        {permissions.indexOf('MANAGE_TEAM') > -1 ? <Route path="/team-management" element={<><AppBarComp /><TeamContainer /></>} /> : null}
         <Route path="/company-account" element={<><AppBarComp /><CompanyAccountContainer /></>} />
         <Route path="/resetpassword" element={<>
           <PublicPage><PasswordResetEmailContainer /></PublicPage>

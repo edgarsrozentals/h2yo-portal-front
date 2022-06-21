@@ -16,6 +16,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Avatar, useTheme } from '@mui/material';
 import H2yoLogo from '../common/logos/h2yo';
 import FonteVivaLogo from '../common/logos/fonteviva';
+import { useSelector } from 'react-redux';
+import { getPermissions } from '../../features/user/userSlice';
 
 export enum MenuTypes {
     HOME = 'home',
@@ -38,11 +40,11 @@ export enum MenuTypes {
 
 const settings = [
   [MenuTypes.COMPANY_ACCOUNT, 'My company'],
-  [MenuTypes.TEAM_MANAGEMENT, 'My team'],
+  [MenuTypes.TEAM_MANAGEMENT, 'My team', 'MANAGE_TEAM'],
   [MenuTypes.CUSTOMER_SUPPORT, 'Customer Support'],
   [MenuTypes.PROFILE, 'My Profile'],
   [MenuTypes.LOGOUT, 'Logout'],
-  [MenuTypes.DEBUG, 'Debug'],
+  [MenuTypes.DEBUG, 'Debug', 'DEBUG'],
 ];
 
 const pages = [
@@ -66,6 +68,8 @@ export default function AppBarComp () {
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
+
+  const permissions = useSelector(getPermissions);
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -166,7 +170,14 @@ export default function AppBarComp () {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {settings.filter(setting=>{
+                if (typeof setting[2] === 'undefined') {
+                  return true;
+                }
+
+                return permissions.includes(setting[2]);
+
+              }).map((setting) => (
                 <MenuItem 
                   key={setting[0]} 
                   onClick={()=> {

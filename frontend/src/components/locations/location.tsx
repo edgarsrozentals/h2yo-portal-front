@@ -37,7 +37,7 @@ export type LocationPropps = {
 const RenderTxtField = ({ edit, value, label, onChange }: {label: string, edit: boolean, value: string, onChange: (event: any) => void}) => {
 
   if (edit) {
-    return <TextField size="small" sx={{ fontSize: '1.5em' }} label={label} onChange={onChange} variant="standard" value={value} />;
+    return <TextField size="small" sx={{ fontSize: '1.5em', marginBottom: '5px' }} label={label} onChange={onChange} variant="standard" value={value} />;
   } else {
     return <Typography variant="body2">{value}</Typography>;
   }
@@ -47,7 +47,7 @@ const RenderTxtField = ({ edit, value, label, onChange }: {label: string, edit: 
 const Location = ({ id, name, street, street2, zip, city, country, 
   allDevices, 
   devices,
-  responsibles, 
+  responsibles,
   allResponsibles,
   onChangeDevice,
   onChangeResponsible,
