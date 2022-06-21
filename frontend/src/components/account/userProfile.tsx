@@ -1,9 +1,11 @@
 import { LoadingButton } from '@mui/lab';
-import { Alert, Container, FormControl, Grid, MenuItem, Select, Typography } from '@mui/material';
+import { Alert, Container, FormControl, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ProfileDetails from '../common/user/profileDetails';
 import { IRegisterCompState } from './register/register';
 import useTheme from '@mui/material/styles/useTheme';
+import PageHeader from '../common/page/pageHeader';
+import { Box } from '@mui/system';
 
 export interface IUserProfileState{
   userEmail?: string,
@@ -23,6 +25,12 @@ type Props = {
   onUpdate: (data: IUserProfileState) => void,
 }
 
+interface IPasswordState {
+  existingPassword: string,
+  newPassword: string,
+  repeatNewPassword: string,
+}
+
 export default function UserProfile ({ successMessage, errorMessage, defaultProps, hideFields, onDelete, onUpdate }: Props ) {
 
   const theme = useTheme();
@@ -36,8 +44,15 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
     userPhone: defaultProps?.userPhone ?? '',
   });
 
+  const [passwordData, setPasswordData] = useState<IPasswordState>({ 
+    existingPassword: '',
+    newPassword: '',
+    repeatNewPassword: ''
+  });
+
   const [messageInternal, setMessageInternal] = useState<string>('');
   const [errorMessageInternal, setErrorMessageInternal] = useState<string>('');
+  const [errorFields, setErrorFields] = useState<Array<any>>([]);
     
   useEffect(() => {
     
@@ -50,20 +65,90 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
     return;
   };
 
+  const submitPasswordHandler = () => {
+
+    if (passwordData.newPassword !== passwordData.repeatNewPassword) {
+
+      setMessageInternal('Passwords doesn\'t match');
+      setErrorFields(['existingPassword', 'newPassword', 'repeatNewPassword']);
+      return;
+    }
+
+    onUpdate({ ...defaultProps, ...{ userPassword: passwordData.newPassword } });
+  };
+
   const errorText = errorMessage ?? messageInternal;
   const messageText = successMessage ?? errorMessageInternal;
 
   return <FormControl>
-    <Container maxWidth="sm">
-      <Typography variant="h4" gutterBottom component="div" align="left">
-        User profile
-      </Typography>
-      <Typography gutterBottom component="div" align="left">
-        Update your account details below.
-      </Typography>
-      {messageText ? <Grid item sx={{ margin: theme.spacing(2, 0) }}><Alert severity="success">{messageText }</Alert></Grid> : null}
+    <Container>
+      <PageHeader
+        title="My profile"
+        subTitle="Edit your Sign-in details"
+      />
+      <Typography variant="h6" gutterBottom component="div" align="left" color={theme.palette.primary.dark} sx={{ borderBottom: '1px solid ' + theme.palette.primary.dark }}>Details</Typography>
+      {messageText ? <Grid item sx={{ margin: theme.spacing(2, 0) }}><Alert severity="success">{ messageText }</Alert></Grid> : null}
       {errorText ? <Grid item><Alert severity="error">{errorText}</Alert></Grid> : null}
-      <ProfileDetails hideFields={hideFields ?? []} errorFields={[]} data={data} onSetData={setData} disabledProps={[]} />
+      <Box sx={{ padding: theme.spacing(3) }}>
+        <ProfileDetails hideFields={['userPassword', 'userPassword2', 'userExistingPassword']} errorFields={[]} data={data} onSetData={setData} disabledProps={[]} />
+
+        <Box sx={{ padding: theme.spacing(3, 0) }}>
+          <LoadingButton type="submit" size="small" loading={false} variant="contained" 
+            onClick={submitHandler}
+          >
+            UPDATE DETAILS
+          </LoadingButton>
+        </Box>
+      </Box>
+      <Typography variant="h6" gutterBottom component="div" align="left" color={theme.palette.primary.dark} sx={{ borderBottom: '1px solid ' + theme.palette.primary.dark }}>Password</Typography>
+      <Box sx={{ padding: theme.spacing(3) }}>
+        <Grid
+          container 
+          spacing={1}
+        >
+          
+          <Grid item md={6} sm={6} xs={12}>
+            <TextField 
+              size="small" 
+              label="Existing password" 
+              type="password" 
+              variant="outlined" 
+              fullWidth
+              value={ passwordData.existingPassword } 
+              onChange={(ev)=>{setData({ ...data, ...{ userPassword2: ev.target.value } });}}
+            />
+          </Grid>
+          <Grid item md={6} sm={6} xs={12}>
+            <TextField 
+              size="small" 
+              label="New password" 
+              type="password" 
+              variant="outlined" 
+              fullWidth
+              value={ passwordData.newPassword } 
+              onChange={(ev)=>{setData({ ...data, ...{ userPassword2: ev.target.value } });}}
+            />
+          </Grid>
+          <Grid item md={6} sm={6} xs={12}>
+            <TextField 
+              size="small" 
+              label="Repeat password" 
+              type="password" 
+              variant="outlined" 
+              fullWidth
+              value={ passwordData.repeatNewPassword } 
+              onChange={(ev)=>{setData({ ...data, ...{ userPassword2: ev.target.value } });}}
+            />
+            <Box sx={{ padding: theme.spacing(3, 0) }}>
+              <LoadingButton type="submit" size="small" loading={false} variant="contained" 
+                onClick={submitPasswordHandler}
+              >
+                CHANGE PASSWORD
+              </LoadingButton>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
       <Grid
         container 
         spacing={1}
@@ -75,21 +160,17 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
             direction="row"
             justifyContent="flex-end"
             alignItems="baseline"
-          >
-            <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
-              onClick={submitHandler}
-            >
-              UPDATE
-            </LoadingButton>
-          </Grid>
+          />
         </Grid>
       </Grid>
-      <hr />
-      <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
-        onClick={()=>{onDelete(data);}}
-      >
+      <Typography variant="h6" gutterBottom component="div" align="left" color={theme.palette.primary.dark} sx={{ borderBottom: '1px solid ' + theme.palette.primary.dark }} />
+      <Box sx={{ padding: theme.spacing(3) }}>
+        <LoadingButton color="warning" type="submit" size="small" loading={false} variant="contained" 
+          onClick={()=>{onDelete(data);}}
+        >
         Delete My Profile
-      </LoadingButton>
+        </LoadingButton>
+      </Box>
     </Container>
   </FormControl>;
 }

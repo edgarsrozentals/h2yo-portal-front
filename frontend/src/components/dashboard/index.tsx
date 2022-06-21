@@ -83,10 +83,10 @@ export default function Dashboard() {
             </Grid>
             <Grid item md={8} sm={8} xs={8} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
               <Typography variant="body1" component="div"><strong>Drinks dispensed</strong></Typography>
-              <Typography variant="h5" component="div" color={theme.palette.primary.main}><strong>13440L*</strong></Typography></Grid>
+              <Typography variant="h5" component="div" color={theme.palette.primary.main}><strong>362</strong></Typography></Grid>
           </Grid>
           <Grid item md={12} sm={12} xs={12}>
-            <Typography variant="body2" fontSize="0.8em" component="div">* Dispensed via h2yo devices</Typography>
+            <Typography variant="body2" fontSize="0.8em" component="div" />
           </Grid>
         </Grid>
         <Grid item md={4} sm={4} xs={12}>

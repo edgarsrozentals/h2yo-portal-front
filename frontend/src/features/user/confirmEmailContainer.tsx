@@ -12,7 +12,7 @@ export default function ConfirmEmailContainer () {
   const confirmEmail = async () => {
     const res = await get('email/confirm/' + token + '/' + email);
 
-    if (res.httpSatus === 200) {
+    if (res.status === 200) {
       setMessage('Email has been confirmed!');
       
     } else {

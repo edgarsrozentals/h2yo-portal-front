@@ -86,12 +86,6 @@ export default function AppBarComp () {
     <AppBar position="static" sx={{ backgroundColor: theme.palette.primary.dark }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-
-          <Box sx={{ display: 'flex', height: '17px', padding: theme.spacing(0, 4, 0, 4) }}>
-            <div style={{ borderRight: '1px solid #ffffff', padding: theme.spacing(0, 1, 0, 1) }}><H2yoLogo /></div>
-            <div style={{ padding: theme.spacing(0, 1, 0, 1) }}><FonteVivaLogo /></div>
-          </Box>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -131,14 +125,10 @@ export default function AppBarComp () {
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          >
-            <img src={'/h2yo_logo.webp'} className="App-logo" alt="logo" />
-          </Typography>
+          <Box sx={{ display: 'flex', height: '17px', padding: theme.spacing(0, 4, 0, 4) }}>
+            <div style={{ borderRight: '1px solid #ffffff', padding: theme.spacing(0, 1, 0, 1) }}><H2yoLogo /></div>
+            <div style={{ padding: theme.spacing(0, 1, 0, 1) }}><FonteVivaLogo /></div>
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button

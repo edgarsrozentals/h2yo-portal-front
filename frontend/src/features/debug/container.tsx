@@ -9,7 +9,7 @@ const DebugContainer = () => {
   const handleExecute = async (executeType: string, data: any) => {
 
     switch (executeType) {
-      case 'starterpack':
+      case 'starterpackinvoice':
         
         post('starterpack', data);
         break;

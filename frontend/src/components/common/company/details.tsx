@@ -11,14 +11,14 @@ type CompanyDetailsProps = {
 export default function CompanyDetails({ disabledProps, onSetData, data }: CompanyDetailsProps){
 
   return <Grid
-    container 
+    container
     spacing={1}
   >
     <Grid item md={6} sm={6} xs={12}>
-      <TextField 
+      <TextField
         size="small" 
         fullWidth
-        label="Company name" 
+        label="Company name"
         variant="outlined" 
         value={data.name} 
         disabled={disabledProps.includes('company')}
@@ -28,12 +28,34 @@ export default function CompanyDetails({ disabledProps, onSetData, data }: Compa
     <Grid item md={6} sm={6} xs={12}>
       <TextField 
         fullWidth
+        size="small"
+        label="VAT reg Nr."
+        variant="outlined"
+        value={data.vatNumber}
+        disabled={disabledProps.includes('vatNumber')}
+        onChange={(ev)=>{onSetData({ ...data, ...{ vatNumber: ev.target.value } });}}
+      />
+    </Grid>
+    <Grid item md={6} sm={6} xs={12}>
+      <TextField 
+        fullWidth
         size="small" 
-        label="Country / Region" 
+        label="Address Line 1"
         variant="outlined" 
-        value={data.country} 
-        disabled={disabledProps.includes('country')}
-        onChange={(ev)=>{onSetData({ ...data, ...{ country: ev.target.value } });}}
+        value={data.street} 
+        disabled={disabledProps.includes('street')}
+        onChange={(ev)=>{onSetData({ ...data, ...{ street: ev.target.value } });}}
+      />
+    </Grid>
+    <Grid item md={6} sm={6} xs={12}>
+      <TextField 
+        fullWidth
+        size="small" 
+        label="Address Line 2"
+        variant="outlined" 
+        value={data.street2} 
+        disabled={disabledProps.includes('street2')}
+        onChange={(ev)=>{onSetData({ ...data, ...{ street2: ev.target.value } });}}
       />
     </Grid>
     <Grid item md={6} sm={6} xs={12}>
@@ -51,11 +73,11 @@ export default function CompanyDetails({ disabledProps, onSetData, data }: Compa
       <TextField 
         fullWidth
         size="small" 
-        label="Street" 
+        label="Country / Region" 
         variant="outlined" 
-        value={data.street} 
-        disabled={disabledProps.includes('street')}
-        onChange={(ev)=>{onSetData({ ...data, ...{ street: ev.target.value } });}}
+        value={data.country} 
+        disabled={disabledProps.includes('country')}
+        onChange={(ev)=>{onSetData({ ...data, ...{ country: ev.target.value } });}}
       />
     </Grid>
     <Grid item md={6} sm={6} xs={12}>
@@ -66,20 +88,8 @@ export default function CompanyDetails({ disabledProps, onSetData, data }: Compa
         variant="outlined" 
         value={data.zip} 
         disabled={disabledProps.includes('zip')}
-        onChange={(ev)=>{onSetData({ ...data, ...{ vatNumber: ev.target.value } });}}
+        onChange={(ev)=>{onSetData({ ...data, ...{ zip: ev.target.value } });}}
       />
     </Grid>
-    <Grid item md={6} sm={6} xs={12}>
-      <TextField 
-        fullWidth
-        size="small"
-        label="vatNumber"
-        variant="outlined"
-        value={data.vatNumber}
-        disabled={disabledProps.includes('vatNumber')}
-        onChange={(ev)=>{onSetData({ ...data, ...{ vatNumber: ev.target.value } });}}
-      />
-    </Grid>
-
   </Grid>;
 }

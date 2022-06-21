@@ -16,7 +16,7 @@ export default function PublicPage ({ children }: Props) {
   return <>
     <Box sx={{ height: '100vh', display: 'flex', flexFlow: 'column' }}>
       <header style={{ backgroundColor: theme.palette.primary.dark, height: '80px' }}>
-        <Box >
+        <Box>
           {/*<img src={'/h2yo_logo.webp'} className="App-logo" alt="logo" />
     <Typography variant="h4" gutterBottom component="div" align="center">
       CUSTOMER PORTAL
@@ -40,7 +40,7 @@ export default function PublicPage ({ children }: Props) {
           }} />
         </Grid>
       </Grid>
-      <footer >
+      <footer>
         <Box sx={{ 
           display: 'flex', 
           justifyContent: 'center', 

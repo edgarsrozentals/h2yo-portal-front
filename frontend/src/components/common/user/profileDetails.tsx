@@ -12,7 +12,7 @@ type AccountDetailsProps = {
 
 export default function ProfileDetails ({ data, hideFields, disabledProps, onSetData, errorFields }: AccountDetailsProps) {
 
-  return <Grid 
+  return <Grid
     container 
     spacing={1}
   >
@@ -77,7 +77,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         onChange={(ev)=>{onSetData({ ...data, ...{ userPassword: ev.target.value } });}}
       /> 
     </Grid>: null}
-    <Grid item md={6} sm={6} xs={12}>
+    {!hideFields.includes('userPassword') ? <Grid item md={6} sm={6} xs={12}>
       <TextField 
         size="small" 
         label="Password" 
@@ -89,8 +89,8 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         disabled={ disabledProps.includes('userPassword') }
         onChange={(ev)=>{onSetData({ ...data, ...{ userPassword: ev.target.value } });}}
       />
-    </Grid>
-    <Grid item md={6} sm={6} xs={12}>
+    </Grid> : null}
+    {!hideFields.includes('userPassword2') ? <Grid item md={6} sm={6} xs={12}>
       <TextField 
         size="small" 
         label="Confirm password" 
@@ -102,6 +102,6 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         disabled={ disabledProps.includes('userPassword2') }
         onChange={(ev)=>{onSetData({ ...data, ...{ userPassword2: ev.target.value } });}}
       />
-    </Grid>
+    </Grid> : null}
   </Grid>;
 }

@@ -1,7 +1,9 @@
 import { LoadingButton } from '@mui/lab';
-import { Alert, Container, FormControl, Grid, MenuItem, Select, Typography } from '@mui/material';
+import { Alert, Box, Container, FormControl, Grid, MenuItem, Select, ThemeProvider, Typography, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import CompanyBilling from '../common/company/billing';
 import CompanyDetails from '../common/company/details';
+import PageHeader from '../common/page/pageHeader';
 import { IRegisterCompState } from './register/register';
 
 export interface IAccountProps {
@@ -36,6 +38,8 @@ export default function CompanyAccount ({ defaultProps, onUpdate, successMessage
     country: defaultProps?.country ?? '',
     zip: defaultProps?.zip ?? '',
   });
+
+  const theme = useTheme();
     
   useEffect(() => {
     
@@ -47,20 +51,19 @@ export default function CompanyAccount ({ defaultProps, onUpdate, successMessage
     return;
   };
 
-  return <FormControl>
-    <Container maxWidth="sm">
-      <Typography variant="h4" gutterBottom component="div" align="left">
-        Account
-      </Typography>
-      {successMessage ? <Grid item><Alert severity="success">{successMessage}</Alert></Grid> : null}
-      {errorMessage ? <Grid item><Alert severity="error">{errorMessage}</Alert></Grid> : null}
-      <Typography gutterBottom component="div" align="left">
-        Update your account details below.
-      </Typography>
-      <Typography variant="h6" gutterBottom component="div" align="left">Company details</Typography>
-      <hr />
-      <CompanyDetails data={data} onSetData={setData} disabledProps={[]} />
-      {/*<Typography variant="h6" gutterBottom component="div" align="left">Payment Method</Typography>
+  return <Container>
+    <PageHeader
+      title="My company"
+      subTitle="Edit your company details & billing information"
+    />
+    <Typography gutterBottom component="div" align="left" />
+    {successMessage ? <Grid item><Alert severity="success">{successMessage}</Alert></Grid> : null}
+    {errorMessage ? <Grid item><Alert severity="error">{errorMessage}</Alert></Grid> : null}
+    <Typography variant="body1" gutterBottom component="div" align="left" sx={{ borderBottom: '1px solid ' + theme.palette.primary.dark }}>Billing information</Typography>
+    <Box sx={{ padding: theme.spacing(3) }}><CompanyDetails data={data} onSetData={setData} disabledProps={[]} /></Box>
+    <Typography variant="body1" gutterBottom component="div" align="left" sx={{ borderBottom: '1px solid ' + theme.palette.primary.dark }}>Billing contact</Typography>
+    <Box sx={{ padding: theme.spacing(3) }}><CompanyBilling data={data} onSetData={setData} disabledProps={[]} /></Box>
+    {/*<Typography variant="h6" gutterBottom component="div" align="left">Payment Method</Typography>
       <hr />
       <Grid
         container 
@@ -80,8 +83,9 @@ export default function CompanyAccount ({ defaultProps, onUpdate, successMessage
           </Select>
         </Grid>
 </Grid>*/}
+    <Box sx={{ padding: theme.spacing(0, 3) }}>
       <Grid
-        container 
+        container
         spacing={1}
       >
         <Grid item md={8} sm={8} xs={12} />
@@ -95,11 +99,11 @@ export default function CompanyAccount ({ defaultProps, onUpdate, successMessage
             <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
               onClick={submitHandler}
             >
-              UPDATE
+            UPDATE
             </LoadingButton>
           </Grid>
         </Grid>
       </Grid>
-    </Container>
-  </FormControl>;
+    </Box>
+  </Container>;
 }
