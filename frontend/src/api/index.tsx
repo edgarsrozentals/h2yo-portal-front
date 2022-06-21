@@ -34,6 +34,11 @@ export const get = (url = '') => {
     },
   }).then(async (resp) => {
     
+    if (resp.status === 401) {
+      window.location.href = '/';
+      return;
+    }
+
     const data = await resp.json();
 
     return { ...data, ...{ httpSatus: resp.status, status: resp.status, data: data } };
