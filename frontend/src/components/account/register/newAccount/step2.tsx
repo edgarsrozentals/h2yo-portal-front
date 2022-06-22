@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Checkbox, FormControlLabel, FormGroup, Grid, Typography } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, FormGroup, Grid, Typography, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { on } from 'stream';
@@ -11,6 +11,8 @@ export default function RegisterStep2 (props: any) {
 
   const navigate = useNavigate();
   const [errorFields, setErrorFields] = useState<Array<string>>([]);
+
+  const theme = useTheme();
 
   const handleRegister = (ev: any) => {
 
@@ -56,26 +58,24 @@ export default function RegisterStep2 (props: any) {
   };
 
   return <>
-    <Typography variant="h4" gutterBottom component="div" align="left">
-        Account owner
-    </Typography>
     <Typography variant="h6" gutterBottom component="div" align="left">Your details</Typography>
     <hr />
     <UserDetails hideFields={['userExistingPassword']} errorFields={errorFields} {...props} />
     <Grid
       container 
-      spacing={1}
+      sx={{ margin: theme.spacing(2, 0) }}
     >
       <Grid item md={8} sm={8} xs={12}>
         <FormGroup>
           <FormControlLabel control={<Checkbox defaultChecked />} label="I agree to Terms and Conditions" />
         </FormGroup>
       </Grid>
-      <Grid item md={4} sm={4} xs={12}>
-        <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
+      <Grid item md={4} sm={4} xs={12} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+
+        <LoadingButton type="submit" size="small" loading={false} variant="contained" 
           onClick={handleRegister}
         >
-          REGISTER
+          Next
         </LoadingButton>
       </Grid>
     </Grid>
