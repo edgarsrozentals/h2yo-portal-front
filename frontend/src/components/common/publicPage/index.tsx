@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import { Container, Grid } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import { useTheme } from '@mui/system';
+import PageFooter from './footer';
 
 type Props = {
   children: JSX.Element
@@ -23,7 +24,6 @@ export default function PublicPage ({ children }: Props) {
     </Typography>*/}
         </Box>
       </header>
-
       <Grid
         container
         sx={{ flexGrow: 1, height: '100%' }}
@@ -40,19 +40,7 @@ export default function PublicPage ({ children }: Props) {
           }} />
         </Grid>
       </Grid>
-      <footer>
-        <Box sx={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          flexDirection: 'column',
-          backgroundColor: theme.palette.primary.dark, minHeight: '110px' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Typography textAlign="center" variant="h6" color="common.white" maxWidth={440}>
-              Essential vitamins & natural flavors with your daily workplace water
-            </Typography>
-          </Box>
-        </Box>
-      </footer>
+      <PageFooter />
     </Box>
   </>
   ;

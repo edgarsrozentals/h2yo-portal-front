@@ -24,6 +24,9 @@ import ConfirmEmailContainer from '../features/user/confirmEmailContainer';
 import LocationsContainer from '../features/locations/container';
 import OrdersContainer from '../features/orders/container';
 import TeamContainer from '../features/team/container';
+import PageFooter from './common/publicPage/footer';
+import CustomerSupport from './customerSupport';
+import Page from './common/page';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -45,15 +48,16 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/debug" element={<><AppBarComp /><DebugContainer /></>} />
-        <Route path="/home" element={<><AppBarComp /><Dashboard /></>} />
-        <Route path="/locations" element={<><AppBarComp /><LocationsContainer /></>} />
-        <Route path="/cartriges" element={<><AppBarComp /><CartrigesContainer /></>} />
-        <Route path="/orders" element={<><AppBarComp /><OrdersContainer /></>} />
-        <Route path="/services" element={<><AppBarComp />Services content</>} />
-        <Route path="/profile" element={<><AppBarComp /><UserProfileContainer /></>} />
-        {permissions.indexOf('MANAGE_TEAM') > -1 ? <Route path="/team-management" element={<><AppBarComp /><TeamContainer /></>} /> : null}
-        <Route path="/company-account" element={<><AppBarComp /><CompanyAccountContainer /></>} />
+        <Route path="/debug" element={<Page><DebugContainer /></Page>} />
+        <Route path="/home" element={<Page><Dashboard /></Page>} />
+        <Route path="/locations" element={<Page><LocationsContainer /></Page>} />
+        <Route path="/cartriges" element={<Page><CartrigesContainer /></Page>} />
+        <Route path="/customer-support" element={<Page><CustomerSupport /></Page>} />
+        <Route path="/orders" element={<Page><OrdersContainer /></Page>} />
+        <Route path="/services" element={<Page><Box>Services content</Box></Page>} />
+        <Route path="/profile" element={<Page><UserProfileContainer /></Page>} />
+        {permissions.indexOf('MANAGE_TEAM') > -1 ? <Route path="/team-management" element={<Page><TeamContainer /></Page>} /> : null}
+        <Route path="/company-account" element={<Page><CompanyAccountContainer /></Page>} />
         <Route path="/resetpassword" element={<>
           <PublicPage><PasswordResetEmailContainer /></PublicPage>
         </>} />
