@@ -44,9 +44,9 @@ const dashboardItems = [
   { title: 'Locations', SectionIcon: LocationOnIcon, description: 'See your location cartridges are delivered to', url: '/locations', backgroundColor: '#c060f01a',color: '#C060F0' },
   { title: 'Orders', SectionIcon: AddchartOutlined, description: 'View your cartridge invoices', url: '/orders', color: '#F0C000', backgroundColor: '#f0c0001a' },
   { title: 'Cartriges', SectionIcon: BubbleChartRounded, description: 'Learn about your cartridges', url: '/cartriges', backgroundColor: '#ff77771a', color: '#FF7777' },
-  { title: 'My company', SectionIcon: SettingsRounded, description: 'Billing information & account details', url: '/account', backgroundColor: '#6ec3b91a', color: '#6EC3B9' },
+  { title: 'My company', SectionIcon: SettingsRounded, description: 'Billing information & account details', url: '/company-account', backgroundColor: '#6ec3b91a', color: '#6EC3B9' },
   { title: 'My team', SectionIcon: SupervisedUserCircleRounded, description: 'Manage team roles & invite new team members', backgroundColor: '#6b9dff1a', url: '/team-management', color: '#6B9DFF', permission: 'MANAGE_TEAM' },
-  { title: 'My profile', SectionIcon: AccountCircleRounded, description: 'Manage your Sign in details', url: '/account', backgroundColor: '#bac7231a', color: '#BAC723' }
+  { title: 'My profile', SectionIcon: AccountCircleRounded, description: 'Manage your Sign in details', url: '/profile', backgroundColor: '#bac7231a', color: '#BAC723' }
 ];
 
 export default function Dashboard() {
@@ -143,7 +143,7 @@ export default function Dashboard() {
           <Grid item md={8} sm={8} xs={12}>
             <Typography variant="h4" component="div">Let us know!</Typography>
             <Typography variant="body1" component="div">Reach out if there are any quations or need for support!</Typography>
-            <Button size="small" sx={{ margin: theme.spacing(2, 0), padding: theme.spacing(1, 6) }} variant="contained" onClick={()=>{navigate('/contacts');}}>
+            <Button size="small" sx={{ margin: theme.spacing(2, 0), padding: theme.spacing(1, 6) }} variant="contained" onClick={()=>{navigate('/customer-support');}}>
               CONTACT US
             </Button>
           </Grid>

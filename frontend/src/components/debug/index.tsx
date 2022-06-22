@@ -89,6 +89,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
         <TextField 
           sx={{ margin: 1 }}
           size="small" 
+          type="number"
           label="Company ID" 
           variant="outlined" 
           value={repeatData.companyId} 
@@ -97,6 +98,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
         <TextField 
           sx={{ margin: 1 }}
           size="small" 
+          type="number"
           label="Location ID" 
           variant="outlined" 
           value={repeatData.locationId} 
@@ -126,6 +128,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
         <TextField 
           size="small" 
           sx={{ margin: 1 }}
+          type="number"
           label="Company ID" 
           variant="outlined" 
           value={accumParams.companyId} 
@@ -135,6 +138,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
           size="small" 
           sx={{ margin: 1 }}
           label="Location ID" 
+          type="number"
           variant="outlined" 
           value={accumParams.locationId} 
           onChange={(ev)=>{setAccumParams({ ...accumParams, ...{ locationId: parseInt(ev.target.value) } });}}
