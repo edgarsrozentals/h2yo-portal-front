@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import CompanyBilling from '../common/company/billing';
 import CompanyDetails from '../common/company/details';
 import PageHeader from '../common/page/pageHeader';
-import { IRegisterCompState } from './register/register';
+import { IRegisterCompState } from './register/IRegisterCompState';
 
 export interface IAccountProps {
   name?: string,

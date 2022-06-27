@@ -7,10 +7,11 @@ import { useTheme } from '@mui/system';
 import PageFooter from './footer';
 
 type Props = {
-  children: JSX.Element
+  children: JSX.Element,
+  includeBanner?: boolean
 }
 
-export default function PublicPage ({ children }: Props) {
+export default function PublicPage ({ children, includeBanner }: Props = { children: (<></>), includeBanner: true }) {
 
   const theme = useTheme();
 
@@ -28,17 +29,17 @@ export default function PublicPage ({ children }: Props) {
         container
         sx={{ flexGrow: 1, height: '100%' }}
       >
-        <Grid md={6} xs={12}>
+        <Grid md={includeBanner ? 6 : 12} xs={12}>
           <Box sx={{ display: 'flex', justifyContent: 'center', padding: theme.spacing(6) }}>{children}</Box>
         </Grid>
-        <Grid md={6} xs={12}>
+        {includeBanner ? <Grid md={6} xs={12}>
           <div style={{ 
             backgroundImage: 'url("/banner.webp")', 
             backgroundSize: 'cover',
             width: '100%', 
             height: '100%' 
           }} />
-        </Grid>
+        </Grid> : null}
       </Grid>
       <PageFooter />
     </Box>

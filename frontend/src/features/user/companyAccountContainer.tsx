@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { post, get, put } from '../../api';
 import Register from '../../components/account/register/company';
-import { IRegisterCompState } from '../../components/account/register/register';
+import { IRegisterCompState } from '../../components/account/register/IRegisterCompState';
 
 import {
   BrowserRouter as Router,

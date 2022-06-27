@@ -1,0 +1,18 @@
+export interface IRegisterCompState {
+    userEmail: string | undefined,
+    userPassword: string | undefined,
+    userFirstName: string | undefined,
+    userLastName: string | undefined,
+    userPhone: string | undefined,
+    company: string | undefined,
+    legalAddress: string | undefined,
+    VATNumber: string | undefined,
+    locationStreet: string | undefined,
+    locationBuilding: string | undefined,
+    locationApt: string | undefined,
+    locationCity: string | undefined,
+    locationCountry: string | undefined,
+    locationZIP: string | undefined,
+    city: string | undefined,
+    country: string | undefined,
+  }

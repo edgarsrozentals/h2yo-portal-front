@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { post, get } from '../../api';
 import Register from '../../components/account/register/company';
-import { IRegisterCompState } from '../../components/account/register/register';
+import { IRegisterCompState } from '../../components/account/register/IRegisterCompState';
 
 import {
   BrowserRouter as Router,
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { addData, addOdooData, ContactRole } from '../user/userSlice';
+import { addData, addOdooData, ContactRole } from './userSlice';
 import { useDispatch, useStore } from 'react-redux';
 import { Alert } from '@mui/material';
 
-const RegisterContainer = () => {
+const RegisterCompanyContainer = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -87,4 +87,4 @@ const RegisterContainer = () => {
   </>);
 };
 
-export default RegisterContainer;
+export default RegisterCompanyContainer;

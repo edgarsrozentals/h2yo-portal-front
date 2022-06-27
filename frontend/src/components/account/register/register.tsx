@@ -12,25 +12,7 @@ import StepLabel from '@mui/material/StepLabel';
 import RegisterStep1 from './newAccount/step1';
 import RegisterStep2 from './newAccount/step2';
 import RegisterStep3 from './newAccount/step3';
-
-export interface IRegisterCompState {
-  userEmail: string | undefined,
-  userPassword: string | undefined,
-  userFirstName: string | undefined,
-  userLastName: string | undefined,
-  userPhone: string | undefined,
-  company: string | undefined,
-  legalAddress: string | undefined,
-  VATNumber: string | undefined,
-  locationStreet: string | undefined,
-  locationBuilding: string | undefined,
-  locationApt: string | undefined,
-  locationCity: string | undefined,
-  locationCountry: string | undefined,
-  locationZIP: string | undefined,
-  city: string | undefined,
-  country: string | undefined,
-}
+import { IRegisterCompState } from './IRegisterCompState';
 
 const steps = [
   'Welcome',

@@ -1,9 +1,10 @@
-import { Alert, Box, Button, Container, Typography, useTheme } from '@mui/material';
+import { Alert, Box, Button, Container, Dialog, DialogTitle, Typography, useTheme } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MultiSelectChip from '../common/input/multiSelectChip';
 import TableCP, { RowData } from '../common/table';
 import { SelectType, UserData } from '../common/types';
+import InviteDialog from './inviteDialog';
 import TeamTable, { TeamTableProps } from './table';
 
 interface TeamProps extends TeamTableProps {
@@ -12,6 +13,8 @@ interface TeamProps extends TeamTableProps {
 
 export default function Team(props: TeamProps) {
     
+  const [inviteDialog, setInviteDialog] = useState(false);
+
   const { error } = props;
 
   const theme = useTheme();
@@ -26,7 +29,8 @@ export default function Team(props: TeamProps) {
       <TeamTable {...props} />
     </Box>
     <Box sx={{ padding: theme.spacing(4, 0, 0, 0) }}>
-      <Button size="small" sx={{ padding: theme.spacing(0.5, 6, 0.25, 6) }} variant="contained" onClick={()=>{ navigate('/invite'); }}>Invite new member</Button>
+      <Button size="small" sx={{ padding: theme.spacing(0.5, 6, 0.25, 6) }} variant="contained" onClick={()=>{ setInviteDialog(true); }}>Invite new member</Button>
     </Box>
+    <InviteDialog open={inviteDialog} onClose={()=>{setInviteDialog(false);}} />
   </Container>;
 }

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { post, get, put } from '../../api';
-import Register from '../../components/account/register/company';
-import { IRegisterCompState } from '../../components/account/register/register';
 
 import {
   BrowserRouter as Router,
@@ -9,9 +7,6 @@ import {
 } from 'react-router-dom';
 import { addData, addOdooData, selectOdooData, selectData } from './userSlice';
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import { Alert } from '@mui/material';
-import ResetPasswordEmail from '../../components/account/resetPassword/email';
-import { IResetEmailCompState } from '../../components/account/resetPassword/email';
 import Account, { IUserProfileState } from '../../components/account/userProfile';
 import UserProfile from '../../components/account/userProfile';
 

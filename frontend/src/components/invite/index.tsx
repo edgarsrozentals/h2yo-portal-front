@@ -40,6 +40,7 @@ export default function Invite (
   });
   const [error, setError] = useState<string>('');
 
+  
   const submitHandler = (event: any) => {
     
     event.preventDefault();
@@ -63,7 +64,15 @@ export default function Invite (
     onInvite(data);
   };
 
+  useEffect(()=>{
+    if (inviteRoles && inviteRoles.length > 0) {
+      setData({ ...data, ...{ userRole: inviteRoles[0].role } });
+    }
+
+  }, [inviteRoles]);
+
   useEffect(() => {
+
     const listener = (event: any) => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
         
@@ -107,7 +116,9 @@ export default function Invite (
           size="small"
           labelId="account-owner-select-label"
           value={data.userRole}
+          fullWidth
           label="Role"
+          sx={{ width: '400px' }}
           onChange={(ev)=>setData({ ...data, ...{ userRole: ev.target.value as ContactRole } })}
         >
           {inviteRoles.map((elem: IInviteRole, i)=>(<MenuItem key={i} value={elem.role}>{elem.title}</MenuItem>))}
@@ -119,15 +130,18 @@ export default function Invite (
           label="Email" 
           variant="outlined" 
           value={data.email} 
+          sx={{ width: '400px' }}
           onChange={(ev)=>{setData({ ...data, ...{ email: ev.target.value } });}}
         />
       </Grid>
-      <Grid item>
-        <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
-          onClick={submitHandler}
-        >
-          Invite
-        </LoadingButton>
+      <Grid item md={12} sm={12} xs={12} sx={{ width: '100%' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'left' }}>
+          <LoadingButton sx={{ padding: (theme) => theme.spacing(0.5, 2, 0.25, 2) }} type="submit" size="small" loading={false} variant="contained" 
+            onClick={submitHandler}
+          >
+          Send invitation
+          </LoadingButton>
+        </Box>
       </Grid>
     </Grid>
   </>;

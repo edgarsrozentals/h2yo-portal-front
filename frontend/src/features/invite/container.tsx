@@ -56,22 +56,24 @@ const InviteContainer = () => {
     let inviteUserRole;
     let parentId = 0;
     switch (role) {
-      case ContactRole.ADMIN:
+      case ContactRole.ADMIN: // admin invites hod level user
         inviteUserRole = ContactRole.ACCOUNT_OWNER_MNG;
         parentId = accountOwnerOdoo;
         break;
       case ContactRole.ACCOUNT_OWNER_MNG:
-      case ContactRole.ACCOUNT_OWNER_USER:
+      case ContactRole.ACCOUNT_OWNER_USER: //hod level user invites company
         inviteUserRole = ContactRole.CUSTOMER_USER;
         accountOwnerOdoo = odooData.parent_id[0];
         break;
       case ContactRole.CUSTOMER_USER:
         inviteUserRole = userRole;
-        accountOwnerOdoo = odooData.parent_id[0];
+        accountOwnerOdoo = odooData.x_studio_parent_contact[0];
+        parentId = odooData.parent_id[0];
         break;
       case ContactRole.LOCATION_USER:
         inviteUserRole = ContactRole.LOCATION_USER;
-        accountOwnerOdoo = odooData.parent_id[0];
+        accountOwnerOdoo = odooData.x_studio_parent_contact[0];
+        parentId = odooData.parent_id[0];
         break;
     }
 

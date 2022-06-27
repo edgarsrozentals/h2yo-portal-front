@@ -2,7 +2,7 @@ import { LoadingButton } from '@mui/lab';
 import { Alert, Container, FormControl, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ProfileDetails from '../common/user/profileDetails';
-import { IRegisterCompState } from './register/register';
+import { IRegisterCompState } from './register/IRegisterCompState';
 import useTheme from '@mui/material/styles/useTheme';
 import PageHeader from '../common/page/pageHeader';
 import { Box } from '@mui/system';

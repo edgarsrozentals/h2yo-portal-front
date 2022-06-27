@@ -9,7 +9,7 @@ import Shop from '../components/shop';
 import MenuTabs from '../components/menu';
 import { useSelector } from 'react-redux';
 import { getPermissions, selectOdooData } from '../features/user/userSlice';
-import RegisterContainer from '../features/user/registerContainer';
+import RegisterContainer from '../features/user/registerCompanyContainer';
 import InviteContainer from '../features/invite/container';
 import PasswordResetEmailContainer from '../features/user/passwordResetEmailContainer';
 import PasswordResetPasswordContainer from '../features/user/passwordResetPasswordContainer';
@@ -27,6 +27,7 @@ import TeamContainer from '../features/team/container';
 import PageFooter from './common/publicPage/footer';
 import CustomerSupport from './customerSupport';
 import Page from './common/page';
+import RegisterUserContainer from '../features/user/registerUserContainer';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -69,7 +70,10 @@ function App() {
         </>} />
         <Route path="/newpassword" element={<></>} />
         <Route path="/invite/:step/accept" element={<>
-          <PublicPage><RegisterContainer /></PublicPage>
+          <PublicPage includeBanner={false}><RegisterContainer /></PublicPage>
+        </>} />
+        <Route path="/user-invite/accept" element={<>
+          <PublicPage includeBanner={false}><RegisterUserContainer /></PublicPage>
         </>} />
         <Route path="/invite" element={<><AppBarComp /><InviteContainer /></>} />
         <Route path="/" element={
