@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { addData, addOdooData, ContactRole, selectOdooData } from '../user/userSlice';
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import Invite, { IInviteCompState, IInviteRole } from '../../components/invite';
+import Invite, { IInviteCompState, IInviteRole } from '../../components/invite/form';
 
 const InviteContainer = () => {
 

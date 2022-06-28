@@ -52,6 +52,8 @@ const pages = [
   [MenuTypes.LOCATIONS, 'Locations'],
   [MenuTypes.CARTRIGES, 'Cartriges'],
   [MenuTypes.ORDERS, 'Orders'],
+  [MenuTypes.INVITE, 'Invite', 'INVITE_COMPANY'],
+  [MenuTypes.INVITE, 'Clients', 'VIEW_COMPANIES'],
 ];
 
 export default function AppBarComp () {
@@ -119,7 +121,14 @@ export default function AppBarComp () {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {pages.filter(setting=>{
+                if (typeof setting[2] === 'undefined') {
+                  return true;
+                }
+
+                return permissions.includes(setting[2]);
+
+              }).map((page) => (
                 <MenuItem key={page[0]} onClick={() => {
                   setPageHandler(page[0] as MenuTypes); 
                   handleCloseNavMenu();
@@ -134,7 +143,14 @@ export default function AppBarComp () {
             <div style={{ padding: theme.spacing(0, 1, 0, 1) }}><FonteVivaLogo /></div>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.filter(setting=>{
+              if (typeof setting[2] === 'undefined') {
+                return true;
+              }
+
+              return permissions.includes(setting[2]);
+
+            }).map((page) => (
               <Button
                 key={page[0]}
                 onClick={() => {

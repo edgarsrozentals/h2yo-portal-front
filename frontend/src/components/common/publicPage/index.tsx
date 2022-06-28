@@ -11,7 +11,11 @@ type Props = {
   includeBanner?: boolean
 }
 
-export default function PublicPage ({ children, includeBanner }: Props = { children: (<></>), includeBanner: true }) {
+export default function PublicPage ({ children, includeBanner }: Props) {
+
+  if (includeBanner === undefined) {
+    includeBanner = true;
+  }
 
   const theme = useTheme();
 

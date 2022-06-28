@@ -10,7 +10,7 @@ import MenuTabs from '../components/menu';
 import { useSelector } from 'react-redux';
 import { getPermissions, selectOdooData } from '../features/user/userSlice';
 import RegisterContainer from '../features/user/registerCompanyContainer';
-import InviteContainer from '../features/invite/container';
+import Invite from './invite/index';
 import PasswordResetEmailContainer from '../features/user/passwordResetEmailContainer';
 import PasswordResetPasswordContainer from '../features/user/passwordResetPasswordContainer';
 import PublicPage from './common/publicPage';
@@ -75,7 +75,7 @@ function App() {
         <Route path="/user-invite/accept" element={<>
           <PublicPage includeBanner={false}><RegisterUserContainer /></PublicPage>
         </>} />
-        <Route path="/invite" element={<><AppBarComp /><InviteContainer /></>} />
+        <Route path="/invite" element={<><AppBarComp /><Invite /></>} />
         <Route path="/" element={
           <PublicPage><LoginContainer /></PublicPage>
         } />
