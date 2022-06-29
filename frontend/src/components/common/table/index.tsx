@@ -31,7 +31,7 @@ export interface RowData {
 }
 
 
-const StyledTableRow = styled(TableRow)(() => {
+export const StyledTableRow = styled(TableRow)(() => {
 
   const theme = useTheme();
 

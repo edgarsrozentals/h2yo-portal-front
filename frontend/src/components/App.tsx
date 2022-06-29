@@ -28,6 +28,7 @@ import PageFooter from './common/publicPage/footer';
 import CustomerSupport from './customerSupport';
 import Page from './common/page';
 import RegisterUserContainer from '../features/user/registerUserContainer';
+import ClientCompaniesContainer from '../features/clientCompanies/container';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -59,6 +60,7 @@ function App() {
         <Route path="/profile" element={<Page><UserProfileContainer /></Page>} />
         {permissions.indexOf('MANAGE_TEAM') > -1 ? <Route path="/team-management" element={<Page><TeamContainer /></Page>} /> : null}
         <Route path="/company-account" element={<Page><CompanyAccountContainer /></Page>} />
+        <Route path="/clients" element={<Page><ClientCompaniesContainer /></Page>} />
         <Route path="/resetpassword" element={<>
           <PublicPage><PasswordResetEmailContainer /></PublicPage>
         </>} />

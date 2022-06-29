@@ -41,8 +41,8 @@ const RenderCard = (props: {title: string, description: string, url: string, col
 };
 
 const dashboardItems = [
-  { title: 'Locations', SectionIcon: LocationOnIcon, description: 'See your location cartridges are delivered to', url: '/locations', backgroundColor: '#c060f01a',color: '#C060F0' },
-  { title: 'Orders', SectionIcon: AddchartOutlined, description: 'View your cartridge invoices', url: '/orders', color: '#F0C000', backgroundColor: '#f0c0001a' },
+  { title: 'Locations', SectionIcon: LocationOnIcon, description: 'See your location cartridges are delivered to', url: '/locations', backgroundColor: '#c060f01a',color: '#C060F0', permission: 'VIEW_LOCATIONS' },
+  { title: 'Orders', SectionIcon: AddchartOutlined, description: 'View your cartridge invoices', url: '/orders', color: '#F0C000', backgroundColor: '#f0c0001a', permission: 'VIEW_CARTRIDGE_ORDERS' },
   { title: 'Cartriges', SectionIcon: BubbleChartRounded, description: 'Learn about your cartridges', url: '/cartriges', backgroundColor: '#ff77771a', color: '#FF7777' },
   { title: 'My company', SectionIcon: SettingsRounded, description: 'Billing information & account details', url: '/company-account', backgroundColor: '#6ec3b91a', color: '#6EC3B9' },
   { title: 'My team', SectionIcon: SupervisedUserCircleRounded, description: 'Manage team roles & invite new team members', backgroundColor: '#6b9dff1a', url: '/team-management', color: '#6B9DFF', permission: 'MANAGE_TEAM' },

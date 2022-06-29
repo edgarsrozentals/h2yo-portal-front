@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { get, put, remove } from '../../api';
 import { SelectType, UserData } from '../../components/common/types';
 import Team from '../../components/team';
 import TeamTable from '../../components/team/table';
+import { getPermissions } from '../user/userSlice';
 
 export default function TeamContainer () {
 
@@ -11,6 +13,7 @@ export default function TeamContainer () {
   const [locations, setLocations] = useState<Array<SelectType>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState('');
+  const permissions = useSelector(getPermissions);
 
   const loadUsers = async() => {
 
@@ -88,5 +91,6 @@ export default function TeamContainer () {
     onSelectLocation={locationSelectHandler}
     onSelectRole={roleSelectHandler}
     onDeleteMember={deleteMemberHandler}
+    showLocations={permissions.includes('MANAGE_TEAM_LOCATIONS')}
   />;
 }

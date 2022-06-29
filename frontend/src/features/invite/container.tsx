@@ -10,7 +10,7 @@ import { addData, addOdooData, ContactRole, selectOdooData } from '../user/userS
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import Invite, { IInviteCompState, IInviteRole } from '../../components/invite/form';
 
-const InviteContainer = () => {
+const InviteContainer = ({ inviteCompany }: {inviteCompany?: boolean} = { inviteCompany: false }) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,8 +21,6 @@ const InviteContainer = () => {
   const [inviteRoles, setInviteRoles] = useState<IInviteRole[]>([]);
 
   const odooData: any = useSelector(selectOdooData);
-  
-  
 
   useEffect(() => {
 
@@ -30,6 +28,11 @@ const InviteContainer = () => {
       setInviteRoles([
         { role: ContactRole.CUSTOMER_USER, title: 'Account Owner Manager' },
         { role: ContactRole.LOCATION_USER, title: 'Location Manager' },
+      ]);
+    } else if (odooData.x_studio_contact_type === ContactRole.ACCOUNT_OWNER_MNG && !inviteCompany) {
+      setInviteRoles([
+        { role: ContactRole.ACCOUNT_OWNER_MNG, title: 'Account Owner Manager' },
+        { role: ContactRole.ACCOUNT_OWNER_USER, title: 'Account Owner User' },
       ]);
     }
 
@@ -62,8 +65,16 @@ const InviteContainer = () => {
         break;
       case ContactRole.ACCOUNT_OWNER_MNG:
       case ContactRole.ACCOUNT_OWNER_USER: //hod level user invites company
-        inviteUserRole = ContactRole.CUSTOMER_USER;
-        accountOwnerOdoo = odooData.parent_id[0];
+
+        if (inviteCompany) {
+          inviteUserRole = ContactRole.CUSTOMER_USER;
+          accountOwnerOdoo = odooData.parent_id[0];
+        } else {
+          inviteUserRole = userRole;
+          accountOwnerOdoo = odooData.x_studio_parent_contact[0];
+          parentId = odooData.parent_id[0];
+        }
+
         break;
       case ContactRole.CUSTOMER_USER:
         inviteUserRole = userRole;

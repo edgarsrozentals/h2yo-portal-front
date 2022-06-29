@@ -36,6 +36,7 @@ export enum MenuTypes {
     ORDERS = 'orders',
     CUSTOMER_SUPPORT = 'customer-support',
     DEBUG = 'debug',
+    COMPANIES = 'clients',
 }
 
 const settings = [
@@ -49,11 +50,10 @@ const settings = [
 
 const pages = [
   [MenuTypes.HOME, 'Home'], 
-  [MenuTypes.LOCATIONS, 'Locations'],
+  [MenuTypes.LOCATIONS, 'Locations', 'VIEW_LOCATIONS'],
   [MenuTypes.CARTRIGES, 'Cartriges'],
-  [MenuTypes.ORDERS, 'Orders'],
-  [MenuTypes.INVITE, 'Invite', 'INVITE_COMPANY'],
-  [MenuTypes.INVITE, 'Clients', 'VIEW_COMPANIES'],
+  [MenuTypes.ORDERS, 'Orders', 'VIEW_CARTRIDGE_ORDERS'],
+  [MenuTypes.COMPANIES, 'Clients', 'VIEW_COMPANIES'],
 ];
 
 export default function AppBarComp () {

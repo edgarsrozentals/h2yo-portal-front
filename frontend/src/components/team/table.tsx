@@ -97,10 +97,11 @@ interface EnhancedTableProps {
   order: Order;
   orderBy: string;
   rowCount: number;
+  showLocations: boolean;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, numSelected, rowCount, onRequestSort } =
+  const { order, orderBy, numSelected, rowCount, onRequestSort, showLocations } =
     props;
   const createSortHandler =
     (property: keyof RowData) => (event: React.MouseEvent<unknown>) => {
@@ -112,7 +113,14 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
+        {headCells.filter(x => {
+
+          if (x.id === 'locations' && !showLocations) {
+            return false;
+          }
+
+          return true;
+        }).map((headCell) => (
           <TableCell
             key={headCell.id}
             sx={{ padding: theme.spacing(1,2) }}
@@ -144,13 +152,14 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 export interface TeamTableProps {
     data: UserData[]
     locations: SelectType[]
+    showLocations: boolean
     roles: SelectType[]
     onSelectLocation: (user: UserData, data: SelectType[]) => Promise<void>
     onSelectRole: (user: UserData, data: SelectType[]) => Promise<void>
     onDeleteMember: (data: UserData) => Promise<void>
 }
 
-export default function TeamTable({ data, locations, roles, onSelectRole, onSelectLocation, onDeleteMember }: TeamTableProps) {
+export default function TeamTable({ data, locations, showLocations, roles, onSelectRole, onSelectLocation, onDeleteMember }: TeamTableProps) {
   const [order, setOrder] = React.useState<Order>('desc');
   const [orderBy, setOrderBy] = React.useState<keyof RowData>('name');
   const [selected, setSelected] = React.useState<readonly string[]>([]);
@@ -184,16 +193,6 @@ export default function TeamTable({ data, locations, roles, onSelectRole, onSele
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const selectRoleHandler = () => {
-
-    return;
-  };
-
-  const selectLocationHandler = () => {
-
-    return;
-  };
-
   return (
     <Box sx={{ width: '100%' }}>
       <TableContainer>
@@ -208,6 +207,7 @@ export default function TeamTable({ data, locations, roles, onSelectRole, onSele
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
             rowCount={rows.length}
+            showLocations={showLocations}
           />
           <TableBody>
             {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -239,12 +239,12 @@ export default function TeamTable({ data, locations, roles, onSelectRole, onSele
                       multiple={false}
                       onSelectOption={(event: any)=>onSelectRole(row, event)}
                     /></TableCell>
-                    <TableCell align="left"><MultiSelectChip
+                    {showLocations ? <TableCell align="left"><MultiSelectChip
                       label=""
                       selectOptions={locations}
                       value={row.locations ?? []}
                       onSelectOption={(event: any)=>onSelectLocation(row, event)}
-                    /></TableCell>
+                    /></TableCell> : null}
                     <TableCell align="left"><DeleteForeverIcon sx={{ cursor: 'pointer' }} onClick={()=>onDeleteMember(row)} color="warning" /></TableCell>
                   </TableRow>
                 );

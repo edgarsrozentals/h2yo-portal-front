@@ -10,6 +10,6 @@ export default function Invite () {
       title="Invite company" 
       subTitle="Invite new company to H2YO"
     />
-    <InviteContainer />
+    <InviteContainer inviteCompany={true} />
   </Container>;
 }
