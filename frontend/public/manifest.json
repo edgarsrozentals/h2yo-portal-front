@@ -31,6 +31,11 @@
       "src": "homebottombanner.webp",
       "type": "image/webp",
       "sizes": "1440x265"
+    },
+    {
+      "src": "h2yofontevivalogo.png",
+      "type": "image/png",
+      "sizes": "400x80"
     }
   ],
   "start_url": ".",

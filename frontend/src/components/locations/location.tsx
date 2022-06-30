@@ -98,7 +98,7 @@ const Location = ({ id, name, street, street2, zip, city, country,
       <Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <div><Typography variant="body1">Address</Typography></div>
-          <div><Typography variant="caption" sx={{ cursor: 'pointer' }} onClick={()=>toggleEdit()}>{editEnabled ? 'SAVE' : 'EDIT'}</Typography></div>
+          {/*<div><Typography variant="caption" sx={{ cursor: 'pointer' }} onClick={()=>toggleEdit()}>{editEnabled ? 'SAVE' : 'EDIT'}</Typography></div>*/}
         </Box>
         <Box>
           {editEnabled ? <RenderTxtField
