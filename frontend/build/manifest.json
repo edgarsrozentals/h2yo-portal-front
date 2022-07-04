@@ -36,6 +36,16 @@
       "src": "h2yofontevivalogo.png",
       "type": "image/png",
       "sizes": "400x80"
+    },
+    {
+      "src": "support_cartridges.png",
+      "type": "image/png",
+      "sizes": "534x342"
+    },
+    {
+      "src": "support_devices.png",
+      "type": "image/png",
+      "sizes": "533x342"
     }
   ],
   "start_url": ".",
