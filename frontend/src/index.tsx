@@ -8,6 +8,11 @@ import * as serviceWorker from './serviceWorker';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { green } from '@mui/material/colors';
 
+if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
+  window.location.href = 'https://' + window.location.host;
+}
+
+
 declare module '@mui/material/styles' {
   interface Theme {
     status: {
