@@ -14,6 +14,7 @@ export default function CompanyUserRegister (props: any) {
   const [data, setData] = useState<IRegisterCompState>({ 
     userEmail: defaultProps?.userEmail ?? '', 
     userPassword: defaultProps?.userPassword ?? '',
+    userPassword2: defaultProps?.userPassword ?? '',
     userFirstName: defaultProps?.userFirstName ?? '',
     userLastName: defaultProps?.userLastName ?? '',
     userPhone: defaultProps?.userPhone ?? '',

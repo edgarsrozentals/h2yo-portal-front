@@ -29,6 +29,7 @@ import CustomerSupport from './customerSupport';
 import Page from './common/page';
 import RegisterUserContainer from '../features/user/registerUserContainer';
 import ClientCompaniesContainer from '../features/clientCompanies/container';
+import AutoLoginContainer from '../features/login/autoLoginContainer';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -47,42 +48,47 @@ function App() {
   const odooData = useSelector(selectOdooData);
   const permissions = useSelector(getPermissions);
 
+
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/debug" element={<Page><DebugContainer /></Page>} />
-        <Route path="/home" element={<Page><Dashboard /></Page>} />
-        <Route path="/locations" element={<Page><LocationsContainer /></Page>} />
-        <Route path="/cartriges" element={<Page><CartrigesContainer /></Page>} />
-        <Route path="/customer-support" element={<Page><CustomerSupport /></Page>} />
-        <Route path="/orders" element={<Page><OrdersContainer /></Page>} />
-        <Route path="/services" element={<Page><Box>Services content</Box></Page>} />
-        <Route path="/profile" element={<Page><UserProfileContainer /></Page>} />
-        {permissions.indexOf('MANAGE_TEAM') > -1 ? <Route path="/team-management" element={<Page><TeamContainer /></Page>} /> : null}
-        <Route path="/company-account" element={<Page><CompanyAccountContainer /></Page>} />
-        <Route path="/clients" element={<Page><ClientCompaniesContainer /></Page>} />
-        <Route path="/resetpassword" element={<>
-          <PublicPage><PasswordResetEmailContainer /></PublicPage>
-        </>} />
-        <Route path="/confirmemail/:token/:email" element={<>
-          <PublicPage><ConfirmEmailContainer /></PublicPage>
-        </>} />
-        <Route path="/setnewpassword/:token/:email" element={<>
-          <PublicPage><PasswordResetPasswordContainer /></PublicPage>
-        </>} />
-        <Route path="/newpassword" element={<></>} />
-        <Route path="/invite/:step/accept" element={<>
-          <PublicPage includeBanner={false}><RegisterContainer /></PublicPage>
-        </>} />
-        <Route path="/user-invite/accept" element={<>
-          <PublicPage includeBanner={false}><RegisterUserContainer /></PublicPage>
-        </>} />
-        <Route path="/invite" element={<><AppBarComp /><Invite /></>} />
-        <Route path="/" element={
-          <PublicPage><LoginContainer /></PublicPage>
-        } />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <AutoLoginContainer />
+        <Routes>
+          <Route path="/debug" element={<Page><DebugContainer /></Page>} />
+          <Route path="/home" element={<Page><Dashboard /></Page>} />
+          <Route path="/locations" element={<Page><LocationsContainer /></Page>} />
+          <Route path="/cartriges" element={<Page><CartrigesContainer /></Page>} />
+          <Route path="/customer-support" element={<Page><CustomerSupport /></Page>} />
+          <Route path="/orders" element={<Page><OrdersContainer /></Page>} />
+          <Route path="/services" element={<Page><Box>Services content</Box></Page>} />
+          <Route path="/profile" element={<Page><UserProfileContainer /></Page>} />
+          {permissions.indexOf('MANAGE_TEAM') > -1 ? <Route path="/team-management" element={<Page><TeamContainer /></Page>} /> : null}
+          <Route path="/company-account" element={<Page><CompanyAccountContainer /></Page>} />
+          <Route path="/clients" element={<Page><ClientCompaniesContainer /></Page>} />
+          <Route path="/resetpassword" element={<>
+            <PublicPage><PasswordResetEmailContainer /></PublicPage>
+          </>} />
+          <Route path="/confirmemail/:token/:email" element={<>
+            <PublicPage><ConfirmEmailContainer /></PublicPage>
+          </>} />
+          <Route path="/setnewpassword/:token/:email" element={<>
+            <PublicPage><PasswordResetPasswordContainer /></PublicPage>
+          </>} />
+          <Route path="/newpassword" element={<></>} />
+          <Route path="/invite/accept" element={<>
+            <PublicPage includeBanner={false}><RegisterContainer /></PublicPage>
+          </>} />
+          <Route path="/user-invite/accept" element={<>
+            <PublicPage includeBanner={false}><RegisterUserContainer /></PublicPage>
+          </>} />
+          <Route path="/invite" element={<><AppBarComp /><Invite /></>} />
+          <Route path="/" element={
+            <PublicPage><LoginContainer /></PublicPage>
+          } />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

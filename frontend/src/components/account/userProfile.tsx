@@ -80,8 +80,8 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
   const errorText = errorMessage ?? messageInternal;
   const messageText = successMessage ?? errorMessageInternal;
 
-  return <FormControl>
-    <Container>
+  return <Container maxWidth="md">
+    <FormControl>
       <PageHeader
         title="My profile"
         subTitle="Edit your Sign-in details"
@@ -171,6 +171,6 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
         Delete My Profile
         </LoadingButton>
       </Box>
-    </Container>
-  </FormControl>;
+    </FormControl>
+  </Container>;
 }

@@ -1,6 +1,7 @@
 export interface IRegisterCompState {
     userEmail: string | undefined,
     userPassword: string | undefined,
+    userPassword2?: string | undefined,
     userFirstName: string | undefined,
     userLastName: string | undefined,
     userPhone: string | undefined,

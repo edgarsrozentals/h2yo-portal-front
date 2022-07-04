@@ -33,10 +33,10 @@ export default function PublicPage ({ children, includeBanner }: Props) {
         container
         sx={{ flexGrow: 1, height: '100%' }}
       >
-        <Grid md={includeBanner ? 6 : 12} xs={12}>
+        <Grid item md={includeBanner ? 6 : 12} xs={12}>
           <Box sx={{ display: 'flex', justifyContent: 'center', padding: theme.spacing(6) }}>{children}</Box>
         </Grid>
-        {includeBanner ? <Grid md={6} xs={12}>
+        {includeBanner ? <Grid item md={6} xs={12}>
           <div style={{ 
             backgroundImage: 'url("/banner.webp")', 
             backgroundSize: 'cover',

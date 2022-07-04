@@ -9,9 +9,6 @@ import UserDetails from '../../common/user/profileDetails';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import RegisterStep1 from './newAccount/step1';
-import RegisterStep2 from './newAccount/step2';
-import RegisterStep3 from './newAccount/step3';
 import { IRegisterCompState } from './IRegisterCompState';
 
 const steps = [
@@ -44,6 +41,7 @@ export default function Register (
   const [data, setData] = useState<IRegisterCompState>({ 
     userEmail: defaultProps?.userEmail ?? '', 
     userPassword: defaultProps?.userPassword ?? '',
+    userPassword2: defaultProps?.userPassword2 ?? '',
     userFirstName: defaultProps?.userFirstName ?? '',
     userLastName: defaultProps?.userLastName ?? '',
     userPhone: defaultProps?.userPhone ?? '',
@@ -60,6 +58,8 @@ export default function Register (
     city: defaultProps?.city ?? '',
   });
 
+  const [errorFields, setErrorFields] = useState<Array<string>>([]);
+
   useEffect(() => {
 
     setData({ ...data, ...defaultProps });
@@ -67,27 +67,46 @@ export default function Register (
 
   const [error, setError] = useState<string>('');
 
-  const submitHandler = (event: any) => {
+  const handleRegister = (ev: any) => {
+
+    ev.preventDefault();
     
-    event.preventDefault();
+    const errorFieldsNew = [];
 
-    if (data.userEmail === '') {
-      setError('Please enter your email address!');
-      return false;
+    const formProps = data;
+
+    if (!validateEmail(formProps.userEmail ?? '')) {
+      errorFieldsNew.push('userEmail');
+
+    }
+    if (formProps.userPassword === '' || formProps.userPassword !== formProps.userPassword2) {
+      
+      errorFieldsNew.push('userPassword');
+      errorFieldsNew.push('userPassword2');
+    }
+    if (formProps.userFirstName === '') {
+      
+      errorFieldsNew.push('userFirstName');
+    }
+    if (formProps.userLastName === '') {
+      
+      errorFieldsNew.push('userLastName');
+
+    }
+    if (formProps.userPhone === '') {
+      
+      errorFieldsNew.push('userPhone');
     }
 
-    if (!validateEmail(data.userEmail ?? '')) {
-      setError('Incorrect email address!');
-      return false;
+    setErrorFields([...errorFields, ...errorFieldsNew]);
+    
+    if (errorFieldsNew.length === 0) {
+      onRegister(data);
     }
 
-    if (data.userPassword === '') {
-      setError('Please enter the password!');
-      return false;
-    }
-
-    onRegister(data);
+    return;
   };
+
 
   useEffect(() => {
     const listener = (event: any) => {
@@ -110,13 +129,13 @@ export default function Register (
     <Container
       maxWidth="sm">
       <FormControl>
-        <Stepper activeStep={step-1} alternativeLabel>
+        {/*<Stepper activeStep={step-1} alternativeLabel>
           {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
-        </Stepper>
+          </Stepper>*/}
         {errorText ? <Grid item>{errorText}</Grid> : null}
         {message !== '' ? 
           <><Alert severity="success">{message}</Alert> 
@@ -124,10 +143,22 @@ export default function Register (
           </>
           :
           <>
-            {step === 1 ? <RegisterStep1 /> : null }
+            {/* {step === 1 ? <RegisterStep1 /> : null }
             {step === 2 ? <RegisterStep2 data={data} onSetData={setData} disabledProps={[]} /> : null }
-            {step === 3 ? <RegisterStep3 data={data} onSetData={setData} onRegister={submitHandler} disabledProps={[]} /> : null }
-
+          {step === 3 ? <RegisterStep3 data={data} onSetData={setData} onRegister={submitHandler} disabledProps={[]} /> : null }*/}
+            <Typography variant="h6" gutterBottom component="div" align="left">Your details</Typography>
+            <UserDetails 
+              disabledProps={[]} 
+              hideFields={['userExistingPassword']} 
+              errorFields={errorFields} 
+              data={data} onSetData={setData} />
+            <Typography variant="h6" gutterBottom component="div" align="left">Company details</Typography>
+            <CompanyDetails disabledProps={[]} data={data} onSetData={setData} />
+            <LoadingButton type="submit" size="small" loading={false} variant="contained" 
+              onClick={handleRegister}
+            >
+              REGISTER
+            </LoadingButton>
           </>
         }
       </FormControl>

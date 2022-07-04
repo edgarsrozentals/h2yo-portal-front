@@ -19,6 +19,10 @@ import FonteVivaLogo from '../common/logos/fonteviva';
 import { useSelector } from 'react-redux';
 import { getPermissions } from '../../features/user/userSlice';
 
+function deleteCookie(name: string) {
+  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 export enum MenuTypes {
     HOME = 'home',
     DEVICES = 'devices',
@@ -83,6 +87,10 @@ export default function AppBarComp () {
 
   const setPageHandler = (page: MenuTypes) => {
 
+    if (page === MenuTypes.LOGOUT) {
+      deleteCookie('customer.portal.sid');
+    }
+
     navigate('/' + page);
     
     return;
@@ -139,7 +147,7 @@ export default function AppBarComp () {
             </Menu>
           </Box>
           <Box sx={{ display: 'flex', height: '17px', padding: theme.spacing(0, 4, 0, 4) }}>
-            <div style={{ borderRight: '1px solid #ffffff', padding: theme.spacing(0, 1, 0, 1) }}><H2yoLogo /></div>
+            <div style={{ borderRight: '1px solid #ffffff', padding: theme.spacing(0, 1, 0, 1) }}><H2yoLogo width={67} height={17} /></div>
             <div style={{ padding: theme.spacing(0, 1, 0, 1) }}><FonteVivaLogo /></div>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -198,6 +206,7 @@ export default function AppBarComp () {
                   key={setting[0]} 
                   onClick={()=> {
                     setPageHandler(setting[0] as MenuTypes);
+
                     handleCloseUserMenu();
                   }}
                 >
