@@ -18,7 +18,8 @@ export default function CustomerSupport () {
 
   const textValueStyle = {
     fontWeight: 400,
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
+    color: theme.palette.primary.dark
   };
 
   return <Container maxWidth="md">
