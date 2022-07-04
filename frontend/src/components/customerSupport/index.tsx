@@ -25,7 +25,7 @@ export default function CustomerSupport () {
   return <Container maxWidth="md">
     <PageHeader 
       title="Customer Support" 
-      subTitle="Services provided in collaboration between Fonte Viva and H2YO"
+      subTitle={<>Services provided in collaboration between <strong>Fonte Viva</strong> and <strong>H2YO</strong></>}
     />
     <Box>
       <Box sx={{ borderBottom: '1px solid', borderTop: '1px solid', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

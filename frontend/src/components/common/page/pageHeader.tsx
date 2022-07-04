@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Alert, Container, Grid } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import { useTheme } from '@mui/system';
 
-export default function PageHeader ({ title, subTitle }: {title: string, subTitle: string}) {
+export default function PageHeader ({ title, subTitle }: {title: string, subTitle: string | ReactElement}) {
 
   const theme = useTheme();
 
@@ -13,7 +13,7 @@ export default function PageHeader ({ title, subTitle }: {title: string, subTitl
     <Typography color={theme.palette.primary.dark} variant="h4" component="div" align="left">
       {title}
     </Typography>
-    <Typography color={theme.palette.primary.dark} gutterBottom component="div" align="left">
+    <Typography color={theme.palette.primary.dark} maxWidth={355} gutterBottom component="div" align="left">
       {subTitle}
     </Typography>
   </Box>;
