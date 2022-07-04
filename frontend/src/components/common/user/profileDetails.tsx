@@ -21,6 +21,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         size="small" 
         label="First Name"
         variant="outlined" 
+        autoComplete="off"
         error={errorFields.includes('userFirstName')}
         fullWidth
         disabled={disabledProps.includes('userFirstName')}
@@ -30,6 +31,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
     </Grid>
     <Grid item md={6} sm={6} xs={12}>
       <TextField
+        autoComplete="off"
         size="small" 
         label="Last Name"
         variant="outlined" 
@@ -44,6 +46,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
       <TextField 
         size="small" 
         label="Email"
+        autoComplete="off"
         variant="outlined" 
         error={errorFields.includes('userEmail')}
         fullWidth
@@ -57,6 +60,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         size="small" 
         label="Phone"
         variant="outlined" 
+        autoComplete="off"
         error={errorFields.includes('userPhone')}
         fullWidth
         disabled={disabledProps.includes('userPhone')}
@@ -70,6 +74,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         label="Password" 
         type="password" 
         variant="outlined" 
+        autoComplete="off"
         error={errorFields.includes('userExistingPassword')}
         fullWidth
         value={ data.userExistingPassword } 
@@ -83,6 +88,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         label="Password" 
         type="password" 
         variant="outlined" 
+        autoComplete="off"
         error={errorFields.includes('userPassword')}
         fullWidth
         value={ data.userPassword } 
@@ -96,6 +102,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         label="Confirm password" 
         type="password" 
         variant="outlined" 
+        autoComplete="off"
         fullWidth
         value={ data.userPassword2 } 
         error={errorFields.includes('userPassword2')}

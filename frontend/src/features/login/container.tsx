@@ -25,9 +25,9 @@ const LoginContainer = () => {
     setLoading(false);
     if (response.result) {
 
-      dispatch(addData(response.data));
-      dispatch(addOdooData(response.odooData));
-      dispatch(setPermissions(response.permissions));
+      dispatch(addData(response.data.data));
+      dispatch(addOdooData(response.data.odooData));
+      dispatch(setPermissions(response.data.permissions));
       //set user data
       navigate('/home');
     } else {

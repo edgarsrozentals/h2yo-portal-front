@@ -32,9 +32,20 @@ export default function UserProfileContainer () {
       password: data.userPassword
     });
 
+    const oldData = { ...userData };
+    
+    dispatch(addData({ ...userData, ...{
+      email: data.userEmail,
+      firstName: data.userFirstName,
+      lastName: data.userLastName,
+      phone: data.userPhone,
+    } }));
+
     if (response.status === 200) {
+
       setMessageInternal('Profile settings updated');
     } else {
+      dispatch(addData(oldData));
       setErrorMessageInternal(response.data.message);
     }
 
@@ -51,7 +62,7 @@ export default function UserProfileContainer () {
     defaultProps={{ 
       userFirstName: userData.firstName as string,
       userLastName: userData.lastName as string,
-      userPhone: userData.userPhone as string,
+      userPhone: userData.phone as string,
       userEmail: userData.email as string,
     }}
     onUpdate={handleUpdate}
