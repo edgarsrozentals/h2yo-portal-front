@@ -34,7 +34,7 @@ export default function Cartriges ({ cartriges }: ComponentProps) {
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
       {cartriges.map((x: CartrigeType)=>renderCartrige(x, theme))}
     </Box>
-    <Box sx={{ borderBottom: '1px solid black', marginTop: theme.spacing(6) }}><Typography variant="h6" component="div">Ingridients</Typography></Box>
+    <Box sx={{ borderBottom: '1px solid black', marginTop: theme.spacing(6) }}><Typography variant="h6" component="div">Ingredients</Typography></Box>
     <Typography variant="body2" component="div">All natural ingredients without artificial colorents or added sugar.</Typography>
     <Box sx={{ borderBottom: '1px solid black', marginTop: theme.spacing(6) }}><Typography variant="h6" component="div">Automatic re-supply</Typography></Box>
     <Typography sx={{ marginBottom: theme.spacing(6) }} variant="body2" component="div">We are re-supplying your cartridges roughtly every two weeks automatically based on your consumtion.</Typography>

@@ -14,7 +14,7 @@ const AutoLoginContainer = () => {
   const dispatch = useDispatch();
   const currentLocation = useLocation();
 
-  const PREVENT_AUTO_LOGIN = ['/invite/accept', '/user-invite/accept', '/resetpassword'];
+  const PREVENT_AUTO_LOGIN = ['/invite/accept', '/user-invite/accept', '/resetpassword', '/setnewpassword'];
 
   const autoLogin = async () => {
 
