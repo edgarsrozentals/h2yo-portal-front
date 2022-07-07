@@ -18,7 +18,15 @@ const AutoLoginContainer = () => {
 
   const autoLogin = async () => {
 
-    if (PREVENT_AUTO_LOGIN.includes(currentLocation.pathname)) {
+    let prevent = false;
+    PREVENT_AUTO_LOGIN.map(x => {
+
+      if (x.indexOf(currentLocation.pathname) > -1){
+        prevent = true;
+      }
+    });
+
+    if (prevent) {
       return;
     }
 

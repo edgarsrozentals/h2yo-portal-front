@@ -13,6 +13,11 @@ export enum ContactRole {
   ACCOUNT_OWNER_MNG = 'ACCOUNT OWNER MNG'
 }
 
+export enum regStage {
+  inProgress = 'inProgress',
+  completed = 'completed'
+}
+
 export interface UserState {
   data: object;
   odooData: object;
