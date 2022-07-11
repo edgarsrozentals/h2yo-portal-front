@@ -19,7 +19,7 @@ const cartrigeIDs = [
 export default function DebugComponent({ execute }: ComponentProps) {
 
   const [accumParams, setAccumParams] = useState({ companyId: 0, locationId: 0 });
-  const [accumData, setAccumData] = useState<Array<{cartrigeId: string, cartrigeCount: number}>>([]);
+  const [accumData, setAccumData] = useState<Array<{cartridgeId: string, cartridgeCount: number}>>([]);
   const [stock, setStock] = useState<Array<any>>([]);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -157,10 +157,10 @@ export default function DebugComponent({ execute }: ComponentProps) {
           <TextField key={i}
             size="small" 
             sx={{ margin: 1 }}
-            label={x.cartrigeId}
+            label={x.cartridgeId}
             variant="outlined" 
             disabled={true}
-            value={x.cartrigeCount} 
+            value={x.cartridgeCount} 
           />
         ))}
       </Grid>
@@ -173,7 +173,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
             label={x.cartrigeType}
             variant="outlined" 
             disabled={true}
-            value={x.cartrigeCount} 
+            value={x.cartridgeCount} 
           />
         ))}
       </Grid>

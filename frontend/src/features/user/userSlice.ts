@@ -13,7 +13,7 @@ export enum ContactRole {
   ACCOUNT_OWNER_MNG = 'ACCOUNT OWNER MNG'
 }
 
-export enum regStage {
+export enum RegStage {
   inProgress = 'inProgress',
   completed = 'completed'
 }

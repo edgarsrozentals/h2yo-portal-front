@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { validateEmail } from '../../../features/user/email';
 import { LoadingButton } from '@mui/lab';
 import { IRegisterCompState } from './IRegisterCompState';
-import { regStage } from '../../../features/user/userSlice';
+import { RegStage } from '../../../features/user/userSlice';
 
 export default function CompanyUserRegister (props: any) {
 
@@ -92,7 +92,7 @@ export default function CompanyUserRegister (props: any) {
     {errorText ? <Grid item>{errorText}</Grid> : null}
     <Typography variant="h6" gutterBottom component="div" align="left">Your details</Typography>
     <hr />
-    {registrationStage === regStage.inProgress ? 
+    {registrationStage === RegStage.inProgress ? 
       <>
         <Grid item><Alert severity="success">Your account has been registered please login</Alert></Grid>
         <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
@@ -101,7 +101,7 @@ export default function CompanyUserRegister (props: any) {
           Login
         </LoadingButton></>
       : null}
-    {registrationStage === regStage.completed ?
+    {registrationStage === RegStage.completed ?
       <>
         <UserDetails onSetData={setData} data={data} hideFields={['userExistingPassword']} errorFields={errorFields} {...props} />
         <Grid

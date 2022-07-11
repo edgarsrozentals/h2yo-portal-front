@@ -8,7 +8,7 @@ import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { addData, addOdooData, ContactRole, regStage } from './userSlice';
+import { addData, addOdooData, ContactRole, RegStage } from './userSlice';
 import { useDispatch, useStore } from 'react-redux';
 import { Alert } from '@mui/material';
 import CompanyUserRegister from '../../components/account/register/companyUser';
@@ -22,7 +22,7 @@ const RegisterUserContainer = () => {
 
   const [defaultProps, setDefaultProps] = useState({});
   const [disabledProps, setDisabledProps] = useState<Array<string>>([]);
-  const [registrationStage, setRegistrationStage] = useState(regStage.inProgress);
+  const [registrationStage, setRegistrationStage] = useState(RegStage.inProgress);
 
   const [registerError, setRegisterError] = useState('');
   const [message, setMessage] = useState('');
@@ -63,7 +63,7 @@ const RegisterUserContainer = () => {
 
     if (result.result) {
       setMessage('Registration completed!');
-      setRegistrationStage(regStage.completed);
+      setRegistrationStage(RegStage.completed);
     } else {
       setRegisterError('An error occured! Failed to Register!');
     }
