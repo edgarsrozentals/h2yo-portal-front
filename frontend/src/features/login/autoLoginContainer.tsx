@@ -21,7 +21,7 @@ const AutoLoginContainer = () => {
     let prevent = false;
     PREVENT_AUTO_LOGIN.map(x => {
 
-      if (x.indexOf(currentLocation.pathname) > -1){
+      if (currentLocation.pathname.indexOf(x) > -1) {
         prevent = true;
       }
     });
@@ -36,7 +36,11 @@ const AutoLoginContainer = () => {
       dispatch(addData(response.data.data));
       dispatch(addOdooData(response.data.odooData));
       dispatch(setPermissions(response.data.permissions));
-      navigate('/home');
+
+      if (currentLocation.pathname === '/') {
+        navigate('/home');
+      }
+      
     } else {
       navigate('/');
     }

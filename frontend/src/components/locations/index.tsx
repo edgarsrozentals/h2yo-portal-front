@@ -26,7 +26,6 @@ const Locations = ({ error, allDevices, allResponsibles, locations, onChangeDevi
       display: 'flex', 
       justifyContent: 'left', 
     }}>
-      
       <Box style={{
         display: 'flex', 
         padding: theme.spacing(4,0,0,0),

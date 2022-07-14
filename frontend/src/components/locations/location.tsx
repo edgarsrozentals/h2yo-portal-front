@@ -93,7 +93,9 @@ const Location = ({ id, name, street, street2, zip, city, country,
       flexDirection: 'column', 
       justifyContent: 'space-between',
       alignContent: 'space-between',
-      height: '314px'
+      height: '314px',
+      overflowY: 'auto',
+      overflowX: 'hidden'
     }}>
       <Box>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
