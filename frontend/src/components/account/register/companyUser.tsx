@@ -92,7 +92,7 @@ export default function CompanyUserRegister (props: any) {
     {errorText ? <Grid item>{errorText}</Grid> : null}
     <Typography variant="h6" gutterBottom component="div" align="left">Your details</Typography>
     <hr />
-    {registrationStage === RegStage.inProgress ? 
+    {registrationStage === RegStage.completed ? 
       <>
         <Grid item><Alert severity="success">Your account has been registered please login</Alert></Grid>
         <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
@@ -101,7 +101,7 @@ export default function CompanyUserRegister (props: any) {
           Login
         </LoadingButton></>
       : null}
-    {registrationStage === RegStage.completed ?
+    {registrationStage === RegStage.inProgress ?
       <>
         <UserDetails onSetData={setData} data={data} hideFields={['userExistingPassword']} errorFields={errorFields} {...props} />
         <Grid
