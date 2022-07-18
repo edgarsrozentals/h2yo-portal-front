@@ -1,6 +1,7 @@
 import TextField from '@mui/material/TextField';
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
+import { validateEmail } from '../../../features/user/email';
 
 type AccountDetailsProps = {
   data: any,
@@ -12,6 +13,24 @@ type AccountDetailsProps = {
 
 export default function ProfileDetails ({ data, hideFields, disabledProps, onSetData, errorFields }: AccountDetailsProps) {
 
+  const [errorFieldsInternal, setErrorFieldsInternal] = useState<Array<string>>([]);
+  
+  useEffect(()=>{
+
+    setErrorFieldsInternal(errorFields);
+  }, [errorFields]);
+  
+  const setEmailHandler = (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+
+    if (validateEmail(ev.target.value)) {
+      onSetData({ ...data, ...{ userPhone: ev.target.value } });
+    } else {
+      setErrorFieldsInternal(['userEmail']);
+    }
+  };
+
+  
+
   return <Grid
     container 
     spacing={1}
@@ -19,27 +38,27 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
     <Grid item md={6} sm={6} xs={12}>
       <TextField 
         size="small" 
-        label="First Name"
+        label="Name and surname"
         variant="outlined" 
         autoComplete="off"
-        error={errorFields.includes('userFirstName')}
+        error={errorFieldsInternal.includes('userName')}
         fullWidth
-        disabled={disabledProps.includes('userFirstName')}
-        value={data.userFirstName} 
-        onChange={(ev)=>{onSetData({ ...data, ...{ userFirstName: ev.target.value } });}}
+        disabled={disabledProps.includes('userName')}
+        value={data.userName} 
+        onChange={(ev)=>{onSetData({ ...data, ...{ userName: ev.target.value } });}}
       />
     </Grid>
     <Grid item md={6} sm={6} xs={12}>
-      <TextField
-        autoComplete="off"
+      <TextField 
         size="small" 
-        label="Last Name"
+        label="Contact phone number"
         variant="outlined" 
-        error={errorFields.includes('userLastName')}
+        autoComplete="off"
+        error={errorFieldsInternal.includes('userPhone')}
         fullWidth
-        disabled={disabledProps.includes('userLastName')}
-        value={data.userLastName} 
-        onChange={(ev)=>{onSetData({ ...data, ...{ userLastName: ev.target.value } });}}
+        disabled={disabledProps.includes('userPhone')}
+        value={data.userPhone} 
+        onChange={(ev)=>{setEmailHandler(ev);}}
       />
     </Grid>
     <Grid item md={6} sm={6} xs={12}>
@@ -48,26 +67,14 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         label="Email"
         autoComplete="off"
         variant="outlined" 
-        error={errorFields.includes('userEmail')}
+        error={errorFieldsInternal.includes('userEmail')}
         fullWidth
         disabled={disabledProps.includes('userEmail')}
         value={data.userEmail} 
         onChange={(ev)=>{onSetData({ ...data, ...{ userEmail: ev.target.value } });}}
       />
     </Grid>
-    <Grid item md={6} sm={6} xs={12}>
-      <TextField 
-        size="small" 
-        label="Phone"
-        variant="outlined" 
-        autoComplete="off"
-        error={errorFields.includes('userPhone')}
-        fullWidth
-        disabled={disabledProps.includes('userPhone')}
-        value={data.userPhone} 
-        onChange={(ev)=>{onSetData({ ...data, ...{ userPhone: ev.target.value } });}}
-      />
-    </Grid>
+    <Grid item md={6} sm={6} xs={12} />
     {!hideFields.includes('userExistingPassword') ? <Grid item md={6} sm={6} xs={12}>
       <TextField 
         size="small" 
@@ -75,7 +82,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         type="password" 
         variant="outlined" 
         autoComplete="off"
-        error={errorFields.includes('userExistingPassword')}
+        error={errorFieldsInternal.includes('userExistingPassword')}
         fullWidth
         value={ data.userExistingPassword } 
         disabled={ disabledProps.includes('userExstingPassword') }
@@ -89,7 +96,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         type="password" 
         variant="outlined" 
         autoComplete="off"
-        error={errorFields.includes('userPassword')}
+        error={errorFieldsInternal.includes('userPassword')}
         fullWidth
         value={ data.userPassword } 
         disabled={ disabledProps.includes('userPassword') }
@@ -105,7 +112,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         autoComplete="off"
         fullWidth
         value={ data.userPassword2 } 
-        error={errorFields.includes('userPassword2')}
+        error={errorFieldsInternal.includes('userPassword2')}
         disabled={ disabledProps.includes('userPassword2') }
         onChange={(ev)=>{onSetData({ ...data, ...{ userPassword2: ev.target.value } });}}
       />

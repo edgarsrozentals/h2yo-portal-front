@@ -16,8 +16,7 @@ export default function CompanyUserRegister (props: any) {
     userEmail: defaultProps?.userEmail ?? '', 
     userPassword: defaultProps?.userPassword ?? '',
     userPassword2: defaultProps?.userPassword ?? '',
-    userFirstName: defaultProps?.userFirstName ?? '',
-    userLastName: defaultProps?.userLastName ?? '',
+    userName: defaultProps?.userName ?? '',
     userPhone: defaultProps?.userPhone ?? '',
     company: defaultProps?.company ?? '',
     legalAddress: defaultProps?.legalAddress ?? '',
@@ -63,15 +62,10 @@ export default function CompanyUserRegister (props: any) {
       errorFieldsNew.push('userPassword2');
 
     }
-    if (formProps.userFirstName === '') {
+    if (formProps.userName === '') {
       
       
-      errorFieldsNew.push('userFirstName');
-
-    }
-    if (formProps.userLastName === '') {
-      
-      errorFieldsNew.push('userLastName');
+      errorFieldsNew.push('userName');
 
     }
     if (formProps.userPhone === '') {

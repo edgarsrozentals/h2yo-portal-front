@@ -42,8 +42,7 @@ export default function Register (
     userEmail: defaultProps?.userEmail ?? '', 
     userPassword: defaultProps?.userPassword ?? '',
     userPassword2: defaultProps?.userPassword2 ?? '',
-    userFirstName: defaultProps?.userFirstName ?? '',
-    userLastName: defaultProps?.userLastName ?? '',
+    userName: defaultProps?.userName ?? '',
     userPhone: defaultProps?.userPhone ?? '',
     company: defaultProps?.company ?? '',
     legalAddress: defaultProps?.legalAddress ?? '',
@@ -84,14 +83,9 @@ export default function Register (
       errorFieldsNew.push('userPassword');
       errorFieldsNew.push('userPassword2');
     }
-    if (formProps.userFirstName === '') {
+    if (formProps.userName === '') {
       
-      errorFieldsNew.push('userFirstName');
-    }
-    if (formProps.userLastName === '') {
-      
-      errorFieldsNew.push('userLastName');
-
+      errorFieldsNew.push('name');
     }
     if (formProps.userPhone === '') {
       

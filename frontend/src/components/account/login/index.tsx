@@ -1,7 +1,7 @@
 import { Alert, Avatar, Box, Checkbox, FormControl, FormControlLabel, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/system';
 import LockIcon from '@mui/icons-material/Lock';
@@ -28,23 +28,38 @@ export default function Login ({
   const [data, setData] = useState<ILoginCompState>({ login: '', password: '' });
   const [error, setError] = useState<string>('');
 
+  //needed for autofill
+  const loginField = useRef<HTMLInputElement>(null);
+  const passwordField = useRef<HTMLInputElement>(null);
+
   const theme = useTheme();
 
   const submitHandler = (event: any) => {
     
     event.preventDefault();
 
-    if (data.login === '') {
+    let loginValue = data.login;
+    let passwordValue = data.password;
+
+    if (loginValue === '' && loginField.current && loginField.current?.value) {
+      loginValue = loginField.current?.value;
+    }
+
+    if (passwordValue === '' && passwordField.current && passwordField.current?.value) {
+      passwordValue = passwordField.current.value;
+    }
+
+    if (loginValue === '') {
       setError('Please enter your email address!');
       return false;
     }
 
-    if (data.password === '') {
+    if (passwordValue === '') {
       setError('Please enter the password!');
       return false;
     }
 
-    onLogin(data);
+    onLogin({ login: loginValue, password: passwordValue });
   };
 
   useEffect(() => {
@@ -60,7 +75,7 @@ export default function Login ({
     };
   }, []);
 
-  const errorText = error !== '' ? error : loginError;
+  const errorText = loginError !== '' ? loginError : error;
 
   return <>
     <FormControl
@@ -80,13 +95,19 @@ export default function Login ({
         </Grid>
         {errorText ? <Grid item md={12} sm={12} xs={12}><Alert severity="error">{errorText}</Alert></Grid> : null}
         <Grid item md={12} sm={12} xs={12}>
-          <TextField fullWidth size="small" label="Email" variant="outlined" 
+          <TextField  
+            fullWidth
+            inputRef={loginField}
+            size="small" 
+            label="Email" 
+            variant="outlined" 
             value={data.login} 
             onChange={(ev)=>{setData({ ...data, ...{ login: ev.target.value } });}}
           />
         </Grid>
         <Grid item md={12} sm={12} xs={12}>
           <TextField 
+            inputRef={passwordField}
             fullWidth
             size="small" 
             label="Password" 

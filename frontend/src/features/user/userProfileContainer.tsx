@@ -25,8 +25,7 @@ export default function UserProfileContainer () {
   const handleUpdate = async (data: IUserProfileState) => {
 
     const response = await put('users', {
-      firstName: data.userFirstName,
-      lastName: data.userLastName,
+      name: data.userName,
       phone: data.userPhone,
       email: data.userEmail,
       password: data.userPassword
@@ -36,8 +35,7 @@ export default function UserProfileContainer () {
     
     dispatch(addData({ ...userData, ...{
       email: data.userEmail,
-      firstName: data.userFirstName,
-      lastName: data.userLastName,
+      name: data.userName,
       phone: data.userPhone,
     } }));
 
@@ -60,8 +58,7 @@ export default function UserProfileContainer () {
   
   return (<><UserProfile
     defaultProps={{ 
-      userFirstName: userData.firstName as string,
-      userLastName: userData.lastName as string,
+      userName: userData.name as string,
       userPhone: userData.phone as string,
       userEmail: userData.email as string,
     }}

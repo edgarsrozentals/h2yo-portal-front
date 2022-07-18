@@ -11,8 +11,7 @@ export interface IUserProfileState{
   userEmail?: string,
   userPassword?: string,
   existingPassword?: string,
-  userFirstName?: string,
-  userLastName?: string,
+  userName?: string,
   userPhone?: string,
 }
 
@@ -39,8 +38,7 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
     userEmail: defaultProps?.userEmail ?? '', 
     existingPassword: defaultProps?.userPassword ?? '',
     userPassword: defaultProps?.userPassword ?? '',
-    userFirstName: defaultProps?.userFirstName ?? '',
-    userLastName: defaultProps?.userLastName ?? '',
+    userName: defaultProps?.userName ?? '',
     userPhone: defaultProps?.userPhone ?? '',
   });
 
