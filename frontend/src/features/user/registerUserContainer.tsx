@@ -33,6 +33,12 @@ const RegisterUserContainer = () => {
     
     const data = await get('invite/' + urlParams.get('token') + '/' + urlParams.get('email'));
 
+    if (data.status !== 200) {
+      setRegisterError(data.message ?? 'an error occured');
+      setRegistrationStage(RegStage.error);
+      return; 
+    }
+
     let name = '';
     if (data.role === ContactRole.ACCOUNT_OWNER_MNG 
       || data.role === ContactRole.ACCOUNT_OWNER_USER
@@ -61,11 +67,17 @@ const RegisterUserContainer = () => {
 
     const result = await post('invite/accept', dataToSend);
 
-    if (result.result) {
+    if (result.status === 200) {
       setMessage('Registration completed!');
       setRegistrationStage(RegStage.completed);
     } else {
-      setRegisterError('An error occured! Failed to Register!');
+      if (result.message) {
+        setRegisterError(result.message);
+
+      } else {
+        setRegisterError('An error occured! Failed to Register!');
+
+      }
     }
 
     return;

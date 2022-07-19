@@ -15,7 +15,8 @@ export enum ContactRole {
 
 export enum RegStage {
   inProgress = 'inProgress',
-  completed = 'completed'
+  completed = 'completed',
+  error = 'error',
 }
 
 export interface UserState {

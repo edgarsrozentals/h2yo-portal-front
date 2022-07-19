@@ -10,7 +10,7 @@ import { RegStage } from '../../../features/user/userSlice';
 
 export default function CompanyUserRegister (props: any) {
 
-  const { defaultProps, onRegister, registrationStage } = props;
+  const { defaultProps, onRegister, registrationStage, registerError } = props;
 
   const [data, setData] = useState<IRegisterCompState>({ 
     userEmail: defaultProps?.userEmail ?? '', 
@@ -40,6 +40,11 @@ export default function CompanyUserRegister (props: any) {
   const [errorFields, setErrorFields] = useState<Array<string>>([]);
 
   const [errorText, setError] = useState<string>('');
+
+  useEffect(() => {
+
+    setError(registerError);
+  }, [registerError]);
 
   const theme = useTheme();
 
@@ -83,13 +88,13 @@ export default function CompanyUserRegister (props: any) {
   };
 
   return <Box>
-    {errorText ? <Grid item>{errorText}</Grid> : null}
-    <Typography variant="h6" gutterBottom component="div" align="left">Your details</Typography>
-    <hr />
+    {errorText ? <Grid item><Alert severity="error">{errorText}</Alert></Grid> : null}
     {registrationStage === RegStage.completed ? 
       <>
+        <Typography variant="h6" gutterBottom component="div" align="left">Your details</Typography>
+        <hr />
         <Grid item><Alert severity="success">Your account has been registered please login</Alert></Grid>
-        <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
+        <LoadingButton sx={{ margin: theme.spacing(1, 0) }} type="submit" size="medium" loading={false} variant="contained" 
           onClick={()=>navigate('/')}
         >
           Login

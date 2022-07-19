@@ -22,11 +22,11 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
   
   const setEmailHandler = (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 
-    if (validateEmail(ev.target.value)) {
-      onSetData({ ...data, ...{ userPhone: ev.target.value } });
-    } else {
-      setErrorFieldsInternal(['userEmail']);
-    }
+    //if (validateEmail(ev.target.value)) {
+    onSetData({ ...data, ...{ userEmail: ev.target.value } });
+    //} else {
+    //  setErrorFieldsInternal(['userEmail']);
+    //}
   };
 
   
@@ -58,7 +58,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         fullWidth
         disabled={disabledProps.includes('userPhone')}
         value={data.userPhone} 
-        onChange={(ev)=>{setEmailHandler(ev);}}
+        onChange={(ev)=>{onSetData({ ...data, ...{ userPhone: ev.target.value } });}}
       />
     </Grid>
     <Grid item md={6} sm={6} xs={12}>
@@ -71,7 +71,7 @@ export default function ProfileDetails ({ data, hideFields, disabledProps, onSet
         fullWidth
         disabled={disabledProps.includes('userEmail')}
         value={data.userEmail} 
-        onChange={(ev)=>{onSetData({ ...data, ...{ userEmail: ev.target.value } });}}
+        onChange={(ev)=>{setEmailHandler(ev);}}
       />
     </Grid>
     <Grid item md={6} sm={6} xs={12} />

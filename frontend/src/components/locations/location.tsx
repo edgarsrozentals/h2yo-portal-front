@@ -107,22 +107,22 @@ const Location = ({ id, name, street, street2, zip, city, country,
             label={'Location name'}
             value={formData.name}
             edit={editEnabled}
-            onChange={(event: any)=>setFormData({ ...formData, ...{ name: event?.target?.value } })} 
+            onChange={(event: any) => setFormData({ ...formData, ...{ name: event?.target?.value } })} 
           /> : null }
           <RenderTxtField
             label={'Address line 1'}
             value={formData.street}
             edit={editEnabled}
-            onChange={(event: any)=>setFormData({ ...formData, ...{ street: event?.target?.value } })} 
+            onChange={(event: any) => setFormData({ ...formData, ...{ street: event?.target?.value } })} 
           />
           <RenderTxtField label={'Address line 2'} value={formData.street2} edit={editEnabled} 
-            onChange={(event: any)=>setFormData({ ...formData, ...{ street2: event?.target?.value } })} />
-          <RenderTxtField label={'Zip'} value={formData.zip} edit={editEnabled} 
-            onChange={(event: any)=>setFormData({ ...formData, ...{ zip: event?.target?.value } })} />
-          <RenderTxtField label={'City'} value={formData.city} edit={editEnabled} 
-            onChange={(event: any)=>setFormData({ ...formData, ...{ city: event?.target?.value } })} />
-          <RenderTxtField label={'Country'} value={formData.country} edit={editEnabled} 
-            onChange={(event: any)=>setFormData({ ...formData, ...{ country: event?.target?.value } })} />
+            onChange={(event: any) => setFormData({ ...formData, ...{ street2: event?.target?.value } })} />
+          <RenderTxtField label={'Zip'} value={formData.zip} edit={editEnabled}
+            onChange={(event: any) => setFormData({ ...formData, ...{ zip: event?.target?.value } })} />
+          <RenderTxtField label={'City'} value={formData.city} edit={editEnabled}
+            onChange={(event: any) => setFormData({ ...formData, ...{ city: event?.target?.value } })} />
+          <RenderTxtField label={'Country'} value={formData.country} edit={editEnabled}
+            onChange={(event: any) => setFormData({ ...formData, ...{ country: event?.target?.value } })} />
         </Box>
       </Box>
       {!editEnabled ? <Box sx={{ borderTop: '1px solid', borderColor: theme.palette.gray }}>
