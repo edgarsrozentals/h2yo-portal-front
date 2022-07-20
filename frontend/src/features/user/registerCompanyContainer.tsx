@@ -8,7 +8,7 @@ import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { addData, addOdooData, ContactRole } from './userSlice';
+import { addData, addOdooData, ContactRole, RegStage } from './userSlice';
 import { useDispatch, useStore } from 'react-redux';
 import { Alert } from '@mui/material';
 
@@ -19,6 +19,7 @@ const RegisterCompanyContainer = () => {
 
   const [defaultProps, setDefaultProps] = useState({});
   const [disabledProps, setDisabledProps] = useState<Array<string>>([]);
+  const [registrationStage, setRegistrationStage] = useState(RegStage.inProgress);
 
   const [registerError, setRegisterError] = useState('');
   const [message, setMessage] = useState('');
@@ -59,10 +60,17 @@ const RegisterCompanyContainer = () => {
 
     const result = await post('invite/accept', dataToSend);
 
-    if (result.result) {
+    if (result.status === 200) {
       setMessage('Registration completed!');
+      setRegistrationStage(RegStage.completed);
     } else {
-      setRegisterError('An error occured! Failed to Register!');
+      if (result.message) {
+        setRegisterError(result.message);
+
+      } else {
+        setRegisterError('An error occured! Failed to Register!');
+
+      }
     }
 
     return;
@@ -78,6 +86,7 @@ const RegisterCompanyContainer = () => {
       step={step ? parseInt(step?.replace('step', '')) : 1}
       onRegister={handleRegister} 
       message={message} 
+      registrationStage={registrationStage}
       registerError={registerError} 
       disabledProps={disabledProps}
       defaultProps={defaultProps}

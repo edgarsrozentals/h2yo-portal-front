@@ -24,10 +24,10 @@ export default function PasswordResetEmailContainer () {
 
     const result = await post('passwordreset/email', data);
 
-    if (result.result) {
+    if (result.status === 200) {
       setMessage('Password reset instructions have been sent to ' + data.email + '!');
     } else {
-      setRegisterError('An error occured! Failed to sent reset password link!');
+      setRegisterError('Failed to send password reset email! This email is not registered or is inactive!');
     }
 
     return;
@@ -42,6 +42,7 @@ export default function PasswordResetEmailContainer () {
     <ResetPasswordEmail 
       onReset={handleReset}
       onBackToLogin={loginButtonHandler}
+      message={message}
       externalError={registerError} 
     />
     

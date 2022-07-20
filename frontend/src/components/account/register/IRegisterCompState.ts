@@ -4,7 +4,7 @@ export interface IRegisterCompState {
     userPassword2?: string | undefined,
     userName: string | undefined,
     userPhone: string | undefined,
-    company: string | undefined,
+    name: string | undefined,
     legalAddress: string | undefined,
     VATNumber: string | undefined,
     locationStreet: string | undefined,

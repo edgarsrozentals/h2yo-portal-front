@@ -70,7 +70,7 @@ export default function ResetPasswordEmail ({
         <Grid item>
           <Typography variant="body1" textAlign="center" gutterBottom>Input your email below in order to reset the password. Password reset instructions will be sent to it!</Typography>
         </Grid>
-        {message ? <Grid item><Alert severity="success">{{ message }}</Alert></Grid> : null}
+        {message ? <Grid item><Alert severity="success">{ message }</Alert></Grid> : null}
         {errorText ? <Grid item><Alert severity="error">{errorText}</Alert></Grid> : null}
         <Grid item>
           <TextField fullWidth size="small" label="Email" variant="outlined" 

@@ -18,7 +18,7 @@ export default function CompanyUserRegister (props: any) {
     userPassword2: defaultProps?.userPassword ?? '',
     userName: defaultProps?.userName ?? '',
     userPhone: defaultProps?.userPhone ?? '',
-    company: defaultProps?.company ?? '',
+    name: defaultProps?.name ?? '',
     legalAddress: defaultProps?.legalAddress ?? '',
     VATNumber: defaultProps?.VATNumber ?? '',
     locationStreet: defaultProps?.locationStreet ?? '',

@@ -10,6 +10,7 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import { IRegisterCompState } from './IRegisterCompState';
+import { RegStage } from '../../../features/user/userSlice';
 
 const steps = [
   'Welcome',
@@ -35,6 +36,7 @@ export default function Register (
     message: string,
     defaultProps: IRegisterCompState,
     disabledProps: Array<string>,
+    registrationStage: RegStage,
     step: number
   }) {
 
@@ -44,7 +46,7 @@ export default function Register (
     userPassword2: defaultProps?.userPassword2 ?? '',
     userName: defaultProps?.userName ?? '',
     userPhone: defaultProps?.userPhone ?? '',
-    company: defaultProps?.company ?? '',
+    name: defaultProps?.name ?? '',
     legalAddress: defaultProps?.legalAddress ?? '',
     VATNumber: defaultProps?.VATNumber ?? '',
     locationStreet: defaultProps?.locationStreet ?? '',
@@ -59,12 +61,17 @@ export default function Register (
 
   const [errorFields, setErrorFields] = useState<Array<string>>([]);
 
+  const [error, setError] = useState<string>('');
+
   useEffect(() => {
 
     setData({ ...data, ...defaultProps });
   }, [defaultProps]);
 
-  const [error, setError] = useState<string>('');
+  useEffect(() => {
+
+    setError(registerError);
+  }, [registerError]);
 
   const handleRegister = (ev: any) => {
 
@@ -87,12 +94,20 @@ export default function Register (
       
       errorFieldsNew.push('name');
     }
+    if (formProps.name === '') {
+      
+      errorFieldsNew.push('name');
+    }
     if (formProps.userPhone === '') {
       
       errorFieldsNew.push('userPhone');
     }
 
-    setErrorFields([...errorFields, ...errorFieldsNew]);
+    if (errorFieldsNew.length > 0) {
+      setError('Please fill all required fields!');
+    }
+    
+    setErrorFields(errorFieldsNew);
     
     if (errorFieldsNew.length === 0) {
       onRegister(data);
@@ -116,8 +131,6 @@ export default function Register (
     };
   }, []);
 
-  const errorText = error ?? registerError;
-
   return <>
     
     <Container
@@ -130,7 +143,7 @@ export default function Register (
             </Step>
           ))}
           </Stepper>*/}
-        {errorText ? <Grid item>{errorText}</Grid> : null}
+        {error ? <Grid item><Alert severity="error">{error}</Alert></Grid> : null}
         {message !== '' ? 
           <><Alert severity="success">{message}</Alert> 
             <Button onClick={onLoginButton}>Login</Button>
@@ -147,7 +160,7 @@ export default function Register (
               errorFields={errorFields} 
               data={data} onSetData={setData} />
             <Typography variant="h6" gutterBottom component="div" align="left">Company details</Typography>
-            <CompanyDetails disabledProps={[]} data={data} onSetData={setData} />
+            <CompanyDetails errorFields={errorFields} disabledProps={[]} data={data} onSetData={setData} />
             <LoadingButton type="submit" size="small" loading={false} variant="contained" 
               onClick={handleRegister}
             >
