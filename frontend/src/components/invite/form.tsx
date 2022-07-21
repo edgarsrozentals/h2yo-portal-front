@@ -57,7 +57,7 @@ export default function InviteForm (
     }
 
     if (data.accountOwnerOdoo === 0 && accountOwners.length > 0) {
-      setError('Please enter the password!');
+      setError('Please select account owner!');
       return false;
     }
 
@@ -97,33 +97,35 @@ export default function InviteForm (
       alignItems="center">
       {message ? <Grid item><Alert severity="success">{message}</Alert></Grid> : null}
       {errorText ? <Grid item><Alert severity="error">{errorText}</Alert></Grid> : null}
-      {accountOwners && accountOwners.length > 0 ? <FormControl fullWidth>
-        <InputLabel id="account-owner-select-label">Account Owner</InputLabel>
+      {accountOwners && accountOwners.length > 0 ? <Grid item md={12} sm={12} xs={12} sx={{ width: '100%' }}><Box sx={{ display: 'flex', justifyContent: 'left' }}><FormControl fullWidth>
+        <InputLabel id="account-owner-select-label2">Account Owner</InputLabel>
         <Select
           size="small"
-          labelId="account-owner-select-label"
+          labelId="account-owner-select-label2"
           value={data.accountOwnerOdoo}
+          sx={{ width: '400px' }}
           label="Account Owner"
           onChange={(ev)=>setData({ ...data, ...{ accountOwnerOdoo: typeof ev.target.value === 'string' ? parseInt(ev.target.value) : ev.target.value } })}
         >
           {accountOwners.map((elem, i)=>(<MenuItem key={elem.id} value={elem.id}>{elem.name}</MenuItem>))}
         </Select>
-      </FormControl> : ''}
-      {inviteRoles && inviteRoles.length > 0 ? <Grid item><FormControl fullWidth>
-        
-        <InputLabel id="account-owner-select-label">Role</InputLabel>
-        <Select
-          size="small"
-          labelId="account-owner-select-label"
-          value={data.userRole}
-          fullWidth
-          label="Role"
-          sx={{ width: '400px' }}
-          onChange={(ev)=>setData({ ...data, ...{ userRole: ev.target.value as ContactRole } })}
-        >
-          {inviteRoles.map((elem: IInviteRole, i)=>(<MenuItem key={i} value={elem.role}>{elem.title}</MenuItem>))}
-        </Select>
-      </FormControl></Grid> : ''}
+      </FormControl></Box></Grid> : ''}
+      {inviteRoles && inviteRoles.length > 0 ? 
+        <Grid item md={12} sm={12} xs={12} sx={{ width: '100%' }}><Box sx={{ display: 'flex', justifyContent: 'left' }}>
+          <FormControl fullWidth>
+            <InputLabel id="account-owner-select-label">Role</InputLabel>
+            <Select
+              size="small"
+              labelId="account-owner-select-label"
+              value={data.userRole}
+              fullWidth
+              label="Role"
+              sx={{ width: '400px' }}
+              onChange={(ev)=>setData({ ...data, ...{ userRole: ev.target.value as ContactRole } })}
+            >
+              {inviteRoles.map((elem: IInviteRole, i)=>(<MenuItem key={i} value={elem.role}>{elem.title}</MenuItem>))}
+            </Select>
+          </FormControl></Box></Grid> : ''}
       <Grid item md={12} sm={12} xs={12} sx={{ width: '100%' }}>
         <Box sx={{ display: 'flex', justifyContent: 'left' }}>
           <TextField 

@@ -58,6 +58,7 @@ const pages = [
   [MenuTypes.CARTRIGES, 'Cartriges'],
   [MenuTypes.ORDERS, 'Orders', 'VIEW_CARTRIDGE_ORDERS'],
   [MenuTypes.COMPANIES, 'Clients', 'VIEW_COMPANIES'],
+  [MenuTypes.INVITE, 'Invite', 'INVITE_MENU'],
 ];
 
 export default function AppBarComp () {

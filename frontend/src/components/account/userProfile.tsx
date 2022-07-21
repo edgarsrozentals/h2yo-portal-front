@@ -113,7 +113,7 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
               variant="outlined" 
               fullWidth
               value={ passwordData.existingPassword } 
-              onChange={(ev)=>{setData({ ...data, ...{ userPassword2: ev.target.value } });}}
+              onChange={(ev)=>{setPasswordData({ ...passwordData, ...{ existingPassword: ev.target.value } });}}
             />
           </Grid>
           <Grid item md={6} sm={6} xs={12}>
@@ -124,7 +124,7 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
               variant="outlined" 
               fullWidth
               value={ passwordData.newPassword } 
-              onChange={(ev)=>{setData({ ...data, ...{ userPassword2: ev.target.value } });}}
+              onChange={(ev)=>{setPasswordData({ ...passwordData, ...{ newPassword: ev.target.value } });}}
             />
           </Grid>
           <Grid item md={6} sm={6} xs={12}>
@@ -135,7 +135,7 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
               variant="outlined" 
               fullWidth
               value={ passwordData.repeatNewPassword } 
-              onChange={(ev)=>{setData({ ...data, ...{ userPassword2: ev.target.value } });}}
+              onChange={(ev)=>{setPasswordData({ ...passwordData, ...{ repeatNewPassword: ev.target.value } });}}
             />
             <Box sx={{ padding: theme.spacing(3, 0) }}>
               <LoadingButton type="submit" size="small" loading={false} variant="contained" 
