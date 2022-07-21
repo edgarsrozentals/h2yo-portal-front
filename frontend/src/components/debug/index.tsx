@@ -1,6 +1,15 @@
 import { Button, Grid, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { get } from '../../api';
+import RenderAccumData from './renderAccumData';
+import { CartridgeData } from './types';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 type ComponentProps = {
   execute: (executeType: string, data: any) => void
@@ -19,7 +28,7 @@ const cartrigeIDs = [
 export default function DebugComponent({ execute }: ComponentProps) {
 
   const [accumParams, setAccumParams] = useState({ companyId: 0, locationId: 0 });
-  const [accumData, setAccumData] = useState<Array<{cartridgeId: string, cartridgeCount: number}>>([]);
+  const [accumData, setAccumData] = useState<Array<CartridgeData>>([]);
   const [stock, setStock] = useState<Array<any>>([]);
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -152,17 +161,24 @@ export default function DebugComponent({ execute }: ComponentProps) {
       </Grid>
     
       <Grid item md={12} sm={12} xs={12}>
-        <h4>Accumulation:</h4>
-        {accumData.map((x, i)=>(
-          <TextField key={i}
-            size="small" 
-            sx={{ margin: 1 }}
-            label={x.cartridgeId}
-            variant="outlined" 
-            disabled={true}
-            value={x.cartridgeCount} 
-          />
-        ))}
+        <h4>Order Accumulation:</h4>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Type</TableCell>
+                <TableCell>days of stock</TableCell>
+                <TableCell>Cartridges in devices</TableCell>
+                <TableCell>AveDemand (cart p/day)</TableCell>
+                <TableCell>Minus Stock</TableCell>
+                <TableCell>Order size</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {accumData.map((x, i)=>(<RenderAccumData key={i} data={x} />))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Grid>
       <Grid item md={12} sm={12} xs={12}>
         <h4>Stock:</h4>

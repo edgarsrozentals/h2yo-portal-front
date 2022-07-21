@@ -8,19 +8,24 @@ const DebugContainer = () => {
 
   const handleExecute = async (executeType: string, data: any) => {
 
+    let res = { status: 200, message: '' };
+
     switch (executeType) {
       case 'starterpackinvoice':
         
-        post('starterpack', data);
+        res = await post('starterpack', data);
         break;
       case 'starterpackorder':
-        post('order/starterpack', data);
+        res = await post('order/starterpack', data);
         break;
       case 'repeatorderpack':
-        post('order/repeatorder', data);
+        res = await post('order/repeatorder', data);
         break;
     }
     
+    if (res.status !== 200) {
+      alert(res.message);
+    }
 
     return;
   };
