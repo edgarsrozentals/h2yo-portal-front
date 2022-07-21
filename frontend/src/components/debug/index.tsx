@@ -189,7 +189,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
             label={x.cartrigeType}
             variant="outlined" 
             disabled={true}
-            value={x.cartridgeCount} 
+            value={x.cartrigeCount} 
           />
         ))}
       </Grid>
