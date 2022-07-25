@@ -84,13 +84,13 @@ export default function DebugComponent({ execute }: ComponentProps) {
         size="medium" variant="contained" 
         onClick={()=>{execute('starterpackinvoice', starterData);}}
       >
-          Order Starter Pack (Invoice)
+        Order Starter Pack (Invoice)
       </Button>
       <Button sx={{ margin: 1 }} 
         size="medium" variant="contained"
         onClick={()=>{execute('starterpackorder', starterData);}}
       >
-          Order Starter Pack (Order)
+        Order Starter Pack (Order)
       </Button>
     </Grid>
     <Grid item sx={{ margin: '5px 0', border: '1px solid gray' }}>

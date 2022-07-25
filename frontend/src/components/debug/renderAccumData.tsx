@@ -27,7 +27,7 @@ export default function RenderAccumData ({ data }: RenderAccumDataType) {
       {data.devices.map((x, i) => (
         <table key={i}>
           <tr><th>id</th><th>daysUsed</th>totalPumped<th />cartridgesUsed</tr>
-          <tr><td>{x.id.substring(x.id.length-5, x.id.length)}</td><td>{x.daysUsed}</td><td>{x.totalPumped}</td><td>{x.cartridgesUsed}</td></tr>
+          <tr><td>{x.id.substring(x.id.length-5, x.id.length)}</td><td>{x.daysUsed}</td><td>{x.totalPumped.toFixed(5)}</td><td>{x.cartridgesUsed}</td></tr>
         </table>
       ))}
     </TableCell>

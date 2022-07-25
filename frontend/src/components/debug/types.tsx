@@ -1,4 +1,4 @@
-export type cartridgeDeviceDataType = {
+export type CartridgeDeviceDataType = {
     id: string,
     daysUsed: number,
     totalPumped: number,
@@ -11,5 +11,5 @@ export type CartridgeData = {
     currentStock: number,
     avgDemand: number,
     days: number,
-    devices: Array<cartridgeDeviceDataType>
+    devices: Array<CartridgeDeviceDataType>
 };

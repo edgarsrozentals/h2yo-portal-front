@@ -98,8 +98,13 @@ const InviteContainer = ({ inviteCompany }: {inviteCompany?: boolean} = { invite
 
     if (response.result) {
       setMessage('Invite sent!');
+
+      if (inviteError !== '') {
+        setInviteError('');
+      }
+      
     } else {
-      setInviteError('Failed to invite!');
+      setInviteError(response.message ?? 'Failed to invite!');
     }
 
     return;
