@@ -72,7 +72,7 @@ export default function TeamContainer () {
     
       loadUsers();
     } else {
-      setError('Failed to set role');
+      setError(response.message ?? 'Failed to delete');
       loadUsers();
     }
 

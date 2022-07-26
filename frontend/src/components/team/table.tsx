@@ -1,4 +1,10 @@
 import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -167,6 +173,12 @@ export default function TeamTable({ data, locations, showLocations, roles, onSel
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(15);
 
+  const [memeberToDelete, setMemberToDelete] = React.useState<UserData | null>(null);
+
+  const handleClose = () => {
+    setMemberToDelete(null);
+  };
+
   const theme = useTheme();
 
   const rows = data;
@@ -189,12 +201,43 @@ export default function TeamTable({ data, locations, showLocations, roles, onSel
     setPage(0);
   };
 
+  const handleConfirmDelete = (data: UserData) => {
+
+    setMemberToDelete(data);
+  };
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
     <Box sx={{ width: '100%' }}>
+      <Dialog
+        open={memeberToDelete !== null}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {'Delete member?'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete {memeberToDelete?.firstName} {memeberToDelete?.lastName} ({memeberToDelete?.email})?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={()=>{ 
+            if (memeberToDelete) {
+              onDeleteMember(memeberToDelete);
+              setMemberToDelete(null);
+            }
+          }} autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
       <TableContainer>
         <Table
           sx={{ minWidth: 750, }}
@@ -245,7 +288,9 @@ export default function TeamTable({ data, locations, showLocations, roles, onSel
                       value={row.locations ?? []}
                       onSelectOption={(event: any)=>onSelectLocation(row, event)}
                     /></TableCell> : null}
-                    <TableCell align="left"><DeleteForeverIcon sx={{ cursor: 'pointer' }} onClick={()=>onDeleteMember(row)} color="warning" /></TableCell>
+                    <TableCell align="left">
+                      <DeleteForeverIcon sx={{ cursor: 'pointer' }} onClick={()=>handleConfirmDelete(row)} color="warning" />
+                    </TableCell>
                   </TableRow>
                 );
               })}
