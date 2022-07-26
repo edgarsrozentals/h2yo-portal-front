@@ -47,8 +47,11 @@ const RegisterUserContainer = () => {
       name = data.owner.name;
     }
 
+    if (data.email) {
+      setDisabledProps(['userEmail']);
+    }
 
-    setDefaultProps({ company: name, userEmail: urlParams.get('email') });
+    setDefaultProps({ company: name, userEmail: data.email });
 
     return;
   };
@@ -68,6 +71,7 @@ const RegisterUserContainer = () => {
     const result = await post('invite/accept', dataToSend);
 
     if (result.status === 200) {
+      setRegisterError('');
       setMessage('Registration completed!');
       setRegistrationStage(RegStage.completed);
     } else {

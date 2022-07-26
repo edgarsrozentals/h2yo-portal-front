@@ -41,6 +41,8 @@ export default function CompanyUserRegister (props: any) {
 
   const [errorText, setError] = useState<string>('');
 
+  const [termsConditions, setTermsConditions] = useState(false);
+
   useEffect(() => {
 
     setError(registerError);
@@ -78,6 +80,11 @@ export default function CompanyUserRegister (props: any) {
       errorFieldsNew.push('userPhone');
     }
 
+    if (!termsConditions) {
+      setError('To sign up you have to accept terms and conditions!');
+      return false;
+    }
+
     setErrorFields([...errorFields, ...errorFieldsNew]);
 
     if (errorFieldsNew.length === 0) {
@@ -88,13 +95,13 @@ export default function CompanyUserRegister (props: any) {
   };
 
   return <Box>
-    {errorText ? <Grid item><Alert severity="error">{errorText}</Alert></Grid> : null}
+    {errorText ? <Box sx={{ padding: (theme)=>theme.spacing(1, 0) }}><Alert severity="error">{errorText}</Alert></Box> : null}
     {registrationStage === RegStage.completed ? 
       <>
         <Typography variant="h6" gutterBottom component="div" align="left">Your details</Typography>
         <hr />
-        <Grid item><Alert severity="success">Your account has been registered please login</Alert></Grid>
-        <LoadingButton sx={{ margin: theme.spacing(1, 0) }} type="submit" size="medium" loading={false} variant="contained" 
+        <Box sx={{ padding: (theme)=>theme.spacing(1, 0) }}><Alert severity="success">Your account has been registered please login</Alert></Box>
+        <LoadingButton type="submit" size="medium" loading={false} variant="contained" 
           onClick={()=>navigate('/')}
         >
           Login
@@ -109,7 +116,7 @@ export default function CompanyUserRegister (props: any) {
         >
           <Grid item md={8} sm={8} xs={12}>
             <FormGroup>
-              <FormControlLabel control={<Checkbox defaultChecked />} label="I agree to Terms and Conditions" />
+              <FormControlLabel control={<Checkbox onChange={()=>setTermsConditions(!termsConditions)} value={termsConditions} />} label="I agree to Terms and Conditions" />
             </FormGroup>
           </Grid>
           <Grid item md={4} sm={4} xs={12} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>

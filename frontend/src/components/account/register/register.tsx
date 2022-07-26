@@ -61,6 +61,8 @@ export default function Register (
 
   const [errorFields, setErrorFields] = useState<Array<string>>([]);
 
+  const [termsConditions, setTermsConditions] = useState(false);
+
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
@@ -107,6 +109,11 @@ export default function Register (
       setError('Please fill all required fields!');
     }
     
+    if (!termsConditions) {
+      setError('To sign up you have to accept terms and conditions!');
+      return false;
+    }
+    
     setErrorFields(errorFieldsNew);
     
     if (errorFieldsNew.length === 0) {
@@ -143,30 +150,35 @@ export default function Register (
             </Step>
           ))}
           </Stepper>*/}
-        {error ? <Grid item><Alert severity="error">{error}</Alert></Grid> : null}
+        {error ? <Box sx={{ padding: (theme)=>theme.spacing(1, 0) }}><Alert severity="error">{error}</Alert></Box> : null}
         {message !== '' ? 
           <><Alert severity="success">{message}</Alert> 
-            <Button onClick={onLoginButton}>Login</Button>
+            <Box sx={{ padding: (theme)=>theme.spacing(1, 0) }}><Button onClick={onLoginButton}>Login</Button></Box>
           </>
           :
-          <>
+          <Box sx={{ margin: (theme)=>theme.spacing(1, 0) }}>
             {/* {step === 1 ? <RegisterStep1 /> : null }
             {step === 2 ? <RegisterStep2 data={data} onSetData={setData} disabledProps={[]} /> : null }
           {step === 3 ? <RegisterStep3 data={data} onSetData={setData} onRegister={submitHandler} disabledProps={[]} /> : null }*/}
             <Typography variant="h6" gutterBottom component="div" align="left">Your details</Typography>
             <UserDetails 
-              disabledProps={[]} 
+              disabledProps={disabledProps} 
               hideFields={['userExistingPassword']} 
-              errorFields={errorFields} 
+              errorFields={errorFields}
               data={data} onSetData={setData} />
             <Typography variant="h6" gutterBottom component="div" align="left">Company details</Typography>
             <CompanyDetails errorFields={errorFields} disabledProps={[]} data={data} onSetData={setData} />
-            <LoadingButton type="submit" size="small" loading={false} variant="contained" 
+            <Box sx={{ padding: (theme)=>theme.spacing(1, 0) }}>
+              <FormGroup>
+                <FormControlLabel control={<Checkbox onChange={()=>setTermsConditions(!termsConditions)} value={termsConditions} />} label="I agree to Terms and Conditions" />
+              </FormGroup>
+            </Box>
+            <LoadingButton sx={{ margin: (theme)=>theme.spacing(1, 0) }} type="submit" size="small" loading={false} variant="contained" 
               onClick={handleRegister}
             >
               REGISTER
             </LoadingButton>
-          </>
+          </Box>
         }
       </FormControl>
     </Container>

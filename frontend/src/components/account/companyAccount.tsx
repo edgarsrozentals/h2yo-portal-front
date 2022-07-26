@@ -9,7 +9,7 @@ import { IRegisterCompState } from './register/IRegisterCompState';
 export interface IAccountProps {
   name?: string,
   legalAddress?: string,
-  vatNumber?: string,
+  vat?: string,
   street?: string,
   street2?: string,
   building?: string,
@@ -30,7 +30,7 @@ export default function CompanyAccount ({ defaultProps, onUpdate, successMessage
 
   const [data, setData] = useState<IAccountProps>({ 
     name: defaultProps?.name ?? '',
-    vatNumber: defaultProps?.vatNumber ?? '',
+    vat: defaultProps?.vat ?? '',
     street: defaultProps?.street ?? '',
     street2: defaultProps?.street2 ?? '',
     apartment: defaultProps?.apartment ?? '',

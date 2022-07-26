@@ -33,15 +33,23 @@ const RegisterCompanyContainer = () => {
     const data = await get('invite/' + urlParams.get('token') + '/' + urlParams.get('email'));
 
     let name = '';
+    const disabledProps = [];
     if (data.role === ContactRole.ACCOUNT_OWNER_MNG 
       || data.role === ContactRole.ACCOUNT_OWNER_USER
     ) {
-      setDisabledProps(['company']);
+      
+      disabledProps.push('company');
       name = data.owner.name;
     }
 
+    if (data.email) {
+      disabledProps.push('userEmail');
+    }
 
-    setDefaultProps({ company: name, userEmail: urlParams.get('email') });
+    
+    setDisabledProps(disabledProps);
+
+    setDefaultProps({ company: name, userEmail: data.email });
 
     return;
   };
@@ -61,6 +69,7 @@ const RegisterCompanyContainer = () => {
     const result = await post('invite/accept', dataToSend);
 
     if (result.status === 200) {
+      setRegisterError('');
       setMessage('Registration completed!');
       setRegistrationStage(RegStage.completed);
     } else {

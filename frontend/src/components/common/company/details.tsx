@@ -33,10 +33,10 @@ export default function CompanyDetails({ disabledProps, onSetData, data, errorFi
         size="small"
         label="VAT reg Nr."
         variant="outlined"
-        value={data.vatNumber}
-        error={errorFields?.includes('vatNumber')}
-        disabled={disabledProps.includes('vatNumber')}
-        onChange={(ev)=>{onSetData({ ...data, ...{ vatNumber: ev.target.value } });}}
+        value={data.vat}
+        error={errorFields?.includes('vat')}
+        disabled={disabledProps.includes('vat')}
+        onChange={(ev)=>{onSetData({ ...data, ...{ vat: ev.target.value } });}}
       />
     </Grid>
     <Grid item md={6} sm={6} xs={12}>

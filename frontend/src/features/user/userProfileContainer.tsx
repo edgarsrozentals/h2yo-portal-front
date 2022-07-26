@@ -28,7 +28,8 @@ export default function UserProfileContainer () {
       name: data.userName,
       phone: data.userPhone,
       email: data.userEmail,
-      password: data.userPassword
+      password: data.userPassword,
+      existingPassword: data.existingUserPassword
     });
 
     const oldData = { ...userData };
@@ -41,10 +42,12 @@ export default function UserProfileContainer () {
 
     if (response.status === 200) {
 
+      setErrorMessageInternal('');
       setMessageInternal('Profile settings updated');
     } else {
       dispatch(addData(oldData));
-      setErrorMessageInternal(response.data.message);
+      setMessageInternal('');
+      setErrorMessageInternal(response.message);
     }
 
     return;

@@ -10,7 +10,7 @@ import { Box } from '@mui/system';
 export interface IUserProfileState{
   userEmail?: string,
   userPassword?: string,
-  existingPassword?: string,
+  existingUserPassword?: string,
   userName?: string,
   userPhone?: string,
 }
@@ -36,7 +36,7 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
 
   const [data, setData] = useState<IUserProfileState>({ 
     userEmail: defaultProps?.userEmail ?? '', 
-    existingPassword: defaultProps?.userPassword ?? '',
+    existingUserPassword: defaultProps?.existingUserPassword ?? '',
     userPassword: defaultProps?.userPassword ?? '',
     userName: defaultProps?.userName ?? '',
     userPhone: defaultProps?.userPhone ?? '',
@@ -51,7 +51,12 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
   const [messageInternal, setMessageInternal] = useState<string>('');
   const [errorMessageInternal, setErrorMessageInternal] = useState<string>('');
   const [errorFields, setErrorFields] = useState<Array<any>>([]);
-    
+  
+  useEffect(() => {
+
+    setErrorMessageInternal(errorMessage ?? '');
+  }, [errorMessage]);
+
   useEffect(() => {
     
     setData({ ...data, ...defaultProps });
@@ -67,15 +72,15 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
 
     if (passwordData.newPassword !== passwordData.repeatNewPassword) {
 
-      setMessageInternal('Passwords doesn\'t match');
+      setErrorMessageInternal('Passwords doesn\'t match');
       setErrorFields(['existingPassword', 'newPassword', 'repeatNewPassword']);
       return;
     }
 
-    onUpdate({ ...defaultProps, ...{ userPassword: passwordData.newPassword } });
+    onUpdate({ ...defaultProps, ...{ userPassword: passwordData.newPassword, existingUserPassword: passwordData.existingPassword } });
   };
 
-  const errorText = errorMessage ?? messageInternal;
+  const errorText = errorMessageInternal;
   const messageText = successMessage ?? errorMessageInternal;
 
   return <Container maxWidth="md">
@@ -105,9 +110,9 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
           spacing={1}
         >
           
-          <Grid item md={6} sm={6} xs={12}>
+          <Grid item md={12} sm={12} xs={12}>
             <TextField 
-              size="small" 
+              size="small"
               label="Existing password" 
               type="password" 
               variant="outlined" 
@@ -116,7 +121,7 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
               onChange={(ev)=>{setPasswordData({ ...passwordData, ...{ existingPassword: ev.target.value } });}}
             />
           </Grid>
-          <Grid item md={6} sm={6} xs={12}>
+          <Grid item md={12} sm={12} xs={12}>
             <TextField 
               size="small" 
               label="New password" 
@@ -127,7 +132,7 @@ export default function UserProfile ({ successMessage, errorMessage, defaultProp
               onChange={(ev)=>{setPasswordData({ ...passwordData, ...{ newPassword: ev.target.value } });}}
             />
           </Grid>
-          <Grid item md={6} sm={6} xs={12}>
+          <Grid item md={12} sm={12} xs={12}>
             <TextField 
               size="small" 
               label="Repeat password" 

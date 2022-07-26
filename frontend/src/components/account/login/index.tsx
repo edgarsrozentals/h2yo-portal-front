@@ -8,7 +8,8 @@ import LockIcon from '@mui/icons-material/Lock';
 
 export interface ILoginCompState {
   login: string, 
-  password: string
+  password: string,
+  termsConditions: boolean
 }
 
 interface LoginProps {
@@ -25,7 +26,7 @@ export default function Login ({
   loading
 }: LoginProps) {
 
-  const [data, setData] = useState<ILoginCompState>({ login: '', password: '' });
+  const [data, setData] = useState<ILoginCompState>({ login: '', password: '', termsConditions: false });
   const [error, setError] = useState<string>('');
 
   //needed for autofill
@@ -59,7 +60,12 @@ export default function Login ({
       return false;
     }
 
-    onLogin({ login: loginValue, password: passwordValue });
+    if (!data.termsConditions) {
+      setError('To login you have to accept terms and conditions!');
+      return false;
+    }
+
+    onLogin({ ...data, ...{ login: loginValue, password: passwordValue } });
   };
 
   useEffect(() => {
@@ -74,6 +80,11 @@ export default function Login ({
       document.removeEventListener('keydown', listener);
     };
   }, []);
+
+  const checkboxHandler = (event: any) => {
+
+    setData({ ...data, ...{ termsConditions: !data.termsConditions } });
+  };
 
   const errorText = loginError !== '' ? loginError : error;
 
@@ -118,7 +129,7 @@ export default function Login ({
           />
         </Grid>
         <Grid item md={12} sm={12} xs={12}>
-          <FormControlLabel control={<Checkbox defaultChecked />} sx={{ color: theme.palette.primary.dark }} label="I accept the Terms and Conditions" />
+          <FormControlLabel control={<Checkbox onChange={checkboxHandler} value={data.termsConditions} />} sx={{ color: theme.palette.primary.dark }} label="I accept the Terms and Conditions" />
         </Grid>
         <Grid item md={12} sm={12} xs={12}>
           <LoadingButton sx={{ width: '100%' }} type="submit" size="medium" loading={loading} variant="contained" 
