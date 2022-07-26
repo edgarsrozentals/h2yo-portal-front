@@ -30,7 +30,7 @@ const MenuProps = {
 
 export default function MultiSelectChip (props: IMultiSelectChip) {
 
-  const { selectOptions, label, value, onSelectOption, onChange, ...selectProps } = props;
+  const { selectOptions, label, value, onSelectOption, onChange, readOnly, ...selectProps } = props;
 
   const valueIds = value.map((x: SelectType)=>x.id);
 
@@ -58,6 +58,7 @@ export default function MultiSelectChip (props: IMultiSelectChip) {
         multiple
         value={value.map((x: SelectType)=>x.id)}
         onChange={changeHandler}
+        IconComponent={readOnly ? ()=>(<div />) : undefined}
         input={<OutlinedInput id="select-multiple-chip" label={label} />}
         renderValue={(selected: Array<number>) => (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
