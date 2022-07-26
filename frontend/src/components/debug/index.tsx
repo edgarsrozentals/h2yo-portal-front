@@ -170,7 +170,7 @@ export default function DebugComponent({ execute }: ComponentProps) {
                 <TableCell>days of stock</TableCell>
                 <TableCell>Cartridges in devices</TableCell>
                 <TableCell>AveDemand (cart p/day)</TableCell>
-                <TableCell>Minus Stock</TableCell>
+                <TableCell>Stock</TableCell>
                 <TableCell>Order size</TableCell>
               </TableRow>
             </TableHead>

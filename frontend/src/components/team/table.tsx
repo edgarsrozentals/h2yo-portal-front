@@ -219,7 +219,7 @@ export default function TeamTable({ data, locations, showLocations, roles, onSel
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {'Delete member?'}
+          Delete member?
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
