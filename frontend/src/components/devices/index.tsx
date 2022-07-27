@@ -28,6 +28,8 @@ export default function DevicesComponent ({ data, deviceRefresh, errorMessage, o
     data = data.filter(x=>(x.status === 'Active'));
   }
 
+  //data = data.map(x=>({...x, {dateCreated: new Date(x.dateCz)}}))
+
   return <Box>
     <Box sx={{ padding: (theme)=>theme.spacing(2, 2) }}>
       <Typography variant="h4">Manage Devices</Typography>
