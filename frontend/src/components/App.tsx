@@ -30,6 +30,7 @@ import Page from './common/page';
 import RegisterUserContainer from '../features/user/registerUserContainer';
 import ClientCompaniesContainer from '../features/clientCompanies/container';
 import AutoLoginContainer from '../features/login/autoLoginContainer';
+import DevicesContainer from '../features/devices/container';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -62,6 +63,7 @@ function App() {
           <Route path="/customer-support" element={<Page><CustomerSupport /></Page>} />
           <Route path="/orders" element={<Page><OrdersContainer /></Page>} />
           <Route path="/services" element={<Page><Box>Services content</Box></Page>} />
+          <Route path="/manage-devices" element={<Page><DevicesContainer /></Page>} />
           <Route path="/profile" element={<Page><UserProfileContainer /></Page>} />
           {permissions.indexOf('MANAGE_TEAM') > -1 ? <Route path="/team-management" element={<Page><TeamContainer /></Page>} /> : null}
           <Route path="/company-account" element={<Page><CompanyAccountContainer /></Page>} />

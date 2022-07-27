@@ -41,6 +41,7 @@ export enum MenuTypes {
     CUSTOMER_SUPPORT = 'customer-support',
     DEBUG = 'debug',
     COMPANIES = 'clients',
+    MANAGE_ALL_DEVICES = 'manage-devices',
 }
 
 const settings = [
@@ -59,6 +60,7 @@ const pages = [
   [MenuTypes.ORDERS, 'Orders', 'VIEW_CARTRIDGE_ORDERS'],
   [MenuTypes.COMPANIES, 'Clients', 'VIEW_COMPANIES'],
   [MenuTypes.INVITE, 'Invite', 'INVITE_MENU'],
+  [MenuTypes.MANAGE_ALL_DEVICES, 'Manage Devices', 'MANAGE_ALL_DEVICES'],
 ];
 
 export default function AppBarComp () {

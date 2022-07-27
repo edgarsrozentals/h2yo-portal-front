@@ -3,6 +3,7 @@ import counterReducer from '../features/counter/counterSlice';
 import userReducer from '../features/user/userSlice';
 import logger from 'redux-logger';
 import cartrigesReducer from '../features/cartriges/cartrigesSlice';
+import devices from '../features/devices/devicesSlice';
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -12,7 +13,8 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
     user: userReducer,
-    cartriges: cartrigesReducer
+    cartriges: cartrigesReducer,
+    devices: devices
   },
 });
 
