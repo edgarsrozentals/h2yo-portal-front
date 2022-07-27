@@ -23,8 +23,6 @@ import { visuallyHidden } from '@mui/utils';
 import { style, styled, useTheme } from '@mui/system';
 import { Theme } from '@mui/material';
 
-//WIP: Refactor this to portal table
-
 export interface RowData {
   id: number;
   date: string;
@@ -89,51 +87,26 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
 
 interface HeadCell {
   disablePadding: boolean;
-  id: keyof RowData;
+  id: string;
   label: string;
   numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
-  {
-    id: 'id',
-    numeric: false,
-    disablePadding: false,
-    label: 'ID',
-  },
-  {
-    id: 'date',
-    numeric: true,
-    disablePadding: false,
-    label: 'Date',
-  },
-  {
-    id: 'status',
-    numeric: true,
-    disablePadding: false,
-    label: 'Status',
-  },
-  {
-    id: 'amount',
-    numeric: true,
-    disablePadding: false,
-    label: 'Amount',
-  }
-];
 
 interface EnhancedTableProps {
   numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof RowData) => void;
+  onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
   order: Order;
   orderBy: string;
   rowCount: number;
+  headCells: HeadCell[]
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-  const { order, orderBy, numSelected, rowCount, onRequestSort } =
+  const { headCells, order, orderBy, numSelected, rowCount, onRequestSort } =
     props;
   const createSortHandler =
-    (property: keyof RowData) => (event: React.MouseEvent<unknown>) => {
+    (property: string) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -142,7 +115,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   return (
     <TableHead sx={{ backgroundColor: theme.palette.primary.main }}>
       <TableRow>
-        {headCells.map((headCell) => (
+        {headCells.map((headCell: HeadCell) => (
           <TableCell
             key={headCell.id}
             sx={{ color: theme.palette.common.white, padding: theme.spacing(1,2) }}
@@ -170,9 +143,9 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function EnhancedTable({ data }: {data: Array<RowData>}) {
+export default function PortalTable({ data, headCells }: {data: Array<any>, headCells: HeadCell[]}) {
   const [order, setOrder] = React.useState<Order>('desc');
-  const [orderBy, setOrderBy] = React.useState<keyof RowData>('date');
+  const [orderBy, setOrderBy] = React.useState<string>('date');
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -184,14 +157,14 @@ export default function EnhancedTable({ data }: {data: Array<RowData>}) {
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof RowData,
+    property: string,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, name: number) => {
+  const handleClick = (event: React.MouseEvent<unknown>, data: any) => {
     /* const selectedIndex = selected.indexOf(name);
     let newSelected: readonly string[] = [];
 
@@ -238,6 +211,7 @@ export default function EnhancedTable({ data }: {data: Array<RowData>}) {
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
             rowCount={rows.length}
+            headCells={headCells}
           />
           <TableBody>
             {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -250,20 +224,11 @@ export default function EnhancedTable({ data }: {data: Array<RowData>}) {
                 return (
                   <StyledTableRow
                     hover
-                    onClick={(event) => handleClick(event, row.id)}
+                    onClick={(event) => handleClick(event, row)}
                     tabIndex={-1}
                     key={row.id}
                   >
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                    >
-                      {row.id}
-                    </TableCell>
-                    <TableCell align="right">{row.date}</TableCell>
-                    <TableCell align="right">{row.status}</TableCell>
-                    <TableCell align="right">{row.amount}</TableCell>
+                    {headCells.map((x, i)=>(<TableCell key={i} align={x.numeric ? 'right' : 'left'}>{row[x.id]}</TableCell>))}
                   </StyledTableRow>
                 );
               })}

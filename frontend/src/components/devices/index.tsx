@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,55 +8,109 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { DeviceData } from '../../features/devices/devicesSlice';
 import { Box } from '@mui/system';
-import { Alert } from '@mui/material';
+import { Alert, Theme, Typography } from '@mui/material';
+import PortalTable from '../common/table/portalTable';
+import { WideButton } from '../common/button';
 
 type DevicesComponentProps = {
     data: Array<DeviceData>,
-    errorMessage?: string
+    errorMessage?: string,
+    onReload: () => void,
+    deviceRefresh: boolean
 }
 
-const DataRow = ({ dataEntry }: { dataEntry: DeviceData }) => {
+export default function DevicesComponent ({ data, deviceRefresh, errorMessage, onReload }: DevicesComponentProps) {
 
-  return <TableRow
-    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-  >
-    <TableCell component="th" scope="row">{dataEntry.id}</TableCell>
-    <TableCell>{dataEntry.SN}</TableCell>
-    <TableCell>{dataEntry.ownerID}</TableCell>
-    <TableCell>{dataEntry.ownerName}</TableCell>
-    <TableCell>{dataEntry.customerID}</TableCell>
-    <TableCell>{dataEntry.customerName}</TableCell>
-    <TableCell>{dataEntry.locationID}</TableCell>
-    <TableCell>{dataEntry.locationName}</TableCell>
-    <TableCell>{dataEntry.dateCreated}</TableCell>
-    <TableCell>{dataEntry.status}</TableCell>
-  </TableRow>;
-};
 
-export default function DevicesComponent ({ data, errorMessage }: DevicesComponentProps) {
+  const [onlyActive, setOnlyActive] = useState(false);
+
+  if (onlyActive) {
+    data = data.filter(x=>(x.status === 'Active'));
+  }
 
   return <Box>
+    <Box sx={{ padding: (theme)=>theme.spacing(2, 2) }}>
+      <Typography variant="h4">Manage Devices</Typography>
+      <Typography variant="body1">All H2YO Devices</Typography>
+    </Box>
     {errorMessage ? <Box><Alert severity="error">{errorMessage}</Alert></Box> : null}
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell>SN</TableCell>
-            <TableCell>Owner ID</TableCell>
-            <TableCell>Owner Name</TableCell>
-            <TableCell>Customer ID</TableCell>
-            <TableCell>Customer Name</TableCell>
-            <TableCell>Location ID</TableCell>
-            <TableCell>Location Name</TableCell>
-            <TableCell>Date Created</TableCell>
-            <TableCell>Status</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((x, i)=>(<DataRow key={i} dataEntry={x} />))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Box sx={{ padding: (theme)=>theme.spacing(2, 2), display: 'flex' }}>
+      <WideButton sx={{ margin: (theme: Theme)=>theme.spacing(2) }} disabled={deviceRefresh} onClick={onReload}>Refresh</WideButton>
+      <WideButton 
+        variant={onlyActive ? 'contained':'outlined'}
+        sx={{ margin: (theme: Theme)=>theme.spacing(2) }} 
+        onClick={()=>setOnlyActive(!onlyActive)}>Only Active</WideButton>
+    </Box>
+    <PortalTable 
+      headCells={[
+        { 
+          disablePadding: false,
+          id: 'id',
+          label: 'Id',
+          numeric: false  
+        },
+        { 
+          disablePadding: false,
+          id: 'id',
+          label: 'SN',
+          numeric: false  
+        },
+        { 
+          disablePadding: false,
+          id: 'name',
+          label: 'Name',
+          numeric: false  
+        },
+        { 
+          disablePadding: false,
+          id: 'ownerId',
+          label: 'Owner ID',
+          numeric: true  
+        },
+        { 
+          disablePadding: false,
+          id: 'ownerName',
+          label: 'Owner Name',
+          numeric: false  
+        },
+        { 
+          disablePadding: false,
+          id: 'customerId',
+          label: 'Customer ID',
+          numeric: true  
+        },
+        { 
+          disablePadding: false,
+          id: 'customerName',
+          label: 'Customer Name',
+          numeric: false  
+        },
+        { 
+          disablePadding: false,
+          id: 'locationId',
+          label: 'Location ID',
+          numeric: true  
+        },
+        { 
+          disablePadding: false,
+          id: 'locationName',
+          label: 'Location Name',
+          numeric: false  
+        },
+        { 
+          disablePadding: false,
+          id: 'dateCreated',
+          label: 'Date Created',
+          numeric: false  
+        },
+        { 
+          disablePadding: false,
+          id: 'status',
+          label: 'Status',
+          numeric: false  
+        }
+      ]}
+      data={data}
+    />
   </Box>;
 }

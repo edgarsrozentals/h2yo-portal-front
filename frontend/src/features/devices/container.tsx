@@ -11,11 +11,14 @@ export default function DevicesContainer() {
   const dispatch = useDispatch();
 
   const [errorMessage, setErrorMessage] = useState<string>();
+  const [deviceRefresh, setDeviceRefresh] = useState<boolean>(false);
 
   const fetchData = async () => {
 
+    setDeviceRefresh(true);
     const response = await get('devices');
     
+    setDeviceRefresh(false);
     if (response.status !== 200) {
       setErrorMessage(response.message);
       return;
@@ -36,5 +39,10 @@ export default function DevicesContainer() {
     fetchData();
   }, []);
 
-  return <Devices errorMessage={errorMessage} data={data} />;
+  return <Devices 
+    deviceRefresh={deviceRefresh}
+    errorMessage={errorMessage} 
+    data={data} 
+    onReload={fetchData}
+  />;
 }
