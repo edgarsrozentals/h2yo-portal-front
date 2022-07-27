@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { DeviceData } from '../../features/devices/devicesSlice';
 import { Box } from '@mui/system';
-import { Alert, Theme, Typography } from '@mui/material';
+import { Alert, FormControlLabel, Switch, Theme, Typography } from '@mui/material';
 import PortalTable from '../common/table/portalTable';
 import { WideButton } from '../common/button';
 
@@ -22,7 +22,7 @@ type DevicesComponentProps = {
 export default function DevicesComponent ({ data, deviceRefresh, errorMessage, onReload }: DevicesComponentProps) {
 
 
-  const [onlyActive, setOnlyActive] = useState(false);
+  const [onlyActive, setOnlyActive] = useState(true);
 
   if (onlyActive) {
     data = data.filter(x=>(x.status === 'Active'));
@@ -36,10 +36,10 @@ export default function DevicesComponent ({ data, deviceRefresh, errorMessage, o
     {errorMessage ? <Box><Alert severity="error">{errorMessage}</Alert></Box> : null}
     <Box sx={{ padding: (theme)=>theme.spacing(2, 2), display: 'flex' }}>
       <WideButton sx={{ margin: (theme: Theme)=>theme.spacing(2) }} disabled={deviceRefresh} onClick={onReload}>Refresh</WideButton>
-      <WideButton 
-        variant={onlyActive ? 'contained':'outlined'}
-        sx={{ margin: (theme: Theme)=>theme.spacing(2) }} 
-        onClick={()=>setOnlyActive(!onlyActive)}>Only Active</WideButton>
+      <FormControlLabel
+        control={<Switch checked={onlyActive} onChange={()=>setOnlyActive(!onlyActive)} />}
+        label="Only Active"
+      />
     </Box>
     <PortalTable 
       headCells={[
@@ -51,7 +51,7 @@ export default function DevicesComponent ({ data, deviceRefresh, errorMessage, o
         },
         { 
           disablePadding: false,
-          id: 'id',
+          id: 'SN',
           label: 'SN',
           numeric: false  
         },

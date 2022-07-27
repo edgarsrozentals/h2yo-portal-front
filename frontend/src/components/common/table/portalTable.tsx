@@ -228,7 +228,7 @@ export default function PortalTable({ data, headCells }: {data: Array<any>, head
                     tabIndex={-1}
                     key={row.id}
                   >
-                    {headCells.map((x, i)=>(<TableCell key={i} align={x.numeric ? 'right' : 'left'}>{row[x.id]}</TableCell>))}
+                    {headCells.map((x, i)=>(<TableCell sx={{ padding: (theme: Theme)=>theme.spacing(0.5, 1) }} key={i} align={x.numeric ? 'right' : 'left'}>{row[x.id]}</TableCell>))}
                   </StyledTableRow>
                 );
               })}
