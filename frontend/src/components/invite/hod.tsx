@@ -8,7 +8,7 @@ export default function InviteHod () {
   return <Container maxWidth="md" sx={{ padding: (theme)=>theme.spacing(6) }}>
     <PageHeader
       title="Invite HOD" 
-      subTitle="Invite new HOD to H2YO"
+      subTitle="Invite new HOD manager to H2YO"
     />
     <InviteContainer inviteCompany={true} />
   </Container>;
