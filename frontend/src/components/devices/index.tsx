@@ -107,6 +107,12 @@ export default function DevicesComponent ({ data, deviceRefresh, errorMessage, o
         },
         { 
           disablePadding: false,
+          id: 'deployedStatus',
+          label: 'Deployed',
+          numeric: false  
+        },
+        { 
+          disablePadding: false,
           id: 'status',
           label: 'Status',
           numeric: false  
