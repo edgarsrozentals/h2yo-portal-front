@@ -7,13 +7,29 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { CartridgeData } from './types';
+import { Box } from '@mui/system';
 
 
 type RenderAccumDataType = {
-    data: CartridgeData
+    data: CartridgeData,
+    rowIndx: Number
 }
 
-export default function RenderAccumData ({ data }: RenderAccumDataType) {
+const formatFromTimestamp = (timestamp: string) => {
+
+  const d = new Date(timestamp),
+    dformat = [d.getMonth()+1,
+      d.getDate(),
+      d.getFullYear()].join('-')+' '+
+              [d.getHours() < 10 ? '0'+d.getHours() : d.getHours(),
+                d.getMinutes() < 10 ? '0'+d.getMinutes() : d.getMinutes(),
+                d.getSeconds() < 10 ? '0'+d.getSeconds() : d.getSeconds(),
+              ].join(':');
+
+  return dformat;
+};
+
+export default function RenderAccumData ({ data, rowIndx }: RenderAccumDataType) {
 
   return <TableRow
     key={data.cartridgeId}
@@ -33,6 +49,11 @@ export default function RenderAccumData ({ data }: RenderAccumDataType) {
     </TableCell>
     <TableCell>{data.avgDemand.toFixed(5)}</TableCell>
     <TableCell>{data.currentStock}</TableCell>
+    <TableCell><Box sx={{ display: 'flex' }}>{data.ordersInProgress.map((x, i)=>{
+
+      return (<Box key={i} sx={{ fontSize: '0.9em', width: '80px' }}><Box>{rowIndx === 0 ? formatFromTimestamp(x.createdTime) : null}</Box><Box><strong>count:</strong> {x.cartridgeCount}</Box></Box>);
+
+    })}</Box></TableCell>
     <TableCell>{data.cartridgeCount.toFixed(5)}</TableCell>
   </TableRow>;
 }

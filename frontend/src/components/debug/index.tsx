@@ -171,11 +171,12 @@ export default function DebugComponent({ execute }: ComponentProps) {
                 <TableCell>Cartridges in devices</TableCell>
                 <TableCell>AveDemand (cart p/day)</TableCell>
                 <TableCell>Stock</TableCell>
+                <TableCell>Orders in progress</TableCell>
                 <TableCell>Order size</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {accumData.map((x, i)=>(<RenderAccumData key={i} data={x} />))}
+              {accumData.map((x, i)=>(<RenderAccumData key={i} data={x} rowIndx={i} />))}
             </TableBody>
           </Table>
         </TableContainer>
