@@ -32,7 +32,7 @@ export enum MenuTypes {
     PROFILE = 'profile',
     COMPANY_ACCOUNT = 'company-account',
     SHOP = 'shop',
-    INVITE = 'invite',
+    INVITE = 'invite-hod',
     LOGOUT = '',
     LOCATIONS = 'locations',
     CARTRIGES = 'cartriges',
@@ -56,7 +56,7 @@ const settings = [
 const pages = [
   [MenuTypes.HOME, 'Home'], 
   [MenuTypes.LOCATIONS, 'Locations', 'VIEW_LOCATIONS'],
-  [MenuTypes.CARTRIGES, 'Cartriges'],
+  [MenuTypes.CARTRIGES, 'Cartridges'],
   [MenuTypes.ORDERS, 'Orders', 'VIEW_CARTRIDGE_ORDERS'],
   [MenuTypes.COMPANIES, 'Clients', 'VIEW_COMPANIES'],
   [MenuTypes.INVITE, 'Invite', 'INVITE_MENU'],

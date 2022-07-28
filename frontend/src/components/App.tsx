@@ -31,6 +31,7 @@ import RegisterUserContainer from '../features/user/registerUserContainer';
 import ClientCompaniesContainer from '../features/clientCompanies/container';
 import AutoLoginContainer from '../features/login/autoLoginContainer';
 import DevicesContainer from '../features/devices/container';
+import InviteHod from './invite/hod';
 
 const OdooDataRender = ({ data }: { data: any }) => {
 
@@ -85,6 +86,7 @@ function App() {
             <PublicPage includeBanner={false}><RegisterUserContainer /></PublicPage>
           </>} />
           <Route path="/invite" element={<><AppBarComp /><Invite /></>} />
+          <Route path="/invite-hod" element={<><AppBarComp /><InviteHod /></>} />
           <Route path="/" element={
             <PublicPage><LoginContainer /></PublicPage>
           } />

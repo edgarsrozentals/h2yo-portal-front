@@ -34,5 +34,5 @@ export default function OrdersContainer () {
     loadOrders();
   }, []);
   
-  return (<Orders data={data} locations={locations} />);
+  return (<Orders data={data} locations={locations} error={error} />);
 }

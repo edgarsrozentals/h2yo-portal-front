@@ -6,6 +6,8 @@ const TEST_LOCATION_ID = 441;
 
 const DebugContainer = () => {
 
+  const [errorText, setErrorText] = useState<string>();
+
   const handleExecute = async (executeType: string, data: any) => {
 
     let res = { status: 200, message: '' };
@@ -24,13 +26,15 @@ const DebugContainer = () => {
     }
     
     if (res.status !== 200) {
-      alert(res.message);
+      setErrorText(res.message);
+    } else {
+      setErrorText(undefined);
     }
 
     return;
   };
 
-  return <DebugComponent execute={handleExecute} />;
+  return <DebugComponent execute={handleExecute} errorText={errorText} />;
 };
 
 export default DebugContainer;
