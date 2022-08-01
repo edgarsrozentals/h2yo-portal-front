@@ -24,13 +24,21 @@ export default function UserProfileContainer () {
 
   const handleUpdate = async (data: IUserProfileState) => {
 
-    const response = await put('users', {
+    const userData: {name?: string, phone?: string, email?: string, password?: string, existingPassword?: string} = {
       name: data.userName,
       phone: data.userPhone,
-      email: data.userEmail,
-      password: data.userPassword,
-      existingPassword: data.existingUserPassword
-    });
+      email: data.userEmail
+    };
+
+    if (data.userPassword) {
+      userData.password = data.userPassword;
+    }
+
+    if (data.existingUserPassword) {
+      userData.existingPassword = data.existingUserPassword;
+    }
+
+    const response = await put('users', userData);
 
     const oldData = { ...userData };
     
