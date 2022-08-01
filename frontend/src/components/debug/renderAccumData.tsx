@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { CartridgeData } from './types';
 import { Box } from '@mui/system';
+import { formatFromTimestamp } from '../common/text/format';
 
 
 type RenderAccumDataType = {
@@ -15,19 +16,7 @@ type RenderAccumDataType = {
     rowIndx: Number
 }
 
-const formatFromTimestamp = (timestamp: string) => {
 
-  const d = new Date(timestamp),
-    dformat = [d.getMonth()+1,
-      d.getDate(),
-      d.getFullYear()].join('-')+' '+
-              [d.getHours() < 10 ? '0'+d.getHours() : d.getHours(),
-                d.getMinutes() < 10 ? '0'+d.getMinutes() : d.getMinutes(),
-                d.getSeconds() < 10 ? '0'+d.getSeconds() : d.getSeconds(),
-              ].join(':');
-
-  return dformat;
-};
 
 export default function RenderAccumData ({ data, rowIndx }: RenderAccumDataType) {
 
@@ -36,7 +25,8 @@ export default function RenderAccumData ({ data, rowIndx }: RenderAccumDataType)
     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
   >
     <TableCell component="th" scope="row">
-      {data.cartridgeId}
+      {data.cartridgeName}<br />
+      ({data.cartridgeId})
     </TableCell>
     <TableCell>{data.days}</TableCell>
     <TableCell>
@@ -49,6 +39,7 @@ export default function RenderAccumData ({ data, rowIndx }: RenderAccumDataType)
     </TableCell>
     <TableCell>{data.avgDemand.toFixed(5)}</TableCell>
     <TableCell>{data.currentStock}</TableCell>
+    <TableCell>{formatFromTimestamp(data.cartridgeUpdatedTime)}</TableCell>
     <TableCell><Box sx={{ display: 'flex' }}>{data.ordersInProgress.map((x, i)=>{
 
       return (<Box key={i} sx={{ fontSize: '0.9em', width: '80px' }}><Box>{rowIndx === 0 ? formatFromTimestamp(x.createdTime) : null}</Box><Box><strong>count:</strong> {x.cartridgeCount}</Box></Box>);

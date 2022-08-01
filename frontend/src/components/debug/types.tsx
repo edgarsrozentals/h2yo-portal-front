@@ -14,6 +14,8 @@ export type OrderInProgress = {
 
 export type CartridgeData = {
     cartridgeId: string, 
+    cartridgeName: string, 
+    cartridgeUpdatedTime: Date,
     cartridgeCount: number,
     currentStock: number,
     avgDemand: number,
