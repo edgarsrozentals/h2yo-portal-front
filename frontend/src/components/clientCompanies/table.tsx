@@ -29,6 +29,11 @@ type LocationRowProps = {
 export type RowProps = {
     id: number,
     name: string,
+    street: string,
+    street2: string,
+    zip: string,
+    city: string,
+    country: string,
     locations: LocationRowProps[]
 }
 
@@ -59,6 +64,7 @@ function Row({ row }: { row: RowProps }) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
+              <Typography variant="body1">{row.street} {row.street2} {row.zip} {row.city} {row.country}</Typography>
               <Typography variant="h6" gutterBottom component="div">
                 Locations
               </Typography>

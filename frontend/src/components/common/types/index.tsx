@@ -5,8 +5,7 @@ export type SelectType = {
 
 export type UserData = {
     id: number,
-    firstName: string,
-    lastName: string,
+    name: string,
     email: string,
     phone: string,
     roles: [],

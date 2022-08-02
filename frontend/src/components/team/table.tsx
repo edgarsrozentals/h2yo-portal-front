@@ -223,7 +223,7 @@ export default function TeamTable({ data, locations, showLocations, roles, onSel
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete {memeberToDelete?.firstName} {memeberToDelete?.lastName} ({memeberToDelete?.email})?
+            Are you sure you want to delete {memeberToDelete?.name} ({memeberToDelete?.email})?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -271,7 +271,7 @@ export default function TeamTable({ data, locations, showLocations, roles, onSel
                       id={labelId}
                       scope="row"
                     >
-                      <Typography variant="body1"><strong>{row.firstName} {row.lastName}</strong></Typography>
+                      <Typography variant="body1"><strong>{row.name}</strong></Typography>
                       <Typography variant="body2">{row.phone}</Typography>
                       <Typography variant="body2">{row.email}</Typography>
                     </TableCell>
